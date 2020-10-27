@@ -1,0 +1,12 @@
+<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+  <img src="assets/image/logo.png" width="50" height="50"
+    style="border-radius: 5px;margin-bottom:12px;" />
+  <nz-form-item>
+    <nz-select formControlName="user">
+      <nz-option [nzValue]="item.value" [nzLabel]="item.label" *ngFor="let item of userList">
+      </nz-option>
+    </nz-select>
+
+  </nz-form-item>
+  <button nz-button style="width:100%;" [nzType]="'primary'">登录</button>
+</form>

@@ -28,9 +28,13 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/public/debug/GenerateTestUserSig.js",
+              "src/assets/public/debug/lib-generate-test-usersig.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -92,6 +96,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.less"
             ],
             "scripts": []
@@ -123,6 +128,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "winkong-tencent-im"
+    }
+  },
+  "defaultProject": "winkong-tencent-im",
+  "cli": {
+    "analytics": false
+  }
 }
