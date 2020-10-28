@@ -11,13 +11,14 @@ export class LoginEffects {
   @Effect()
   login$ = createEffect(() => this.actions$.pipe(
     ofType(LoginActionTypes.Login),
-    mergeMap(() => this.loginService.login()
-      .pipe(
-        map(movies => ({ type: '[Movies API] Movies Loaded Success', payload: movies })),
-        catchError(() => EMPTY)
-      ))
-  )
-  );
+    mergeMap(
+      () => this.loginService.login()
+        .pipe(
+          map(isLogin => ({ type: '[Login API] Login Success', isLogin })),
+          catchError(() => EMPTY)
+        )
+    )
+  ));
 
   constructor(
     private actions$: Actions,

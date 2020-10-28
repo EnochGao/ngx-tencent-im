@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { loginAction } from 'src/store/actions';
+import { LoginState } from 'src/store/reducer/login.reducer';
+import { CreateTim } from 'src/tim/tim';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +18,27 @@ export class LoginComponent implements OnInit {
   ];
 
   validateForm!: FormGroup;
-  constructor(private fb: FormBuilder) { }
+
+  login$ = this.store.select((item => { return item.isLogin; }));
+
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<LoginState>
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       user: ['user0', [Validators.required]],
     });
+
+    const tim = CreateTim();
+
+    console.log('tim:::', tim);
+
+    this.login$.subscribe(res => {
+      console.log('wwww', res);
+    }, err => console.log('err::', err));
+
   }
 
   submitForm(): void {
@@ -26,6 +46,8 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
+
+    this.store.dispatch(loginAction());
   }
 
 }

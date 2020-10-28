@@ -32,8 +32,7 @@
               "src/styles.less"
             ],
             "scripts": [
-              "src/assets/public/debug/GenerateTestUserSig.js",
-              "src/assets/public/debug/lib-generate-test-usersig.min.js"
+              "src/tim/lib-generate-test-usersig.min.js"
             ]
           },
           "configurations": {

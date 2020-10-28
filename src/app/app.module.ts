@@ -14,6 +14,9 @@ import { LoginComponent } from './login/login.component';
 import { NzButtonModule, NzFormModule, NzInputModule, NzSelectModule } from 'ng-zorro-antd';
 import { EffectsModule } from '@ngrx/effects';
 import { effects } from 'src/store/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from 'src/store/reducer';
 
 registerLocaleData(zh);
 
@@ -33,8 +36,9 @@ registerLocaleData(zh);
     NzInputModule,
     NzButtonModule,
     NzSelectModule,
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-
+    StoreDevtoolsModule.instrument()
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
