@@ -1,0 +1,13 @@
+<div class="list-container">
+  <div class="header-bar">
+    <button title="刷新列表" (click)="refresh()">
+      <i class="tim-icon-refresh"></i>
+    </button>
+    <button title="创建会话">
+      <i class="tim-icon-add"></i>
+    </button>
+  </div>
+  <div class="scroll-container">
+    <app-conversation-item *ngFor="let item of conversationList"></app-conversation-item>
+  </div>
+</div>

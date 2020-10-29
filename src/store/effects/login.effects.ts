@@ -8,13 +8,12 @@ import { LoginActionTypes } from '../actions/login.action';
 
 @Injectable()
 export class LoginEffects {
-  @Effect()
   login$ = createEffect(() => this.actions$.pipe(
     ofType(LoginActionTypes.Login),
     mergeMap(
       () => this.loginService.login()
         .pipe(
-          map(isLogin => ({ type: '[Login API] Login Success', isLogin })),
+          map(isLogin => ({ type: '[Login success] login success', isLogin })),
           catchError(() => EMPTY)
         )
     )

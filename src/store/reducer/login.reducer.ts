@@ -1,6 +1,6 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { loginAction, LoginActionTypes } from '../actions';
+import { loginAction, LoginActionTypes, loginSuccessAction } from '../actions';
 
 
 export interface LoginState {
@@ -13,12 +13,20 @@ export const initialState: LoginState = {
   isLogin: false,
 };
 
-const scoreboardReducer = createReducer(
+const _loginReducer = createReducer(
   initialState,
   on(loginAction, state => ({ ...state, isLogin: true }))
-
 );
 
 export function LoginReducer(state: LoginState | undefined, action: Action) {
-  return scoreboardReducer(state, action);
+  return _loginReducer(state, action);
+}
+
+const _loginSuccessReducer = createReducer(
+  initialState,
+  on(loginSuccessAction, state => ({ ...state, isLogin: true }))
+);
+
+export function LoginSuccessReducer(state: LoginState | undefined, action: Action) {
+  return _loginSuccessReducer(state, action);
 }

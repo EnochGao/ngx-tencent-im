@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
 import { loginAction } from 'src/store/actions';
 import { LoginState } from 'src/store/reducer/login.reducer';
+import { getLogin } from 'src/store/selectors/login.selector';
 import { CreateTim } from 'src/tim/tim';
 
 @Component({
@@ -18,12 +20,10 @@ export class LoginComponent implements OnInit {
   ];
 
   validateForm!: FormGroup;
-
-  login$ = this.store.select((item => { return item.isLogin; }));
-
+  @Output() isLogin = new EventEmitter<boolean>();
   constructor(
     private fb: FormBuilder,
-    private store: Store<LoginState>
+    private store: Store<any>
   ) { }
 
   ngOnInit(): void {
@@ -31,14 +31,10 @@ export class LoginComponent implements OnInit {
       user: ['user0', [Validators.required]],
     });
 
-    const tim = CreateTim();
-
-    console.log('tim:::', tim);
-
-    this.login$.subscribe(res => {
-      console.log('wwww', res);
+    const login$ = this.store.pipe(select(getLogin));
+    login$.subscribe(res => {
+      this.isLogin.emit(res.isLogin);
     }, err => console.log('err::', err));
-
   }
 
   submitForm(): void {

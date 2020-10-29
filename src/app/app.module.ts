@@ -17,6 +17,8 @@ import { effects } from 'src/store/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from 'src/store/reducer';
+import { environment } from 'src/environments/environment';
+import { TencentTimModule } from './tencent-tim/tencent-tim.module';
 
 registerLocaleData(zh);
 
@@ -36,9 +38,20 @@ registerLocaleData(zh);
     NzInputModule,
     NzButtonModule,
     NzSelectModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      }
+    }),
     EffectsModule.forRoot(effects),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument({
+      maxAge: 20,
+      logOnly: environment.production
+    }),
+    TencentTimModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

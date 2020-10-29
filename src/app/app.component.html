@@ -1,26 +1,10 @@
 <div class="container">
   <div id="wrapper">
-    <app-login>
+    <app-login *ngIf="!isLogin" (isLogin)="login($event)">
     </app-login>
     <!-- <qr-code-list /> -->
   </div>
-  <!-- <div class="loading" v-else v-loading="showLoading" element-loading-text="正在拼命初始化..."
-    element-loading-background="rgba(0, 0, 0, 0.8)">
-    <div class="chat-wrapper">
-      <el-row>
-        <el-col :xs="10" :sm="10" :md="8" :lg="8" :xl="7">
-          <side-bar />
-        </el-col>
-        <el-col :xs="14" :sm="14" :md="16" :lg="16" :xl="17">
-          <current-conversation />
-        </el-col>
-      </el-row>
-      <a class="official-link" href="https://cloud.tencent.com/product/im" target="_blank"
-        @click="handleLinkClick">登录 即时通信IM 官网，了解更多体验方式</a>
-    </div>
-    <call-layer ref="callLayer" class="chat-wrapper" />
-    <image-previewer />
-  </div> -->
+  <app-tencent-tim *ngIf="isLogin"></app-tencent-tim>
   <div class="bg">
   </div>
 </div>

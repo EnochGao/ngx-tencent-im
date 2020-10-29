@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'winkong-tencent-im';
+  isLogin = false;
+
+  login(login: boolean) {
+    this.isLogin = login;
+  }
 }
