@@ -1,40 +1,42 @@
-<div class="conversation-item-container">
+<div class="conversation-item-container" [ngClass]="{'choose': false}" (click)="selectConversation()">
   <div class="close-btn">
     <span class="tim-icon-close" title="删除会话"></span>
   </div>
   <div class="warp">
-
+    <app-avatar [avatarSrc]="avatarSrc"></app-avatar>
     <div class="content">
       <div class="row-1">
         <div class="name">
           <div class="text-ellipsis">
-            <span>
-              fff
+            <span [title]="conversation.userProfile.nick || conversation.userProfile.userID"
+              *ngIf="conversation.type ===  TIM.TYPES.CONV_C2C">
+              {{conversation.userProfile.nick || conversation.userProfile.userID}}
             </span>
-            <span>
-              ff
+            <span [title]="conversation.groupProfile.name || conversation.groupProfile.groupID"
+              *ngIf="conversation.type===TIM.TYPES.CONV_GROUP">
+              {{conversation.groupProfile.name || conversation.groupProfile.groupID}}
             </span>
-            <span>系统通知
+            <span *ngIf="conversation.type === TIM.TYPES.CONV_SYSTEM">系统通知
             </span>
           </div>
         </div>
         <div class="unread-count">
-          <span class="badge">
-            22
+          <span class="badge" *ngIf="this.conversation.unreadCount > 0">
+            {{conversation.unreadCount > 99 ? '99+' : conversation.unreadCount}}
           </span>
         </div>
       </div>
       <div class="row-2">
         <div class="summary">
           <div v-if="conversation.lastMessage" class="text-ellipsis">
-            <span class="remind" style="color:red;">[有人提到我]</span>
-            <span class="text">
-
+            <!-- <span class="remind" style="color:red;">[有人提到我]</span> -->
+            <span class="text" [title]="conversation.lastMessage.messageForShow">
+              {{messageForShow}}
             </span>
           </div>
         </div>
         <div class="date">
-
+          {{date}}
         </div>
       </div>
     </div>

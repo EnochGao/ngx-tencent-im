@@ -1,14 +1,23 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { LoginReducer, LoginSuccessReducer } from './login.reducer';
+import { conversationIDReducer, ConversationIDState, conversationReducer, ConversationState } from './conversation.reducer';
+import { LoginReducer, LoginState, } from './login.reducer';
+import { showMessageReducer, MessageState } from './message.reducer';
+import { UserReducer, UserState } from './user.reducer';
 
 
 //state
-export interface state {
-  login: any;
-  loginSuccess: any;
+export interface ReducerState {
+  login: LoginState;
+  user: UserState;
+  message: MessageState;
+  currentConversationID: ConversationIDState;
+  conversation: ConversationState;
 }
 //register the reducer functions
-export const reducers: ActionReducerMap<state> = {
+export const reducers: ActionReducerMap<ReducerState> = {
   login: LoginReducer,
-  loginSuccess: LoginSuccessReducer
+  user: UserReducer,
+  message: showMessageReducer,
+  currentConversationID: conversationIDReducer,
+  conversation: conversationReducer
 };

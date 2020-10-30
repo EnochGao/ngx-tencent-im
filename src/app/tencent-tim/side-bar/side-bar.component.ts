@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loginAction } from 'src/store/actions';
 
 @Component({
   selector: 'app-side-bar',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store: Store
+
+  ) { }
 
   ngOnInit(): void {
   }
 
+  logout() {
+    this.store.dispatch(loginAction({ isLogin: false }));
+  }
 }

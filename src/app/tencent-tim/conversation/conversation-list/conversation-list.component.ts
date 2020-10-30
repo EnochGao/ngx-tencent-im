@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TimAuthService } from '../../tim-auth.service';
 import TIM from 'tim-js-sdk';
+import { select, Store } from '@ngrx/store';
+import { getSDkReady } from 'src/store/selectors/user.selector';
+import { ConversationItem } from '../../im.type';
 
 @Component({
   selector: 'app-conversation-list',
@@ -8,20 +11,23 @@ import TIM from 'tim-js-sdk';
   styleUrls: ['./conversation-list.component.less']
 })
 export class ConversationListComponent implements OnInit {
-  conversationList = [];
+  conversationList: Array<ConversationItem> = [];
 
   constructor(
+    private store: Store,
     private timAuthService: TimAuthService
   ) { }
 
   ngOnInit(): void {
-    // 监听事件，如：
-    this.timAuthService.tim.on(TIM.EVENT.SDK_READY, (event) => {
-      // 收到离线消息和会话列表同步完毕通知，接入侧可以调用 sendMessage 等需要鉴权的接口
-      // event.name - TIM.EVENT.SDK_READY
-      console.log('ready ok:::', event);
-      this.refresh();
+    const SDKReady$ = this.store.pipe(select(getSDkReady));
+
+    SDKReady$.subscribe(res => {
+      console.log('准备好了', res);
+      if (res) {
+        this.refresh();
+      }
     });
+
   };
 
   refresh() {

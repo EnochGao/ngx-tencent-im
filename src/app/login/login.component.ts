@@ -7,6 +7,7 @@ import { loginAction } from 'src/store/actions';
 import { LoginState } from 'src/store/reducer/login.reducer';
 import { getLogin } from 'src/store/selectors/login.selector';
 import { CreateTim } from 'src/tim/tim';
+import { TimAuthService } from '../tencent-tim/tim-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
   @Output() isLogin = new EventEmitter<boolean>();
   constructor(
     private fb: FormBuilder,
-    private store: Store<any>
+    private store: Store<any>,
+    private timAuthService: TimAuthService
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +35,8 @@ export class LoginComponent implements OnInit {
 
     const login$ = this.store.pipe(select(getLogin));
     login$.subscribe(res => {
-      this.isLogin.emit(res.isLogin);
+      console.log('登陆了：：：', res);
+      this.isLogin.emit(res);
     }, err => console.log('err::', err));
   }
 
@@ -43,7 +46,8 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    this.store.dispatch(loginAction());
+    this.timAuthService.login(this.validateForm.value.user);
+
   }
 
 }

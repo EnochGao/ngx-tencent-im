@@ -9,8 +9,6 @@ body {
   overflow: hidden;
   margin: 0;
   font-family: 'Microsoft YaHei', '微软雅黑', 'MicrosoftJhengHei', 'Lantinghei SC', 'Open Sans', Arial, 'Hiragino Sans GB', 'STHeiti', 'WenQuanYi Micro Hei', SimSun, sans-serif;
-  // font-family  "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif
-  // text-shadow: $regular 0 0 0.05em
   background-color: #fff;
   -ms-scroll-chaining: chained;
   -ms-overflow-style: none;
@@ -23,7 +21,7 @@ body {
   -ms-overflow-style: none;
   overflow: auto;
 
-  div {
+  app-root {
     box-sizing: border-box;
 
     &::before,
@@ -42,14 +40,8 @@ body {
 }
 
 .container {
-
   position: relative;
   height: 100vh;
-
-  .container {
-    position: relative;
-    height: 100vh // TODO filter mac chrome 会有问题，下次修改可以去掉
-  }
 }
 
 
@@ -62,7 +54,6 @@ body {
   z-index: -1;
   background: url('assets/image/bg.jpg') no-repeat 0 0;
   background-size: cover;
-  // filter blur(67px)
 }
 
 .loading {
@@ -78,23 +69,6 @@ body {
   white-space: nowrap;
 }
 
-.chat-wrapper {
-  margin-top: 8vh;
-  width: 80vw;
-  height: 80vh;
-  max-width: 1280px;
-  box-shadow: 0 11px 20px 0 rgba(0, 0, 0, 0.3);
-
-  .official-link {
-    display: flex;
-    text-decoration: none;
-    color: #38c9ff;
-    width: fit-content;
-    float: right;
-    height: 45px;
-    align-items: center;
-  }
-}
 
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {

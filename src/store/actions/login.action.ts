@@ -1,15 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 
 export enum LoginActionTypes {
-  Login = '[Login] Login',
-  LoginSuccess = '[Login success] login success'
+  Login = '[toggleIsLogin]',
 }
 
-
 export const loginAction = createAction(
-  LoginActionTypes.Login
+  LoginActionTypes.Login,
+  props<{ isLogin: boolean; }>()
 );
 
-export const loginSuccessAction = createAction(
-  LoginActionTypes.LoginSuccess
-);

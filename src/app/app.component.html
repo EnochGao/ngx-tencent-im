@@ -4,7 +4,14 @@
     </app-login>
     <!-- <qr-code-list /> -->
   </div>
-  <app-tencent-tim *ngIf="isLogin"></app-tencent-tim>
+
+  <div class="loading" *ngIf="isLogin">
+    <app-tencent-tim></app-tencent-tim>
+
+    <div class="chat-wrapper"></div>
+    <div></div>
+  </div>
+
   <div class="bg">
   </div>
 </div>

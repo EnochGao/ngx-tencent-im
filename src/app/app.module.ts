@@ -42,8 +42,8 @@ registerLocaleData(zh);
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
+        strictStateSerializability: false,
+        strictActionSerializability: false,
       }
     }),
     EffectsModule.forRoot(effects),
