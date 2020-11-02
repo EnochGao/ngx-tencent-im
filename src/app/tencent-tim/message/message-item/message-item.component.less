@@ -1,0 +1,80 @@
+.message-wrapper {
+  margin: 20px 0;
+
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.group-layout,
+.c2c-layout,
+.system-layout {
+  display: flex;
+
+  // .col-1 {
+  //   .avatar {
+  //     width: 56px;
+  //     height: 56px;
+  //     border-radius: 50%;
+  //     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  //   }
+  // }
+
+  .group-member-avatar {
+    cursor: pointer;
+  }
+
+  .col-2 {
+    display: flex;
+    flex-direction: column;
+    // max-width 50% // 此设置可以自适应宽度，目前由bubble限制
+  }
+
+  .col-3 {
+    width: 30px;
+  }
+
+  &.position-left {
+    .col-2 {
+      align-items: flex-start;
+    }
+  }
+
+  &.position-right {
+    flex-direction: row-reverse;
+
+    .col-2 {
+      align-items: flex-end;
+    }
+  }
+
+  &.position-center {
+    justify-content: center;
+  }
+}
+
+.c2c-layout {
+  .col-2 {
+    .base {
+      margin-top: 3px;
+    }
+  }
+}
+
+.group-layout {
+  .col-2 {
+    .chat-bubble {
+      margin-top: 5px;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  }
+}

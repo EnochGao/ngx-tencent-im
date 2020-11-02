@@ -8,6 +8,11 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ConversationItemComponent } from './conversation/conversation-item/conversation-item.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { CurrentConversationComponent } from './conversation/current-conversation/current-conversation.component';
+import { MessageItemComponent } from './message/message-item/message-item.component';
+import { MessageStatusIconComponent } from './message/message-status-icon/message-status-icon.component';
+import { TextElementComponent } from './message/message-element/text-element/text-element.component';
+import { MessageBubbleComponent } from './message/message-bubble/message-bubble.component';
+import { MessageFooterComponent } from './message/message-footer/message-footer.component';
 
 
 
@@ -19,7 +24,12 @@ import { CurrentConversationComponent } from './conversation/current-conversatio
     MyProfileComponent,
     ConversationItemComponent,
     AvatarComponent,
-    CurrentConversationComponent
+    CurrentConversationComponent,
+    MessageItemComponent,
+    MessageStatusIconComponent,
+    TextElementComponent,
+    MessageBubbleComponent,
+    MessageFooterComponent
   ],
   imports: [
     CommonModule,

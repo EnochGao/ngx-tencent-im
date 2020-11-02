@@ -1,0 +1,51 @@
+<div class="message-wrapper" [class]="messagePosition">
+  <div *ngIf="currentConversationType === TIM.TYPES.CONV_C2C" class="c2c-layout"
+    [class]="messagePosition">
+
+    <div class="col-1" *ngIf="showAvatar">
+      <!-- 头像 -->
+      <app-avatar></app-avatar>
+    </div>
+    <div class="col-2">
+      <!-- 消息主体 -->
+      <div class="content-wrapper">
+        <app-message-status-icon [message]="message" *ngIf="isMine"></app-message-status-icon>
+        <app-message-footer *ngIf="showMessageHeader" [message]="message"></app-message-footer>
+      </div>
+      <!-- <message-footer v-if="showMessageHeader" :message="message" /> -->
+    </div>
+    <div class="col-3">
+      <!-- 消息状态 -->
+    </div>
+  </div>
+
+  <div *ngIf="currentConversationType === TIM.TYPES.CONV_GROUP" class="group-layout"
+    [class]="messagePosition">
+
+    <!-- 头像 群组没有获取单个头像的接口，暂时无法显示头像-->
+    <div class="col-1" *ngIf="showAvatar">
+      <app-avatar class="group-member-avatar"></app-avatar>
+    </div>
+    <div class="col-2">
+      <!-- 消息主体 -->
+      <!-- <message-header v-if="showMessageHeader" :message="message" /> -->
+      <div class="content-wrapper">
+
+      </div>
+    </div>
+    <div class="col-3">
+      <!-- 消息状态 -->
+    </div>
+  </div>
+
+  <div class="system-layout" *ngIf="currentConversationType === TIM.TYPES.CONV_SYSTEM">
+
+    <div class="col-1">
+      <app-avatar></app-avatar>
+    </div>
+    <div class="col-2">
+      <!-- <message-header :message="message" />
+      <group-system-notice-element :payload="message.payload" :message="message" /> -->
+    </div>
+  </div>
+</div>

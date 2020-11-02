@@ -1,6 +1,6 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { checkoutConversationAction, pushCurrentMessageListAction, removeMessageAction, resetAction, resetCurrentConversationAction, SDKReadyAction, updateConversationListAction, updateCurrentConversationAction, updateCurrentUserProfileAction } from '../actions';
+import { checkoutConversationAction, pushCurrentMessageListAction, removeMessageAction, resetAction, resetCurrentConversationAction, SDKReadyAction, updateConversationListAction, updateCurrentConversationAction, updateCurrentUserProfileAction, updateMessageAction } from '../actions';
 
 
 export interface ConversationState {
@@ -29,8 +29,15 @@ const _conversationReducer = createReducer(
       nextReqMessageID: '',
       isCompleted: false// 当前会话消息列表是否已经拉完了所有消息
     };
-  }
-  ),
+  }),
+  on(updateMessageAction, (state, { nextReqMessageID, isCompleted, currentMessageList }) => {
+    return {
+      ...state,
+      currentMessageList: currentMessageList,
+      nextReqMessageID: nextReqMessageID,
+      isCompleted: isCompleted// 当前会话消息列表是否已经拉完了所有消息
+    };
+  }),
   on(updateConversationListAction, (state, { conversationList }) => ({
     ...state,
     conversationList

@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
-import { CreateTim } from 'src/tim/tim';
 import TIM from 'tim-js-sdk';
 import COSSDK from 'cos-js-sdk-v5';
 import { genTestUserSig } from 'src/tim/GenerateTestUserSig';
 import { select, Store } from '@ngrx/store';
-import { loginAction, SDKReadyAction, showAction, updateCurrentUserProfileAction } from 'src/store/actions';
+import {
+  loginAction,
+  pushCurrentMessageListAction,
+  SDKReadyAction,
+  showAction,
+  updateCurrentConversationAction,
+  updateCurrentUserProfileAction,
+  updateMessageAction
+} from 'src/store/actions';
 import { getCurrentUserProfile, getSDkReady } from 'src/store/selectors/user.selector';
 import { getMessage } from 'src/store/selectors/message.selector';
+import { getSelectConversationStates } from 'src/store/selectors/conversation.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +69,8 @@ export class TimAuthService {
   initListener() {
     // 监听事件，如：
     this.tim.on(TIM.EVENT.SDK_READY, this.onReadyStateUpdate, this);
+    // 收到新消息
+    this.tim.on(TIM.EVENT.MESSAGE_RECEIVED, this.onReceiveMessage, this);
   }
 
 
@@ -83,5 +93,75 @@ export class TimAuthService {
         });
     }
   }
+  onReceiveMessage({ data: messageList }) {
 
+    console.log('message list--->', messageList);
+    // this.handleVideoMessage(messageList);
+    // this.handleAt(messageList);
+    // this.handleQuitGroupTip(messageList);
+    this.store.dispatch(pushCurrentMessageListAction({ message: messageList }));
+  }
+
+
+  checkoutConversation(conversationID: string) {
+
+    // this.store.commit('resetCurrentMemberList');
+    // 1.切换会话前，将切换前的会话进行已读上报
+    const subscription = this.store.select(getSelectConversationStates)
+      .subscribe(res => {
+        if (res.currentConversation.conversationID) {
+          const prevConversationID = res.currentConversation.conversationID;
+          this.tim.setMessageRead({ conversationID: prevConversationID });
+        }
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+      });
+
+    // 2.待切换的会话也进行已读上报
+    this.tim.setMessageRead({ conversationID });
+    // 3. 获取会话信息
+    return this.tim.getConversationProfile(conversationID).then(({ data }) => {
+      // 3.1 更新当前会话
+      this.store.dispatch(updateCurrentConversationAction({ conversation: data.conversation }));
+      // 3.2 获取消息列表
+      this.getMessageList(conversationID);
+      // 3.3 拉取第一页群成员列表
+      if (data.conversation.type === TIM.TYPES.CONV_GROUP) {
+        // return this.store.dispatch('getGroupMemberList', data.conversation.groupProfile.groupID);
+      }
+      return Promise.resolve();
+    });
+  }
+
+
+  getMessageList(conversationID: string) {
+    const subscription = this.store.select(getSelectConversationStates)
+      .subscribe(res => {
+        // subscription.unsubscribe();
+        if (res.currentConversation.isCompleted) {
+          this.store.dispatch(showAction({
+            msgType: 'info',
+            message: '已经没有更多的历史消息了哦'
+          }));
+          return;
+        }
+        const { nextReqMessageID, currentMessageList } = res;
+        this.tim.getMessageList({ conversationID, nextReqMessageID, count: 15 })
+          .then(imReponse => {
+            console.log('imReponse:::', imReponse);
+
+            this.store.dispatch(updateMessageAction({
+              nextReqMessageID: imReponse.data.nextReqMessageID,
+              isCompleted: imReponse.data.isCompleted,
+              currentMessageList: [...imReponse.data.messageList, ...currentMessageList]
+            }));
+
+          });
+
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+      });
+  }
 }

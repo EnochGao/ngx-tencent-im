@@ -5,6 +5,7 @@ import TIM from 'tim-js-sdk';
 import { select, Store } from '@ngrx/store';
 import { checkoutConversationAction } from 'src/store/actions';
 import { getCurrentConversationID } from 'src/store/selectors/conversation.selector';
+import { TimAuthService } from '../../tim-auth.service';
 
 @Component({
   selector: 'app-conversation-item',
@@ -32,7 +33,8 @@ export class ConversationItemComponent implements OnInit {
   };
   private _conversation: ConversationItem;
   constructor(
-    private store: Store
+    private store: Store,
+    private timAuthService: TimAuthService
   ) { }
 
   ngOnInit(): void {
@@ -68,10 +70,13 @@ export class ConversationItemComponent implements OnInit {
 
   selectConversation() {
     // if (this.conversation.conversationID !== this.currentConversation.conversationID) {
-    this.store.dispatch(
-      checkoutConversationAction({ conversationID: this.conversation.conversationID })
-    );
+    // this.store.dispatch(
+    //   checkoutConversationAction({ conversationID: this.conversation.conversationID })
+    // );
     // }
+
+
+    this.timAuthService.checkoutConversation(this.conversation.conversationID);
   }
 
 }

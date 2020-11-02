@@ -1,5 +1,5 @@
 <div class="current-conversation-wrapper">
-  <div class="current-conversation">
+  <div class="current-conversation" *ngIf="showCurrentConversation">
     <div class="header">
       <div class="name">{{name}}</div>
       <div class="btn-more-info" :class="showConversationProfile ? '' : 'left-arrow'"
@@ -12,7 +12,9 @@
 
         </div>
         <div class="no-more">没有更多了</div>
-
+        <app-message-item *ngFor="let message of currentMessageList" [message]="message"
+          [currentConversation]="currentConversation">
+        </app-message-item>
       </div>
       <div class="newMessageTips">回到最新位置</div>
     </div>

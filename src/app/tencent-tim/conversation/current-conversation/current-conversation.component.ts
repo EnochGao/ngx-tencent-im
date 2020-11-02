@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { updateCurrentConversationAction } from 'src/store/actions';
+import { initialState } from 'src/store/reducer/conversation.reducer';
 import { getCurrentConversationID, getSelectConversationStates } from 'src/store/selectors/conversation.selector';
 import { ConversationItem } from '../../im.type';
 import { TimAuthService } from '../../tim-auth.service';
@@ -12,6 +13,7 @@ import { TimAuthService } from '../../tim-auth.service';
 })
 export class CurrentConversationComponent implements OnInit {
   currentConversation: ConversationItem;
+  currentMessageList = [];
   constructor(
     private store: Store,
     private timAuthService: TimAuthService,
@@ -19,30 +21,11 @@ export class CurrentConversationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.pipe(select(getCurrentConversationID)).subscribe(res => {
-      console.log('点击的id::', res);
-      if (res) {
-        this.timAuthService.tim.getConversationProfile(res).then(({ data }) => {
-
-
-          this.currentConversation = data.conversation;
-          console.log('消息会话：：：：', this.currentConversation);
-          // 3.1 更新当前会话
-          this.store.dispatch(updateCurrentConversationAction({ conversation: this.currentConversation }));
-
-          // 3.2 获取消息列表
-          // context.dispatch('getMessageList', conversationID);
-          // // 3.3 拉取第一页群成员列表
-          // if (data.conversation.type === TIM.TYPES.CONV_GROUP) {
-          //   return context.dispatch('getGroupMemberList', data.conversation.groupProfile.groupID);
-          // }
-
-        });
-      }
-    });
 
     this.store.pipe(select(getSelectConversationStates)).subscribe(res => {
       console.log('当前会话：：---》', res);
+      this.currentMessageList = res.currentMessageList;
+      this.currentConversation = res.currentConversation;
     });
   }
 
@@ -55,6 +38,11 @@ export class CurrentConversationComponent implements OnInit {
     } else if (this.currentConversation?.conversationID === '@TIM#SYSTEM') {
       return '系统通知';
     }
+  }
+
+
+  get showCurrentConversation() {
+    return !!this.currentConversation?.conversationID;
   }
 
 
