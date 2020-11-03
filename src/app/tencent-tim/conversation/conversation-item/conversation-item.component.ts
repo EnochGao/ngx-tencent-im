@@ -4,7 +4,7 @@ import { getDate, getTime, isToday } from '../../util/date';
 import TIM from 'tim-js-sdk';
 import { select, Store } from '@ngrx/store';
 import { checkoutConversationAction } from 'src/store/actions';
-import { getCurrentConversationID } from 'src/store/selectors/conversation.selector';
+import { getCurrentConversationID, getSelectConversationStates } from 'src/store/selectors/conversation.selector';
 import { TimAuthService } from '../../tim-auth.service';
 
 @Component({
@@ -32,13 +32,17 @@ export class ConversationItemComponent implements OnInit {
     return this._conversation;
   };
   private _conversation: ConversationItem;
+
+  lastConversation: any;
   constructor(
     private store: Store,
     private timAuthService: TimAuthService
   ) { }
 
   ngOnInit(): void {
-
+    this.store.select(getSelectConversationStates).pipe().subscribe(res => {
+      this.lastConversation = res;
+    });
   }
 
   get date() {
@@ -69,14 +73,9 @@ export class ConversationItemComponent implements OnInit {
   }
 
   selectConversation() {
-    // if (this.conversation.conversationID !== this.currentConversation.conversationID) {
-    // this.store.dispatch(
-    //   checkoutConversationAction({ conversationID: this.conversation.conversationID })
-    // );
-    // }
-
-
-    this.timAuthService.checkoutConversation(this.conversation.conversationID);
+    if (this.conversation.conversationID !== this.lastConversation.currentConversation.conversationID) {
+      this.timAuthService.checkoutConversation(this.conversation.conversationID);
+    }
   }
 
 }

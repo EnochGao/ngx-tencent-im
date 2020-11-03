@@ -35,9 +35,9 @@ export class LoginComponent implements OnInit {
 
     const login$ = this.store.pipe(select(getLogin));
     login$.subscribe(res => {
-      console.log('登陆了：：：', res);
+
       this.isLogin.emit(res);
-    }, err => console.log('err::', err));
+    }, err => console.error('err::', err));
   }
 
   submitForm(): void {

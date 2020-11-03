@@ -12,7 +12,7 @@ import { ConversationItem } from '../../im.type';
 })
 export class ConversationListComponent implements OnInit {
   conversationList: Array<ConversationItem> = [];
-
+  timeout = null;
   constructor(
     private store: Store,
     private timAuthService: TimAuthService
@@ -22,22 +22,24 @@ export class ConversationListComponent implements OnInit {
     const SDKReady$ = this.store.pipe(select(getSDkReady));
 
     SDKReady$.subscribe(res => {
-      console.log('准备好了', res);
       if (res) {
         this.refresh();
       }
     });
-
   };
 
   refresh() {
-    // 拉取会话列表
-    this.timAuthService.tim.getConversationList().then((imResponse) => {
-      this.conversationList = imResponse.data.conversationList; // 会话列表，用该列表覆盖原有的会话列表
-      console.log('conversationList:::', this.conversationList);
-    }).catch(function (imError) {
-      console.warn('getConversationList error:', imError); // 获取会话列表失败的相关信息
-    });
+    if (!this.timeout) {
+      this.timeout = setTimeout(() => {
+        this.timeout = null;
+        // 拉取会话列表
+        this.timAuthService.tim.getConversationList().then((imResponse) => {
+          this.conversationList = imResponse.data.conversationList; // 会话列表，用该列表覆盖原有的会话列表
+        }).catch((imError) => {
+          console.error('getConversationList error:', imError); // 获取会话列表失败的相关信息
+        });
+      }, 1000);
+    }
   }
 
 }

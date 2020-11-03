@@ -13,6 +13,7 @@ import { MessageStatusIconComponent } from './message/message-status-icon/messag
 import { TextElementComponent } from './message/message-element/text-element/text-element.component';
 import { MessageBubbleComponent } from './message/message-bubble/message-bubble.component';
 import { MessageFooterComponent } from './message/message-footer/message-footer.component';
+import { MessageSendBoxComponent } from './message/message-send-box/message-send-box.component';
 
 
 
@@ -29,7 +30,8 @@ import { MessageFooterComponent } from './message/message-footer/message-footer.
     MessageStatusIconComponent,
     TextElementComponent,
     MessageBubbleComponent,
-    MessageFooterComponent
+    MessageFooterComponent,
+    MessageSendBoxComponent
   ],
   imports: [
     CommonModule,

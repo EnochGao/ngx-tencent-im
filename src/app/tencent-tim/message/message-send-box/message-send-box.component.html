@@ -1,0 +1,17 @@
+<div class="message-send-box-wrapper" [ngClass]="{'white-background': true}"
+  (focus)="onfocus($event)">
+  <div class="send-header-bar">
+    <!-- <el-popover placement="top" width="400" trigger="click">
+      <div class="emojis">
+        <div v-for="item in emojiName" class="emoji" :key="item" @click="chooseEmoji(item)">
+          <img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
+        </div>
+      </div>
+    </el-popover> -->
+    <i class="iconfont icon-smile" title="发表情"></i>
+    <i class="iconfont icon-tupian" title="发图片"></i>
+    <i class="iconfont icon-wenjian" title="发文件"></i>
+    <i class="iconfont icon-zidingyi" title="发自定义消息"></i>
+    <i class="iconfont icon-diaocha" title="小调查"></i>
+  </div>
+</div>

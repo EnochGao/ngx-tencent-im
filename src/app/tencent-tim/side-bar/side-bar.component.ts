@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loginAction } from 'src/store/actions';
+import { TimAuthService } from '../tim-auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -10,7 +11,8 @@ import { loginAction } from 'src/store/actions';
 export class SideBarComponent implements OnInit {
 
   constructor(
-    private store: Store
+    private store: Store,
+    private timAuthService: TimAuthService
 
   ) { }
 
@@ -18,6 +20,6 @@ export class SideBarComponent implements OnInit {
   }
 
   logout() {
-    this.store.dispatch(loginAction({ isLogin: false }));
+    this.timAuthService.logout();
   }
 }

@@ -18,8 +18,6 @@ export class MessageItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.message);
-
   }
   // 是否显示头像，群提示消息不显示头像
   get showAvatar() {

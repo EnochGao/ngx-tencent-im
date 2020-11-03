@@ -10,9 +10,10 @@
       <!-- 消息主体 -->
       <div class="content-wrapper">
         <app-message-status-icon [message]="message" *ngIf="isMine"></app-message-status-icon>
+        <app-text-element [isMine]="isMine" [message]="message" [payload]="message.payload"
+          *ngIf="message.type === TIM.TYPES.MSG_TEXT"></app-text-element>
+        </div>
         <app-message-footer *ngIf="showMessageHeader" [message]="message"></app-message-footer>
-      </div>
-      <!-- <message-footer v-if="showMessageHeader" :message="message" /> -->
     </div>
     <div class="col-3">
       <!-- 消息状态 -->
