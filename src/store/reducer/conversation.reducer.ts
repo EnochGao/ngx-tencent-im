@@ -49,23 +49,28 @@ const _conversationReducer = createReducer(
   on(pushCurrentMessageListAction, (state, { message }) => {
     // 还没当前会话，则跳过
     if (!state.currentConversation.conversationID) {
-      return state;
+      return { ...state };
     }
     if (Array.isArray(message)) {
       // 筛选出当前会话的消息
       const result = message.filter(item => item.conversationID === state.currentConversation.conversationID);
-      state.currentMessageList = [...state.currentMessageList, ...result];
+      const currentMessageList = [...state.currentMessageList, ...result];
+      return { ...state, currentMessageList };
     } else if (message.conversationID === state.currentConversation.conversationID) {
-      state.currentMessageList = [...state.currentMessageList, message];
+      const currentMessageList = [...state.currentMessageList, message];
+      return { ...state, currentMessageList };
     }
-    return state;
+    return { ...state };
   }),
   on(removeMessageAction, (state, { message }) => {
     const index = state.currentMessageList.findIndex(({ ID }) => ID === message.ID);
     if (index >= 0) {
-      state.currentMessageList.splice(index, 1);
+      let currentMessageList: Array<any> = state.currentMessageList;
+      currentMessageList.splice(index, 1);
+      return { ...state, currentMessageList };
     }
-    return state;
+    return { ...state };
+
   }),
   on(resetAction, (state) => {
     return Object.assign(state, {

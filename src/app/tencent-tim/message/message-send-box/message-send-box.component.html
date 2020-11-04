@@ -1,17 +1,32 @@
-<div class="message-send-box-wrapper" [ngClass]="{'white-background': true}"
+<div class="message-send-box-wrapper" [ngClass]="{'white-background': focus}"
   (focus)="onfocus($event)">
   <div class="send-header-bar">
-    <!-- <el-popover placement="top" width="400" trigger="click">
-      <div class="emojis">
-        <div v-for="item in emojiName" class="emoji" :key="item" @click="chooseEmoji(item)">
-          <img :src="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
-        </div>
-      </div>
-    </el-popover> -->
-    <i class="iconfont icon-smile" title="发表情"></i>
-    <i class="iconfont icon-tupian" title="发图片"></i>
-    <i class="iconfont icon-wenjian" title="发文件"></i>
-    <i class="iconfont icon-zidingyi" title="发自定义消息"></i>
-    <i class="iconfont icon-diaocha" title="小调查"></i>
+    <i class="iconfont icon-smile" title="发表情" nz-popover nzPopoverTitle="Title"
+      [(nzPopoverVisible)]="visible" nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate"
+      [nzPopoverTitle]="'表情'"></i>
+
+    <i class="iconfont icon-tupian" title="发图片" (click)="handleSendImageClick(imagePicker)"></i>
   </div>
+  <div class="bottom">
+    <textarea rows="4" resize="false" class="text-input" #textInput [(ngModel)]="messageContent"
+      (focus)="focus=true" (blur)="focus=false"
+      (keydown)="keyDown($event)"
+      (keyup)="handleLine($event)" 
+      >
+    </textarea>
+    <div class="btn-send" (click)="sendTextMessage()">
+      <div nzTooltipTitle="按Enter发送消息，Ctrl+Enter换行" nzTooltipPlacement="left" nz-button nz-tooltip
+        class="tim-icon-send"></div>
+    </div>
+  </div>
+  <input type="file" id="imagePicker" #imagePicker accept=".jpg, .jpeg, .png, .gif"
+    (change)="sendImage()" style="display:none" />
 </div>
+
+<ng-template #contentTemplate>
+  <div class="emojis" [ngStyle]="{'width': '400px'}">
+    <div *ngFor="let item of emojiName" class="emoji" (click)="chooseEmoji(item)">
+      <img [src]="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
+    </div>
+  </div>
+</ng-template>

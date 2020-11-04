@@ -17,6 +17,7 @@ import {
 import { getCurrentUserProfile, getSDkReady } from 'src/store/selectors/user.selector';
 import { getMessage } from 'src/store/selectors/message.selector';
 import { getSelectConversationStates } from 'src/store/selectors/conversation.selector';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,11 @@ export class TimAuthService {
   tim: any;
   userSig = genTestUserSig('user0');
   conversation: any;// 当前会话
+  toAccount: any;
+  currentConversationType: any;
+
+  eventBus$: Subject<string> = new Subject();
+
   constructor(
     private store: Store
   ) {
@@ -36,22 +42,44 @@ export class TimAuthService {
     this.tim.setLogLevel(0);
     // 注册 cos
     this.tim.registerPlugin({ 'cos-js-sdk': COSSDK });
+    console.log('COSSDK::;', COSSDK);
     // 初始化监听器
     this.initListener();
 
-    const getCurrentUserProfile$ = this.store.pipe(select(getCurrentUserProfile));
-
-    getCurrentUserProfile$.subscribe(res => {
+    this.store.pipe(select(getCurrentUserProfile)).subscribe(res => {
       console.log('getCurrentUserProfile:::', res);
-    });
-    const getMessage$ = this.store.pipe(select(getMessage));
+    });;
 
-    getMessage$.subscribe(res => {
+
+    this.store.pipe(select(getMessage)).subscribe(res => {
       console.log('getMessage:::', res);
     });
 
-    const subscription = this.store.select(getSelectConversationStates).subscribe(res => {
+    // 获取当前会话
+    this.store.select(getSelectConversationStates).subscribe(res => {
       this.conversation = res;
+
+      if (!res.currentConversation || !res.currentConversation.conversationID) {
+        this.toAccount = '';
+      } else {
+        switch (res.currentConversation.type) {
+          case 'C2C':
+            this.toAccount = res.currentConversation.conversationID.replace('C2C', '');
+            break;
+          case 'GROUP':
+            this.toAccount = res.currentConversation.conversationID.replace('GROUP', '');
+            break;
+          default:
+            this.toAccount = res.currentConversation.conversationID;
+        }
+      }
+
+      if (!res.currentConversation || !res.currentConversation.type) {
+        this.currentConversationType = '';
+      } else {
+        this.currentConversationType = res.currentConversation.type;
+      }
+
     });
 
   }
@@ -161,8 +189,14 @@ export class TimAuthService {
   onNetStateChange(event: any) {
     console.log('网络监测::', event);
   }
-  checkoutConversation(conversationID: string) {
 
+  /**
+   * 切换会话
+   * 调用时机：切换会话时
+   * @param {String} conversationID
+  */
+  checkoutConversation(conversationID: string) {
+    console.log('%cconversationID::', 'color:green;font-size:20px', conversationID);
     // this.store.commit('resetCurrentMemberList');
     // 1.切换会话前，将切换前的会话进行已读上报
 
@@ -175,7 +209,8 @@ export class TimAuthService {
     // 2.待切换的会话也进行已读上报
     this.tim.setMessageRead({ conversationID });
     // 3. 获取会话信息
-    return this.tim.getConversationProfile(conversationID).then(({ data }) => {
+    this.tim.getConversationProfile(conversationID).then(({ data }) => {
+      console.log('%c获取会话信息::', 'color:green;font-size:20px', data);
       // 3.1 更新当前会话
       this.store.dispatch(updateCurrentConversationAction({ conversation: data.conversation }));
       // 3.2 获取消息列表
@@ -184,7 +219,6 @@ export class TimAuthService {
       if (data.conversation.type === TIM.TYPES.CONV_GROUP) {
         // return this.store.dispatch('getGroupMemberList', data.conversation.groupProfile.groupID);
       }
-      return Promise.resolve();
     });
   }
 

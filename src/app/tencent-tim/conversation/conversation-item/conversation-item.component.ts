@@ -40,9 +40,7 @@ export class ConversationItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.select(getSelectConversationStates).pipe().subscribe(res => {
-      this.lastConversation = res;
-    });
+
   }
 
   get date() {
@@ -73,7 +71,7 @@ export class ConversationItemComponent implements OnInit {
   }
 
   selectConversation() {
-    if (this.conversation.conversationID !== this.lastConversation.currentConversation.conversationID) {
+    if (this.conversation.conversationID !== this.timAuthService.conversation.currentConversation.conversationID) {
       this.timAuthService.checkoutConversation(this.conversation.conversationID);
     }
   }

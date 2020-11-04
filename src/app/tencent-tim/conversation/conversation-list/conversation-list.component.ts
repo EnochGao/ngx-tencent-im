@@ -23,6 +23,7 @@ export class ConversationListComponent implements OnInit {
 
     SDKReady$.subscribe(res => {
       if (res) {
+        console.log('我刷新了');
         this.refresh();
       }
     });

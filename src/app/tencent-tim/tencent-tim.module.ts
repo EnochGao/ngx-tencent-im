@@ -15,7 +15,10 @@ import { MessageBubbleComponent } from './message/message-bubble/message-bubble.
 import { MessageFooterComponent } from './message/message-footer/message-footer.component';
 import { MessageSendBoxComponent } from './message/message-send-box/message-send-box.component';
 
-
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { FormsModule } from '@angular/forms';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { ImageElementComponent } from './message/message-element/image-element/image-element.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +34,15 @@ import { MessageSendBoxComponent } from './message/message-send-box/message-send
     TextElementComponent,
     MessageBubbleComponent,
     MessageFooterComponent,
-    MessageSendBoxComponent
+    MessageSendBoxComponent,
+    ImageElementComponent
   ],
   imports: [
     CommonModule,
     NzGridModule,
-
+    NzPopoverModule,
+    FormsModule,
+    NzToolTipModule
   ],
   exports: [
     TencentTimComponent

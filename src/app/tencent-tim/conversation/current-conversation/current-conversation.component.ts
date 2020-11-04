@@ -1,28 +1,31 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 
 import { getSelectConversationStates } from 'src/store/selectors/conversation.selector';
 import { ConversationItem } from '../../im.type';
 import { TimAuthService } from '../../tim-auth.service';
 import TIM from 'tim-js-sdk';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-current-conversation',
   templateUrl: './current-conversation.component.html',
   styleUrls: ['./current-conversation.component.less']
 })
-export class CurrentConversationComponent implements OnInit, AfterViewChecked, AfterViewInit {
+export class CurrentConversationComponent implements OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
   currentConversation: ConversationItem;
   currentMessageList = [];
   isShowScrollButtomTips = true;
   preScrollHeight = 0;
   isCompleted = false;
+  subscription: Subscription;
   @ViewChild('messageList', { static: false }) messageListRef: ElementRef;
   constructor(
     private store: Store,
     private timAuthService: TimAuthService,
 
   ) { }
+
 
   ngAfterViewInit(): void {
 
@@ -33,6 +36,13 @@ export class CurrentConversationComponent implements OnInit, AfterViewChecked, A
   }
 
   ngOnInit(): void {
+
+    this.subscription = this.timAuthService.eventBus$.subscribe((res: string) => {
+      if (res === 'scroll-bottom') {
+        console.log('滚动到底部');
+        this.scrollMessageListToButtom();
+      }
+    });
 
     this.store.pipe(select(getSelectConversationStates)).subscribe(res => {
       this.currentMessageList = res.currentMessageList;
@@ -105,5 +115,11 @@ export class CurrentConversationComponent implements OnInit, AfterViewChecked, A
       this.isShowScrollButtomTips = true;
     }
     this.preScrollHeight = messageListNode.scrollHeight;
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
