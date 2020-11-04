@@ -13,6 +13,8 @@ import { ConversationItem } from '../../im.type';
 export class ConversationListComponent implements OnInit {
   conversationList: Array<ConversationItem> = [];
   timeout = null;
+  showDialog = false;
+  userID = '';
   constructor(
     private store: Store,
     private timAuthService: TimAuthService
@@ -23,11 +25,31 @@ export class ConversationListComponent implements OnInit {
 
     SDKReady$.subscribe(res => {
       if (res) {
-        console.log('我刷新了');
-        this.refresh();
+      
+
       }
     });
+
+    this.conversationList = this.timAuthService.conversation.conversationList;
   };
+
+  add() {
+    this.showDialog = true;
+  }
+
+  handleOk(): void {
+    if (this.userID !== '@TIM#SYSTEM') {
+      this.timAuthService.checkoutConversation(`C2C${this.userID}`).then(() => {
+        this.showDialog = false;
+      });
+    }
+    this.userID = '';
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.showDialog = false;
+  }
 
   refresh() {
     if (!this.timeout) {
@@ -35,7 +57,7 @@ export class ConversationListComponent implements OnInit {
         this.timeout = null;
         // 拉取会话列表
         this.timAuthService.tim.getConversationList().then((imResponse) => {
-          this.conversationList = imResponse.data.conversationList; // 会话列表，用该列表覆盖原有的会话列表
+
         }).catch((imError) => {
           console.error('getConversationList error:', imError); // 获取会话列表失败的相关信息
         });

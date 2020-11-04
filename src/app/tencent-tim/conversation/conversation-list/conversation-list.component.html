@@ -3,7 +3,7 @@
     <button title="刷新列表" (click)="refresh()">
       <i class="tim-icon-refresh"></i>
     </button>
-    <button title="创建会话">
+    <button title="创建会话" (click)="add()">
       <i class="tim-icon-add"></i>
     </button>
   </div>
@@ -12,3 +12,13 @@
     </app-conversation-item>
   </div>
 </div>
+
+<nz-modal [(nzVisible)]="showDialog" nzTitle="The first Modal" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">用户ID</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input [(ngModel)]="userID">
+    </nz-form-control>
+  </nz-form-item>
+</nz-modal>

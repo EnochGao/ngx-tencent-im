@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TencentTimComponent } from './tencent-tim/tencent-tim.component';
-import { NzGridModule } from 'ng-zorro-antd';
+import { NzFormModule, NzGridModule } from 'ng-zorro-antd';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { ConversationListComponent } from './conversation/conversation-list/conversation-list.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
@@ -18,6 +18,7 @@ import { MessageSendBoxComponent } from './message/message-send-box/message-send
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { FormsModule } from '@angular/forms';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ImageElementComponent } from './message/message-element/image-element/image-element.component';
 
 @NgModule({
@@ -42,7 +43,9 @@ import { ImageElementComponent } from './message/message-element/image-element/i
     NzGridModule,
     NzPopoverModule,
     FormsModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NzModalModule,
+    NzFormModule
   ],
   exports: [
     TencentTimComponent

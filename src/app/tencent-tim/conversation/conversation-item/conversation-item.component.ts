@@ -15,8 +15,13 @@ import { TimAuthService } from '../../tim-auth.service';
 export class ConversationItemComponent implements OnInit {
   TIM = TIM;
   avatarSrc: string;
+
+  date: string;
+  messageForShow: string;
+
   @Input()
   set conversation(value: ConversationItem) {
+
     this._conversation = value;
     switch (value.type) {
       case 'GROUP':
@@ -40,34 +45,26 @@ export class ConversationItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-  }
-
-  get date() {
     if (
       !this.conversation.lastMessage ||
       !this.conversation.lastMessage.lastTime
     ) {
-      return '';
+      this.date = '';
     }
     const date = new Date(this.conversation.lastMessage.lastTime * 1000);
     if (isToday(date)) {
-      return getTime(date);
+      this.date = getTime(date);
     }
-    return getDate(date);
-  }
+    this.date = getDate(date);
 
-  get messageForShow() {
     if (this.conversation.lastMessage.isRevoked) {
-      // if (this.conversation.lastMessage.fromAccount === this.currentUserProfile.userID) {
-      //   return '你撤回了一条消息';
-      // }
       if (this.conversation.type === TIM.TYPES.CONV_C2C) {
-        return '对方撤回了一条消息';
+        this.messageForShow = '对方撤回了一条消息';
       }
-      return `${this.conversation.lastMessage.fromAccount}撤回了一条消息`;
+      this.messageForShow = `${this.conversation.lastMessage.fromAccount}撤回了一条消息`;
     }
-    return this.conversation.lastMessage.messageForShow;
+    this.messageForShow = this.conversation.lastMessage.messageForShow;
+
   }
 
   selectConversation() {

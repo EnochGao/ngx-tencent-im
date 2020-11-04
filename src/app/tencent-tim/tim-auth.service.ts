@@ -5,11 +5,11 @@ import { genTestUserSig } from 'src/tim/GenerateTestUserSig';
 import { select, Store } from '@ngrx/store';
 import {
   loginAction,
-  pushCurrentMessageListAction,
   SDKReadyAction,
   showAction,
   startComputeCurrentAction,
   stopComputeCurrentAction,
+  updateConversationListAction,
   updateCurrentConversationAction,
   updateCurrentUserProfileAction,
   updateMessageAction
@@ -182,9 +182,10 @@ export class TimAuthService {
     // this.handleQuitGroupTip(messageList);
     // this.store.dispatch(pushCurrentMessageListAction({ message: messageList }));
   }
-  onUpdateConversationList(event) {
-
+  onUpdateConversationList(event: any) {
+    console.log('%c 会话列表更新', 'color:green;font-size:30px', event);
     // this.$store.commit('updateConversationList', event.data)
+    this.store.dispatch(updateConversationListAction({ conversationList: event.data }));
   }
   onNetStateChange(event: any) {
     console.log('网络监测::', event);
@@ -196,10 +197,12 @@ export class TimAuthService {
    * @param {String} conversationID
   */
   checkoutConversation(conversationID: string) {
+
+    console.log('%c this.conversation::', 'color:green;font-size:20px', this.conversation);
     console.log('%cconversationID::', 'color:green;font-size:20px', conversationID);
     // this.store.commit('resetCurrentMemberList');
-    // 1.切换会话前，将切换前的会话进行已读上报
 
+    // 1.切换会话前，将切换前的会话进行已读上报
     if (this.conversation.currentConversation.conversationID) {
       const prevConversationID = this.conversation.currentConversation.conversationID;
       console.log('%cprevConversationID::', 'color:green;font-size:20px', prevConversationID);
@@ -208,17 +211,18 @@ export class TimAuthService {
 
     // 2.待切换的会话也进行已读上报
     this.tim.setMessageRead({ conversationID });
+
     // 3. 获取会话信息
-    this.tim.getConversationProfile(conversationID).then(({ data }) => {
-      console.log('%c获取会话信息::', 'color:green;font-size:20px', data);
+    return this.tim.getConversationProfile(conversationID).then((res,err) => {
+      console.log('%c 获取会话信息::', 'color:green;font-size:20px', res);
+      console.log('%c 获取会话信息err::', 'color:green;font-size:20px', err);
+
       // 3.1 更新当前会话
-      this.store.dispatch(updateCurrentConversationAction({ conversation: data.conversation }));
+      this.store.dispatch(updateCurrentConversationAction({ conversation: res.data.conversation }));
       // 3.2 获取消息列表
       this.getMessageList(conversationID);
-      // 3.3 拉取第一页群成员列表
-      if (data.conversation.type === TIM.TYPES.CONV_GROUP) {
-        // return this.store.dispatch('getGroupMemberList', data.conversation.groupProfile.groupID);
-      }
+
+      return Promise.resolve();
     });
   }
 

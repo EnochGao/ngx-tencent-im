@@ -1,6 +1,6 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { checkoutConversationAction, pushCurrentMessageListAction, removeMessageAction, resetAction, resetCurrentConversationAction, SDKReadyAction, updateConversationListAction, updateCurrentConversationAction, updateCurrentUserProfileAction, updateMessageAction } from '../actions';
+import { checkoutConversationAction, pushCurrentMessageListAction, removeMessageAction, resetAction, resetCurrentConversationAction, updateConversationListAction, updateCurrentConversationAction, updateCurrentUserProfileAction, updateMessageAction } from '../actions';
 
 
 export interface ConversationState {
