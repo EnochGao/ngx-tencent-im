@@ -157,17 +157,19 @@ export class TimHelperService {
       this.tim.getConversationList().then((res) => {
         console.log('%c ready sdk ok 获取会话信息::', 'color:green;font-size:20px', res);
 
-        this.tim.getConversationProfile(res.data.conversationList[0].conversationID).then((res) => {
-          console.log('%c 获取会话详细信息::', 'color:green;font-size:20px', res);
-        }).catch(err => {
-          console.log('%c 获取会话详细信息error::', 'color:red;font-size:20px', err);
-        });
-
         this.store.dispatch(updateConversationListAction({ conversationList: res.data.conversationList }));
 
       }).catch(err => {
         console.log('%c ready sdk ok error::', 'color:red;font-size:20px', err);
       });
+
+
+      // this.tim.getConversationProfile('C2Cuser1').then((res) => {
+      //   console.log('%c 获取会话详细信息::', 'color:green;font-size:20px', res);
+      // }).catch(err => {
+      //   console.log('%c 获取会话详细信息error::', 'color:red;font-size:20px', err);
+      // });
+
     }
   }
 
@@ -225,8 +227,6 @@ export class TimHelperService {
     this.tim.setMessageRead({ conversationID }).then((res) => {
       console.log('%c setMessageRead消息已读::', 'color:green;font-size:20px', res);
     });
-
-    console.log('conversationID::', conversationID);
 
     this.tim.getConversationProfile(conversationID).then((res) => {
       console.log('%c 获取会话信息::', 'color:green;font-size:20px', res);
