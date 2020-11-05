@@ -5,15 +5,15 @@ import { genTestUserSig } from './GenerateTestUserSig';
 
 export function CreateTim() {
   // 初始化 SDK 实例
-  const tim = TIM.create({
+  let tim = TIM.create({
     SDKAppID: genTestUserSig('').SDKAppID
   });
-
   // 无日志级别
-  tim.setLogLevel(4);
-
+  tim.setLogLevel(1);
   // 注册 cos
   tim.registerPlugin({ 'cos-js-sdk': COSSDK });
 
   return tim;
 }
+
+export { TIM };

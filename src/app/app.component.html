@@ -1,15 +1,13 @@
 <div class="container">
-  <div id="wrapper">
-    <app-login *ngIf="!isLogin" (isLogin)="login($event)">
+  <div id="wrapper" *ngIf="!isLogin">
+    <app-login (isLogin)="login($event)">
     </app-login>
-    <!-- <qr-code-list /> -->
   </div>
 
   <div class="loading" *ngIf="isLogin">
     <app-tencent-tim></app-tencent-tim>
 
     <div class="chat-wrapper"></div>
-    <div></div>
   </div>
 
   <div class="bg">

@@ -2,12 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs';
-import { loginAction } from 'src/store/actions';
-import { LoginState } from 'src/store/reducer/login.reducer';
 import { getLogin } from 'src/store/selectors/login.selector';
-import { CreateTim } from 'src/tim/tim';
-import { TimAuthService } from '../tencent-tim/tim-auth.service';
+
+import { TimHelperService } from '../tencent-tim/tim-helper.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
-    private timAuthService: TimAuthService
+    private timHelperService: TimHelperService
   ) { }
 
   ngOnInit(): void {
@@ -46,8 +43,7 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    this.timAuthService.login(this.validateForm.value.user);
-
+    this.timHelperService.login(this.validateForm.value.user);
   }
 
 }

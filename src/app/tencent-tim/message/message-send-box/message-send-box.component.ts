@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { pushCurrentMessageListAction } from 'src/store/actions';
-import { TimAuthService } from '../../tim-auth.service';
+import { TimHelperService } from '../../tim-helper.service';
 import { emojiMap, emojiName, emojiUrl } from '../../util/emojiMap';
-import TIM from 'tim-js-sdk';
+
 
 
 @Component({
@@ -23,7 +23,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   @ViewChild('imagePicker', { static: false }) imagePicker: ElementRef;
   @ViewChild('textInput', { static: true }) textInput: ElementRef;
   constructor(
-    private timAuthService: TimAuthService,
+    private timHelperService: TimHelperService,
     private store: Store,
 
   ) { }
@@ -84,9 +84,9 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       return;
     }
     // 1. 创建消息实例，接口返回的实例可以上屏
-    let message = this.timAuthService.tim.createImageMessage({
-      to: this.timAuthService.toAccount,
-      conversationType: this.timAuthService.currentConversationType,
+    let message = this.timHelperService.tim.createImageMessage({
+      to: this.timHelperService.toAccount,
+      conversationType: this.timHelperService.currentConversationType,
       payload: {
         file: file,
       },
@@ -98,19 +98,19 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
     this.store.dispatch(pushCurrentMessageListAction({ message }));
 
     // 2. 发送消息
-    let promise = this.timAuthService.tim.sendMessage(message);
+    let promise = this.timHelperService.tim.sendMessage(message);
     promise.catch((error) => {
       console.error('[sendMessage error]::', error);
     });
   }
   sendImage() {
-    console.log('ccc:', this.timAuthService.toAccount);
-    console.log('wwww:', this.timAuthService.currentConversationType);
+    console.log('ccc:', this.timHelperService.toAccount);
+    console.log('wwww:', this.timHelperService.currentConversationType);
     console.log('file:', document.getElementById('imagePicker'));
     console.log('file:', this.imagePicker.nativeElement);
-    const message = this.timAuthService.tim.createImageMessage({
-      to: this.timAuthService.toAccount,
-      conversationType: this.timAuthService.currentConversationType,
+    const message = this.timHelperService.tim.createImageMessage({
+      to: this.timHelperService.toAccount,
+      conversationType: this.timHelperService.currentConversationType,
       payload: {
         file: this.imagePicker.nativeElement // 或者用event.target
       },
@@ -124,7 +124,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(pushCurrentMessageListAction({ message }));
 
-    this.timAuthService.tim
+    this.timHelperService.tim
       .sendMessage(message)
       .then(() => {
         console.log('发送成功');
@@ -149,15 +149,15 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       console.warn('不能发送空消息哦！');
       return;
     }
-    let message = this.timAuthService.tim.createTextMessage({
-      to: this.timAuthService.toAccount,
-      conversationType: this.timAuthService.currentConversationType,
+    let message = this.timHelperService.tim.createTextMessage({
+      to: this.timHelperService.toAccount,
+      conversationType: this.timHelperService.currentConversationType,
       payload: { text: this.messageContent }
     });
     this.store.dispatch(pushCurrentMessageListAction({ message }));
-    this.timAuthService.eventBus$.next('scroll-bottom');
+    this.timHelperService.eventBus$.next('scroll-bottom');
     console.log('messsage:::', message);
-    this.timAuthService.tim.sendMessage(message).catch(error => {
+    this.timHelperService.tim.sendMessage(message).catch(error => {
       console.error('[sendMessage error]::', error);
     });
 

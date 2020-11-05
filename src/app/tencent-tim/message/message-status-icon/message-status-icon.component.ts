@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MessageItem } from '../../im.type';
-import { TimAuthService } from '../../tim-auth.service';
+import { TimHelperService } from '../../tim-helper.service';
 
 @Component({
   selector: 'app-message-status-icon',
@@ -11,7 +11,7 @@ export class MessageStatusIconComponent implements OnInit {
   @Input() message: MessageItem;
 
   constructor(
-    private timAuthService: TimAuthService
+    private timHelperService: TimHelperService
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class MessageStatusIconComponent implements OnInit {
 
   handleIconClick() {
     if (this.messageIconClass === 'message-send-fail') {
-      this.timAuthService.tim.resendMessage(this.message).catch(imError => {
+      this.timHelperService.tim.resendMessage(this.message).catch(imError => {
         console.error(imError.message);
       });
     }

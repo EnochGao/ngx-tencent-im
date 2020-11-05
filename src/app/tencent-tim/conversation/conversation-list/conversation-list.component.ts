@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TimAuthService } from '../../tim-auth.service';
-import TIM from 'tim-js-sdk';
-import { select, Store } from '@ngrx/store';
-import { getSDkReady } from 'src/store/selectors/user.selector';
+import { TimHelperService } from '../../tim-helper.service';
+
+import { Store } from '@ngrx/store';
+
 import { ConversationItem } from '../../im.type';
+import { getSelectConversationStates } from 'src/store/selectors/conversation.selector';
 
 @Component({
   selector: 'app-conversation-list',
@@ -17,20 +18,18 @@ export class ConversationListComponent implements OnInit {
   userID = '';
   constructor(
     private store: Store,
-    private timAuthService: TimAuthService
+    private timHelperService: TimHelperService
   ) { }
 
   ngOnInit(): void {
-    const SDKReady$ = this.store.pipe(select(getSDkReady));
 
-    SDKReady$.subscribe(res => {
-      if (res) {
-      
+    // 获取当前会话
+    this.store.select(getSelectConversationStates).subscribe(res => {
+      console.log('%c getSelectConversationStates::', 'color:green;font-size:20px', res);
 
-      }
+      this.conversationList = res.conversationList;
     });
 
-    this.conversationList = this.timAuthService.conversation.conversationList;
   };
 
   add() {
@@ -39,9 +38,10 @@ export class ConversationListComponent implements OnInit {
 
   handleOk(): void {
     if (this.userID !== '@TIM#SYSTEM') {
-      this.timAuthService.checkoutConversation(`C2C${this.userID}`).then(() => {
-        this.showDialog = false;
-      });
+      this.timHelperService.checkoutConversation(`C2C${this.userID}`);
+      // .then(() => {
+      //   this.showDialog = false;
+      // });
     }
     this.userID = '';
   }
@@ -56,7 +56,7 @@ export class ConversationListComponent implements OnInit {
       this.timeout = setTimeout(() => {
         this.timeout = null;
         // 拉取会话列表
-        this.timAuthService.tim.getConversationList().then((imResponse) => {
+        this.timHelperService.tim.getConversationList().then((imResponse) => {
 
         }).catch((imError) => {
           console.error('getConversationList error:', imError); // 获取会话列表失败的相关信息

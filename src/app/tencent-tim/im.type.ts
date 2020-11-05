@@ -59,8 +59,6 @@ export interface LastMessage {
   type: string;
 }
 
-
-
 export interface MessageItem {
   ID: string;
   avatar: string;
@@ -87,4 +85,59 @@ export interface MessageItem {
   time: number;
   to: string;
   type: string;
+}
+
+export interface Tim {
+  addGroupMember: Function;
+  addToBlacklist: Function;
+  callExperimentalAPI: Function;
+  changeGroupOwner: Function;
+  createAudioMessage: Function;
+  createCustomMessage: Function;
+  createFaceMessage: Function;
+  createFileMessage: Function;
+  createGroup: Function;
+  createImageMessage: Function;
+  createTextMessage: Function;
+  createVideoMessage: Function;
+  deleteConversation: Function;
+  deleteGroupMember: Function;
+  destroy: Function;
+  dismissGroup: Function;
+  downloadLog: Function;
+  getBlacklist: Function;
+  getConversationList: Function;
+  getConversationProfile: Function;
+  getFriendList: Function;
+  getGroupList: Function;
+  getGroupMemberList: Function;
+  getGroupMemberProfile: Function;
+  getGroupOnlineMemberCount: Function;
+  getGroupProfile: Function;
+  getMessageList: Function;
+  getMyProfile: Function;
+  getUserProfile: Function;
+  handleGroupApplication: Function;
+  joinGroup: Function;
+  login: Function;
+  logout: Function;
+  off: Function;
+  on: Function;
+  once: Function;
+  quitGroup: Function;
+  registerPlugin: Function;
+  removeFromBlacklist: Function;
+  resendMessage: Function;
+  revokeMessage: Function;
+  searchGroupByID: Function;
+  sendMessage: Function;
+  setGroupMemberCustomField: Function;
+  setGroupMemberMuteTime: Function;
+  setGroupMemberNameCard: Function;
+  setGroupMemberRole: Function;
+  setLogLevel: Function;
+  setMessageRead: Function;
+  setMessageRemindType: Function;
+  updateGroupProfile: Function;
+  updateMyProfile: Function;
 }

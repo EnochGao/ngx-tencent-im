@@ -32,7 +32,7 @@
               "src/styles.less"
             ],
             "scripts": [
-              "src/tim/lib-generate-test-usersig.min.js"
+              "src/app/tencent-tim/tim/lib-generate-test-usersig.min.js"
             ]
           },
           "configurations": {

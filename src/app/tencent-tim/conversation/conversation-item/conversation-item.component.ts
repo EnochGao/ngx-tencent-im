@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ConversationItem } from '../../im.type';
 import { getDate, getTime, isToday } from '../../util/date';
-import TIM from 'tim-js-sdk';
-import { select, Store } from '@ngrx/store';
-import { checkoutConversationAction } from 'src/store/actions';
-import { getCurrentConversationID, getSelectConversationStates } from 'src/store/selectors/conversation.selector';
-import { TimAuthService } from '../../tim-auth.service';
+
+import { Store } from '@ngrx/store';
+
+import { TimHelperService } from '../../tim-helper.service';
+import { TIM } from '../../tim/create-tim';
 
 @Component({
   selector: 'app-conversation-item',
@@ -37,11 +37,11 @@ export class ConversationItemComponent implements OnInit {
     return this._conversation;
   };
   private _conversation: ConversationItem;
-
   lastConversation: any;
+
   constructor(
     private store: Store,
-    private timAuthService: TimAuthService
+    private timHelperService: TimHelperService
   ) { }
 
   ngOnInit(): void {
@@ -68,8 +68,8 @@ export class ConversationItemComponent implements OnInit {
   }
 
   selectConversation() {
-    if (this.conversation.conversationID !== this.timAuthService.conversation.currentConversation.conversationID) {
-      this.timAuthService.checkoutConversation(this.conversation.conversationID);
+    if (this.conversation.conversationID !== this.timHelperService.conversation.currentConversation.conversationID) {
+      this.timHelperService.checkoutConversation(this.conversation.conversationID);
     }
   }
 
