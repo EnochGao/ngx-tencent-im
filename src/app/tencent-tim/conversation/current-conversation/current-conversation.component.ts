@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, ViewChild, ɵCodegenComponentFactoryResolver } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, ViewChild, ɵCodegenComponentFactoryResolver } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -33,7 +33,6 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
   ) { }
 
 
-
   ngAfterViewInit(): void {
     if (this.isShowCurrentConversation) {
       this.keepMessageListOnButtom();
@@ -55,7 +54,16 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
         this.showMessageSendBox();
         this.getName();
 
-        // this.timHelperService.tim.setMessageRead(this.currentConversation.conversationID);
+
+        if (res.currentMessageList && res.currentMessageList.length > 0) {
+          this.scrollMessageListToButtom();
+
+
+          console.log('this.currentConversation.conversationID', this.currentConversation.conversationID);
+
+          this.timHelperService.tim.setMessageRead({ conversationID: this.currentConversation.conversationID });
+        }
+
 
       }, err => {
         console.log('获取当前会话err', err);

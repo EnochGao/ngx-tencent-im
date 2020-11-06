@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { ConversationItem } from '../../im.type';
 import { getSelectConversationStates } from 'src/store/selectors/conversation.selector';
+import { updateConversationListAction } from 'src/store/actions';
 
 @Component({
   selector: 'app-conversation-list',
@@ -25,7 +26,7 @@ export class ConversationListComponent implements OnInit {
 
     // 获取当前会话
     this.store.select(getSelectConversationStates).subscribe(res => {
-      console.log('%c getSelectConversationStates::', 'color:green;font-size:20px', res);
+      console.log('%c getSelectConversationStates::', 'color:red;font-size:20px', res);
 
       this.conversationList = res.conversationList;
     });
@@ -39,9 +40,7 @@ export class ConversationListComponent implements OnInit {
   handleOk(): void {
     if (this.userID !== '@TIM#SYSTEM') {
       this.timHelperService.checkoutConversation(`C2C${this.userID}`);
-      // .then(() => {
-      //   this.showDialog = false;
-      // });
+      this.showDialog = false;
     }
     this.userID = '';
   }

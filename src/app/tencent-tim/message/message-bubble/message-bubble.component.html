@@ -2,7 +2,7 @@
   <div *ngIf="!message.isRevoked" class="el-dropdown">
     <div style="display: flex">
       <div *ngIf="isMine" class="message-status">
-        <span>{{messageReadByPeer}}</span>
+        <!-- <span>{{messageReadByPeer}}</span> -->
       </div>
       <div class="message-content" [class]="bubbleStyle">
         <ng-content></ng-content>

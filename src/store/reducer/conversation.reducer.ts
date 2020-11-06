@@ -38,10 +38,12 @@ const _conversationReducer = createReducer(
       isCompleted: isCompleted// 当前会话消息列表是否已经拉完了所有消息
     };
   }),
-  on(updateConversationListAction, (state, { conversationList }) => ({
-    ...state,
-    conversationList
-  })),
+  on(updateConversationListAction, (state, { conversationList }) => {
+    return {
+      ...state,
+      conversationList
+    };
+  }),
   on(resetCurrentConversationAction, (state) => ({
     ...state,
     currentConversation: {}
