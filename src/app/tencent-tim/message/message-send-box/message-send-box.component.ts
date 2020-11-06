@@ -4,8 +4,6 @@ import { pushCurrentMessageListAction } from 'src/store/actions';
 import { TimHelperService } from '../../tim-helper.service';
 import { emojiMap, emojiName, emojiUrl } from '../../util/emojiMap';
 
-
-
 @Component({
   selector: 'app-message-send-box',
   templateUrl: './message-send-box.component.html',
@@ -73,6 +71,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       this.handleDown(event);
     }
   }
+
   handlePaste(e) {
     let clipboardData = e.clipboardData;
     let file;
@@ -95,39 +94,35 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       },
     });
 
-    this.store.dispatch(pushCurrentMessageListAction({ message }));
-
     // 2. 发送消息
-    let promise = this.timHelperService.tim.sendMessage(message);
+    let promise = this.timHelperService.tim.sendMessage(message).then(res => {
+      this.store.dispatch(pushCurrentMessageListAction({ message }));
+    });
     promise.catch((error) => {
       console.error('[sendMessage error]::', error);
     });
   }
-  sendImage() {
-    console.log('ccc:', this.timHelperService.toAccount);
-    console.log('wwww:', this.timHelperService.currentConversationType);
-    console.log('file:', document.getElementById('imagePicker'));
-    console.log('file:', this.imagePicker.nativeElement);
-    const message = this.timHelperService.tim.createImageMessage({
+
+  sendImage(event: any) {
+    let message = this.timHelperService.tim.createImageMessage({
       to: this.timHelperService.toAccount,
       conversationType: this.timHelperService.currentConversationType,
       payload: {
         file: this.imagePicker.nativeElement // 或者用event.target
       },
-      onProgress: percent => {
+      onProgress: function (percent) {
         // 手动给message 实例加个响应式属性: progress
         message['progress'] = percent;
         console.log('percent:', percent);
       }
     });
-    console.log('message:', message);
-
-    this.store.dispatch(pushCurrentMessageListAction({ message }));
 
     this.timHelperService.tim
       .sendMessage(message)
-      .then(() => {
-        console.log('发送成功');
+      .then(({ data }) => {
+        console.log('发送成功', data);
+        this.store.dispatch(pushCurrentMessageListAction({ message: Object.assign({}, data.message) }));
+
         this.imagePicker.nativeElement.value = null;
       })
       .catch(imError => {
@@ -156,7 +151,6 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
     });
     this.store.dispatch(pushCurrentMessageListAction({ message }));
     this.timHelperService.eventBus$.next('scroll-bottom');
-    console.log('messsage:::', message);
     this.timHelperService.tim.sendMessage(message).catch(error => {
       console.error('[sendMessage error]::', error);
     });

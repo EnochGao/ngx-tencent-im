@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, ViewChild, ɵCodegenComponentFactoryResolver } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -6,17 +6,16 @@ import { getSelectConversationStates } from 'src/store/selectors';
 
 import { ConversationItem } from '../../im.type';
 import { TimHelperService } from '../../tim-helper.service';
-import { TIM } from '../../tim/create-tim';
 
 @Component({
   selector: 'app-current-conversation',
   templateUrl: './current-conversation.component.html',
   styleUrls: ['./current-conversation.component.less']
 })
-export class CurrentConversationComponent implements OnInit, OnDestroy {
+export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDestroy {
   currentConversation: ConversationItem;
   currentMessageList = [];
-  isShowScrollButtomTips = true;
+  isShowScrollButtomTips = false;
   preScrollHeight = 0;
   isCompleted = false;
   subscription: Subscription;
@@ -30,38 +29,50 @@ export class CurrentConversationComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private timHelperService: TimHelperService,
+
   ) { }
 
+
+
+  ngAfterViewInit(): void {
+    if (this.isShowCurrentConversation) {
+      this.keepMessageListOnButtom();
+    }
+
+  }
+
   ngOnInit(): void {
+
+    // 获取当前会话
+    this.storeSubscription = this.store.select(getSelectConversationStates)
+      .subscribe(res => {
+        console.log('获取当前会话', res);
+        this.currentMessageList = res.currentMessageList;
+        this.currentConversation = res.currentConversation;
+        this.isCompleted = res.isCompleted;
+
+        this.showCurrentConversation();
+        this.showMessageSendBox();
+        this.getName();
+
+        // this.timHelperService.tim.setMessageRead(this.currentConversation.conversationID);
+
+      }, err => {
+        console.log('获取当前会话err', err);
+
+      });
 
     this.subscription = this.timHelperService.eventBus$
       .subscribe((res: string) => {
         if (res === 'scroll-bottom') {
-          console.log('滚动到底部');
           this.scrollMessageListToButtom();
         }
+        // if (res === 'select-item') {
+        //   this.scrollMessageListToButtom();
+        // }
       });
-
-    // 获取当前会话
-    this.storeSubscription = this.store.select(getSelectConversationStates).subscribe(res => {
-      this.currentMessageList = res.currentMessageList;
-      this.currentConversation = res.currentConversation;
-      this.isCompleted = res.isCompleted;
-
-      this.showCurrentConversation();
-      this.showMessageSendBox();
-      this.getName();
-    });
-
-    // this.currentMessageList = this.timHelperService.conversation.currentMessageList;
-    // this.currentConversation = this.timHelperService.conversation.currentConversation;
-    // this.isCompleted = this.timHelperService.conversation.isCompleted;
-
-    // this.showCurrentConversation();
-    // this.showMessageSendBox();
-    // this.getName();
-
   };
+
 
   getMore() {
     this.timHelperService.getMessageList(this.currentConversation.conversationID);
@@ -84,7 +95,11 @@ export class CurrentConversationComponent implements OnInit, OnDestroy {
     if (!messageListNode) {
       return;
     }
-    messageListNode.scrollTop = messageListNode.scrollHeight;
+
+    setTimeout(() => {
+      messageListNode.scrollTop = messageListNode.scrollHeight;
+    }, 0);
+
     this.preScrollHeight = messageListNode.scrollHeight;
     this.isShowScrollButtomTips = false;
   }
@@ -97,8 +112,9 @@ export class CurrentConversationComponent implements OnInit, OnDestroy {
     }
     // 距离底部20px内强制滚到底部,否则提示有新消息
     if (this.preScrollHeight - messageListNode.clientHeight - messageListNode.scrollTop < 20) {
-
-      messageListNode.scrollTop = messageListNode.scrollHeight;
+      setTimeout(() => {
+        messageListNode.scrollTop = messageListNode.scrollHeight;
+      }, 0);
 
       this.isShowScrollButtomTips = false;
     } else {

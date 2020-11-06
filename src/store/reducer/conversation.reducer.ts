@@ -47,17 +47,22 @@ const _conversationReducer = createReducer(
     currentConversation: {}
   })),
   on(pushCurrentMessageListAction, (state, { message }) => {
+    // console.log('%c state::', 'color:red;font-size:30px', state);
+    // console.log('%c pushCurrentMessageList::', 'color:red;font-size:30px', message);
+
     // 还没当前会话，则跳过
     if (!state.currentConversation.conversationID) {
       return { ...state };
     }
     if (Array.isArray(message)) {
       // 筛选出当前会话的消息
-      const result = message.filter(item => item.conversationID === state.currentConversation.conversationID);
-      const currentMessageList = [...state.currentMessageList, ...result];
+      let result = message.filter(item => item.conversationID === state.currentConversation.conversationID);
+      let currentMessageList = [...state.currentMessageList, ...result];
       return { ...state, currentMessageList };
     } else if (message.conversationID === state.currentConversation.conversationID) {
-      const currentMessageList = [...state.currentMessageList, message];
+      let currentMessageList = [...state.currentMessageList, message];
+      console.log('currentMessageList:::', currentMessageList);
+      console.log({ ...state, currentMessageList });
       return { ...state, currentMessageList };
     }
     return { ...state };

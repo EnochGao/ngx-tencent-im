@@ -20,7 +20,7 @@
     </div>
   </div>
   <input type="file" id="imagePicker" #imagePicker accept=".jpg, .jpeg, .png, .gif"
-    (change)="sendImage()" style="display:none" />
+    (change)="sendImage($event)" style="display:none" />
 </div>
 
 <ng-template #contentTemplate>

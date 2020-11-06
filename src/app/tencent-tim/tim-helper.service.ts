@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 
 import {
   loginAction,
+  pushCurrentMessageListAction,
   SDKReadyAction,
   showAction,
   startComputeCurrentAction,
@@ -21,10 +22,9 @@ import {
   getSelectConversationStates,
 } from 'src/store/selectors';
 
-import { CreateTim, TIM } from './tim/create-tim';
+import { CreateTim } from './tim/create-tim';
 import { genTestUserSig } from './tim/GenerateTestUserSig';
 import { Tim } from './im.type';
-
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,6 @@ export class TimHelperService {
   constructor(
     private store: Store,
   ) {
-    console.log('%c service实例化一次::', 'color:green;font-size:20px');
 
     // 初始化监听器
     this.initListener();
@@ -55,7 +54,7 @@ export class TimHelperService {
 
     // 获取当前会话
     this.store.select(getSelectConversationStates).subscribe(res => {
-      console.log('%c ConversationStates::', 'color:green;font-size:20px', res);
+      console.log('%c 获取当前会话::', 'color:green;font-size:20px', res);
 
       this.conversation = res;
 
@@ -152,24 +151,6 @@ export class TimHelperService {
             message: error.message
           }));
         });
-
-
-      this.tim.getConversationList().then((res) => {
-        console.log('%c ready sdk ok 获取会话信息::', 'color:green;font-size:20px', res);
-
-        this.store.dispatch(updateConversationListAction({ conversationList: res.data.conversationList }));
-
-      }).catch(err => {
-        console.log('%c ready sdk ok error::', 'color:red;font-size:20px', err);
-      });
-
-
-      // this.tim.getConversationProfile('C2Cuser1').then((res) => {
-      //   console.log('%c 获取会话详细信息::', 'color:green;font-size:20px', res);
-      // }).catch(err => {
-      //   console.log('%c 获取会话详细信息error::', 'color:red;font-size:20px', err);
-      // });
-
     }
   }
 
@@ -193,13 +174,14 @@ export class TimHelperService {
     // this.handleVideoMessage(messageList);
     // this.handleAt(messageList);
     // this.handleQuitGroupTip(messageList);
-    // this.store.dispatch(pushCurrentMessageListAction({ message: messageList }));
+    this.store.dispatch(pushCurrentMessageListAction({ message: messageList }));
   }
 
   // 会话列表更新
   onUpdateConversationList(event: any) {
+    console.log('%c 会话列表更新', 'color:red;font-size:20px;', event);
 
-    // this.store.dispatch(updateConversationListAction({ conversationList: event.data }));
+    this.store.dispatch(updateConversationListAction({ conversationList: event.data }));
   }
 
   onNetStateChange(event: any) {
@@ -212,34 +194,19 @@ export class TimHelperService {
   */
   checkoutConversation(conversationID: string) {
 
-    console.log('%c this.conversation::', 'color:green;font-size:20px', this.conversation);
-    console.log('%cconversationID::', 'color:green;font-size:20px', conversationID);
     // this.store.commit('resetCurrentMemberList');
 
     // 1.切换会话前，将切换前的会话进行已读上报
     if (this.conversation.currentConversation.conversationID) {
       const prevConversationID = this.conversation.currentConversation.conversationID;
-      console.log('%c prevConversationID::', 'color:green;font-size:20px', prevConversationID);
       this.tim.setMessageRead({ conversationID: prevConversationID });
     }
 
     // 2.待切换的会话也进行已读上报
-    this.tim.setMessageRead({ conversationID }).then((res) => {
-      console.log('%c setMessageRead消息已读::', 'color:green;font-size:20px', res);
-    });
-
-    this.tim.getConversationProfile(conversationID).then((res) => {
-      console.log('%c 获取会话信息::', 'color:green;font-size:20px', res);
-    }).catch(err => {
-      console.log('%c error::', 'color:red;font-size:20px', err);
-
-    });
-
+    this.tim.setMessageRead({ conversationID });
 
     // 3. 获取会话信息
     return this.tim.getConversationProfile(conversationID).then((res) => {
-      console.log('%c 获取会话信息::', 'color:green;font-size:20px', res);
-
       // 3.1 更新当前会话
       this.store.dispatch(updateCurrentConversationAction({ conversation: res.data.conversation }));
       // 3.2 获取消息列表
@@ -260,9 +227,6 @@ export class TimHelperService {
     const { nextReqMessageID, currentMessageList } = this.conversation;
     this.tim.getMessageList({ conversationID, nextReqMessageID, count: 15 })
       .then((imReponse) => {
-
-        console.log('%c getMessageList::', 'color:yellow;font-size:20px', imReponse);
-
         this.store.dispatch(updateMessageAction({
           nextReqMessageID: imReponse.data.nextReqMessageID,
           isCompleted: imReponse.data.isCompleted,

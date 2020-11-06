@@ -1,5 +1,5 @@
-import TIM from 'tim-js-sdk';
-import COSSDK from 'cos-js-sdk-v5';
+
+// import COSSDK from 'cos-js-sdk-v5';
 import { genTestUserSig } from './GenerateTestUserSig';
 
 
@@ -9,11 +9,10 @@ export function CreateTim() {
     SDKAppID: genTestUserSig('').SDKAppID
   });
   // 无日志级别
-  tim.setLogLevel(1);
+  tim.setLogLevel(0);
   // 注册 cos
-  tim.registerPlugin({ 'cos-js-sdk': COSSDK });
+  tim.registerPlugin({ 'cos-js-sdk': COS });
 
   return tim;
 }
 
-export { TIM };

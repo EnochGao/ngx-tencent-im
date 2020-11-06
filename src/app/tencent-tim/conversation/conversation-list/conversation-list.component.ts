@@ -47,22 +47,28 @@ export class ConversationListComponent implements OnInit {
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.showDialog = false;
   }
 
   refresh() {
-    if (!this.timeout) {
-      this.timeout = setTimeout(() => {
-        this.timeout = null;
-        // 拉取会话列表
-        this.timHelperService.tim.getConversationList().then((imResponse) => {
+    // if (!this.timeout) {
+    //   this.timeout = setTimeout(() => {
+    //     this.timeout = null;
 
-        }).catch((imError) => {
-          console.error('getConversationList error:', imError); // 获取会话列表失败的相关信息
-        });
-      }, 1000);
-    }
+    //   }, 1000);
+    // }
+
+    // 拉取会话列表
+    this.timHelperService.tim.getConversationList().then(({ data }) => {
+      console.log('刷新成功', data);
+
+    }).catch((imError) => {
+      console.error('getConversationList error:', imError); // 获取会话列表失败的相关信息
+    });
+
+
+
+
   }
 
 }

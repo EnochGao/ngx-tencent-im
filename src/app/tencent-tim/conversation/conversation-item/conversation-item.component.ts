@@ -1,18 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ConversationItem } from '../../im.type';
 import { getDate, getTime, isToday } from '../../util/date';
 
 import { Store } from '@ngrx/store';
 
 import { TimHelperService } from '../../tim-helper.service';
-import { TIM } from '../../tim/create-tim';
+import { getSelectConversationStates } from 'src/store/selectors';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-conversation-item',
   templateUrl: './conversation-item.component.html',
   styleUrls: ['./conversation-item.component.less']
 })
-export class ConversationItemComponent implements OnInit {
+export class ConversationItemComponent implements OnInit, OnDestroy {
   TIM = TIM;
   avatarSrc: string;
 
@@ -37,12 +38,16 @@ export class ConversationItemComponent implements OnInit {
     return this._conversation;
   };
   private _conversation: ConversationItem;
-  lastConversation: any;
+
+
+  lastConversation: ConversationItem;
+  storeSubscription: Subscription;
 
   constructor(
     private store: Store,
     private timHelperService: TimHelperService
   ) { }
+
 
   ngOnInit(): void {
     if (
@@ -65,11 +70,23 @@ export class ConversationItemComponent implements OnInit {
     }
     this.messageForShow = this.conversation.lastMessage.messageForShow;
 
+    this.storeSubscription = this.store.select(getSelectConversationStates)
+      .subscribe(res => {
+        this.lastConversation = res.currentConversation;
+      });
+
   }
 
   selectConversation() {
-    if (this.conversation.conversationID !== this.timHelperService.conversation.currentConversation.conversationID) {
+    if (this.conversation.conversationID !== this.lastConversation.conversationID) {
       this.timHelperService.checkoutConversation(this.conversation.conversationID);
+      this.timHelperService.eventBus$.next('select-item');
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
     }
   }
 

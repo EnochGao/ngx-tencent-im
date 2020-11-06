@@ -1,4 +1,6 @@
-<div class="conversation-item-container" [ngClass]="{'choose': false}" (click)="selectConversation()">
+<div class="conversation-item-container"
+  [ngClass]="{'choose': conversation.conversationID === lastConversation.conversationID }"
+  (click)="selectConversation()">
   <div class="close-btn">
     <span class="tim-icon-close" title="删除会话"></span>
   </div>
