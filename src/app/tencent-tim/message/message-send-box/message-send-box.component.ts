@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { pushCurrentMessageListAction } from 'src/store/actions';
+import { pushCurrentMessageListAction } from '../../store/actions';
+
 import { TimHelperService } from '../../tim-helper.service';
 import { emojiMap, emojiName, emojiUrl } from '../../util/emojiMap';
 
@@ -19,6 +20,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   // 消息内容
   messageContent: string = '';
   @ViewChild('imagePicker', { static: false }) imagePicker: ElementRef;
+  @ViewChild('filePicker', { static: false }) filePicker: ElementRef;
   @ViewChild('textInput', { static: true }) textInput: ElementRef;
   constructor(
     private timHelperService: TimHelperService,
@@ -110,7 +112,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       payload: {
         file: this.imagePicker.nativeElement // 或者用event.target
       },
-      onProgress: function (percent) {
+      onProgress: (percent) => {
         // 手动给message 实例加个响应式属性: progress
         message['progress'] = percent;
         console.log('percent:', percent);
@@ -121,12 +123,40 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       .sendMessage(message)
       .then(({ data }) => {
         console.log('发送成功', data);
+
         this.store.dispatch(pushCurrentMessageListAction({ message: Object.assign({}, data.message) }));
 
         this.imagePicker.nativeElement.value = null;
       })
       .catch(imError => {
         console.error('imError::', imError);
+      });
+  }
+
+  sendFile(event: any) {
+    const message = this.timHelperService.tim.createFileMessage({
+      to: this.timHelperService.toAccount,
+      conversationType: this.timHelperService.currentConversationType,
+      payload: {
+        file: document.getElementById('filePicker'), // 或者用event.target
+      },
+      onProgress: (percent) => {
+        message['progress'] = percent;
+        console.log('上传进度', percent);
+
+      },
+    });
+
+    this.timHelperService.tim
+      .sendMessage(message)
+      .then(({ data }) => {
+        this.store.dispatch(pushCurrentMessageListAction({ message: Object.assign({}, data.message) }));
+
+        this.filePicker.nativeElement.value = null;
+      })
+      .catch((imError) => {
+        console.error('imError::', imError);
+
       });
   }
 
@@ -160,6 +190,10 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   }
 
   handleSendImageClick(input: HTMLInputElement) {
+    input.click();
+  }
+
+  handleSendFileClick(input: HTMLInputElement) {
     input.click();
   }
 

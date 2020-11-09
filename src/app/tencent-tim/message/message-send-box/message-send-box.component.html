@@ -6,13 +6,13 @@
       [nzPopoverTitle]="'表情'"></i>
 
     <i class="iconfont icon-tupian" title="发图片" (click)="handleSendImageClick(imagePicker)"></i>
+    <i class="iconfont icon-wenjian" title="发文件" (click)="handleSendFileClick(filePicker)"></i>
+
   </div>
   <div class="bottom">
     <textarea rows="4" resize="false" class="text-input" #textInput [(ngModel)]="messageContent"
-      (focus)="focus=true" (blur)="focus=false"
-      (keydown)="keyDown($event)"
-      (keyup)="handleLine($event)" 
-      >
+      (focus)="focus=true" (blur)="focus=false" (keydown)="keyDown($event)"
+      (keyup)="handleLine($event)">
     </textarea>
     <div class="btn-send" (click)="sendTextMessage()">
       <div nzTooltipTitle="按Enter发送消息，Ctrl+Enter换行" nzTooltipPlacement="left" nz-button nz-tooltip
@@ -21,6 +21,10 @@
   </div>
   <input type="file" id="imagePicker" #imagePicker accept=".jpg, .jpeg, .png, .gif"
     (change)="sendImage($event)" style="display:none" />
+
+  <input type="file" id="filePicker" #filePicker (change)="sendFile($event)" style="display:none" />
+
+
 </div>
 
 <ng-template #contentTemplate>

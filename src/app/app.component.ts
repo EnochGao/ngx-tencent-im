@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { getLogin } from 'src/store/selectors/login.selector';
+
+
+import { TimHelperService } from './tencent-tim/tim-helper.service';
 
 @Component({
   selector: 'app-root',
@@ -11,17 +12,17 @@ export class AppComponent {
   title = 'winkong-tencent-im';
   isLogin = false;
   constructor(
-    private store: Store
+    private timHelperService: TimHelperService
   ) {
 
-    this.store.select(getLogin).subscribe(res => {
-      if (!res) {
+    this.timHelperService.eventBus$.subscribe(res => {
+      if (res === 'login') {
+        this.isLogin = true;
+      }
+      if (res === 'logout') {
         this.isLogin = false;
       }
     });
   }
 
-  login(login: boolean) {
-    this.isLogin = login;
-  }
 }

@@ -12,12 +12,6 @@ import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { LoginComponent } from './login/login.component';
 import { NzButtonModule, NzFormModule, NzInputModule, NzSelectModule } from 'ng-zorro-antd';
-import { EffectsModule } from '@ngrx/effects';
-import { effects } from 'src/store/effects';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducers } from 'src/store/reducer';
-import { environment } from 'src/environments/environment';
 import { TencentTimModule } from './tencent-tim/tencent-tim.module';
 
 registerLocaleData(zh);
@@ -38,19 +32,6 @@ registerLocaleData(zh);
     NzInputModule,
     NzButtonModule,
     NzSelectModule,
-    StoreModule.forRoot(reducers, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: false,
-        strictActionSerializability: false,
-      }
-    }),
-    EffectsModule.forRoot(effects),
-    StoreDevtoolsModule.instrument({
-      maxAge: 20,
-      logOnly: environment.production
-    }),
     TencentTimModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],

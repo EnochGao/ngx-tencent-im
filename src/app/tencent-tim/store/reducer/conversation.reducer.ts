@@ -65,6 +65,7 @@ const _conversationReducer = createReducer(
       let currentMessageList = [...state.currentMessageList, message];
       console.log('currentMessageList:::', currentMessageList);
       console.log({ ...state, currentMessageList });
+      
       return { ...state, currentMessageList };
     }
     return { ...state };

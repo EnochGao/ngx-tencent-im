@@ -14,13 +14,13 @@ import {
   updateCurrentConversationAction,
   updateCurrentUserProfileAction,
   updateMessageAction
-} from 'src/store/actions';
+} from './store/actions';
 
 import {
   getCurrentUserProfile,
   getMessage,
   getSelectConversationStates,
-} from 'src/store/selectors';
+} from './store/selectors';
 
 import { CreateTim } from './tim/create-tim';
 import { genTestUserSig } from './tim/GenerateTestUserSig';
@@ -87,6 +87,7 @@ export class TimHelperService {
     this.tim.login({ userID: userId, userSig: genTestUserSig(userId).userSig })
       .then((imResponse) => {
         console.log('登陆成功：：：', imResponse); // 登录成功
+        this.eventBus$.next('login');
         this.store.dispatch(loginAction({ isLogin: true }));
         this.store.dispatch(startComputeCurrentAction());
 
@@ -105,6 +106,8 @@ export class TimHelperService {
       this.tim.setMessageRead({ conversationID: this.conversation.currentConversation.conversationID });
     }
     this.tim.logout().then(() => {
+      this.eventBus$.next('logout');
+
       this.store.dispatch(loginAction({ isLogin: false }));
       this.store.dispatch(stopComputeCurrentAction());
 

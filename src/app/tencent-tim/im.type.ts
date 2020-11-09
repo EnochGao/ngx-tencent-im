@@ -85,6 +85,7 @@ export interface MessageItem {
   time: number;
   to: string;
   type: string;
+  progress?: number;
 }
 
 export interface Tim {

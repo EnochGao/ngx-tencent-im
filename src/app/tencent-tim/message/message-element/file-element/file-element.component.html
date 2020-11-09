@@ -1,0 +1,14 @@
+<app-message-bubble [message]="message" [isMine]="isMine">
+  <div class="file-element-wrapper" title="单击下载" (click)="downloadFile()">
+    <div class="header">
+      <i nz-icon nzType="file-text" nzTheme="outline">
+      </i>
+
+      <div class="file-element">
+        <span class="file-name">{{ fileName }}</span>
+        <span class="file-size">{{ fileSize  }}</span>
+      </div>
+    </div>
+    <!-- <nz-progress [nzPercent]="message.progress*100"></nz-progress> -->
+  </div>
+</app-message-bubble>

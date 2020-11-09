@@ -5,8 +5,9 @@ import { getDate, getTime, isToday } from '../../util/date';
 import { Store } from '@ngrx/store';
 
 import { TimHelperService } from '../../tim-helper.service';
-import { getSelectConversationStates } from 'src/store/selectors';
+
 import { Subscription } from 'rxjs';
+import { getSelectConversationStates } from '../../store/selectors';
 
 @Component({
   selector: 'app-conversation-item',

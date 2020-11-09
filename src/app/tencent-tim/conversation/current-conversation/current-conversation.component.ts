@@ -2,9 +2,10 @@ import { AfterViewInit, Component, ElementRef, OnChanges, OnDestroy, OnInit, Ren
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { getSelectConversationStates } from 'src/store/selectors';
+
 
 import { ConversationItem } from '../../im.type';
+import { getSelectConversationStates } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
 
 @Component({

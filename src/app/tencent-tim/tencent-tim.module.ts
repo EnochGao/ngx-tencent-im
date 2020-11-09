@@ -19,7 +19,16 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { FormsModule } from '@angular/forms';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
+
 import { ImageElementComponent } from './message/message-element/image-element/image-element.component';
+import { FileElementComponent } from './message/message-element/file-element/file-element.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { reducers } from './store/reducer';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +45,8 @@ import { ImageElementComponent } from './message/message-element/image-element/i
     MessageBubbleComponent,
     MessageFooterComponent,
     MessageSendBoxComponent,
-    ImageElementComponent
+    ImageElementComponent,
+    FileElementComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +56,21 @@ import { ImageElementComponent } from './message/message-element/image-element/i
     NzToolTipModule,
     NzModalModule,
     NzFormModule,
-    NzInputModule
+    NzInputModule,
+    NzProgressModule,
+    NzIconModule,
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+        strictStateSerializability: false,
+        strictActionSerializability: false,
+      }
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
   ],
   exports: [
     TencentTimComponent

@@ -10,11 +10,12 @@ export class ImageElementComponent implements OnInit {
   @Input() message: MessageItem;
   @Input() isMine: boolean;
   @Input() payload: any;
+  @Input() percent: number;
   imageUrl: string;
   constructor() { }
 
   ngOnInit(): void {
-    const url = this.payload.imageInfoArray[0].url;
+    const url = this.payload.imageInfoArray[0].imageUrl;
     if (typeof url !== 'string') {
       this.imageUrl = '';
     }
