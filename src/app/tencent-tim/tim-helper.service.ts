@@ -83,7 +83,7 @@ export class TimHelperService {
   login(userId: string) {
     this.tim.login({ userID: userId, userSig: genTestUserSig(userId).userSig })
       .then((imResponse) => {
-        console.log('登陆成功：：：', imResponse); // 登录成功
+
         this.eventBus$.next('login');
         this.store.dispatch(loginAction({ isLogin: true }));
         this.store.dispatch(startComputeCurrentAction());
@@ -155,10 +155,12 @@ export class TimHelperService {
   }
 
   onKickOut(event: any) {
-    console.log('被踢出：：', event);
+    this.eventBus$.next('logout');
+    this.store.dispatch(stopComputeCurrentAction());
     this.store.dispatch(loginAction({ isLogin: false }));
-    // this.store.commit('reset');
+    this.store.dispatch(showAction({ msgType: 'warn', message: '由于多实例登录被踢出，请重新登录!' }));
   }
+
   onError({ data }) {
     if (data.message !== 'Network Error') {
       console.log('%c error', 'color:red;font-size:20px;', data);

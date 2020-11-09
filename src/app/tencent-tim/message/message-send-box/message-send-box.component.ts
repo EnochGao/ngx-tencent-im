@@ -25,14 +25,9 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   constructor(
     private timHelperService: TimHelperService,
     private store: Store,
-
   ) { }
-  ngOnDestroy(): void {
-    this.textInput.nativeElement.addEventListener('paste', this.handlePaste.bind(this));
-  }
 
   ngOnInit(): void {
-    console.log('%ctextInput:::', 'color:green;font-size:30px', this.textInput);
     this.textInput.nativeElement.addEventListener('paste', this.handlePaste.bind(this));
   }
 
@@ -74,9 +69,9 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
     }
   }
 
-  handlePaste(e) {
+  handlePaste(e: any) {
     let clipboardData = e.clipboardData;
-    let file;
+    let file: any;
     if (clipboardData && clipboardData.files && clipboardData.files.length > 0) {
       file = clipboardData.files[0];
     }
@@ -192,6 +187,10 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
 
   handleSendFileClick(input: HTMLInputElement) {
     input.click();
+  }
+
+  ngOnDestroy(): void {
+    this.textInput.nativeElement.addEventListener('paste', this.handlePaste.bind(this));
   }
 
 }

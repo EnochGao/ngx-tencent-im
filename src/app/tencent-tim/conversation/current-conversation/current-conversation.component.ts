@@ -52,7 +52,6 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
     // 获取当前会话
     this.storeSubscription = this.store.select(getSelectConversationStates)
       .subscribe(res => {
-        console.log('获取当前会话', res);
         this.currentMessageList = res.currentMessageList;
         this.currentConversation = res.currentConversation;
         this.isCompleted = res.isCompleted;

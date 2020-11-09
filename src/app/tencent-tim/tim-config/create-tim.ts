@@ -9,7 +9,7 @@ export function CreateTim() {
     SDKAppID: genTestUserSig('').SDKAppID
   });
   // 无日志级别
-  tim.setLogLevel(0);
+  tim.setLogLevel(4);
   // 注册 cos
   tim.registerPlugin({ 'cos-js-sdk': COS });
 
