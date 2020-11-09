@@ -37,7 +37,7 @@
               "src/styles.less"
             ],
             "scripts": [
-              "src/app/tencent-tim/tim/lib-generate-test-usersig.min.js",
+              "src/app/tencent-tim/tim-config/lib-generate-test-usersig.min.js",
               "./node_modules/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js",
               "./node_modules/tim-js-sdk/tim-js.js"
             ]

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { pushCurrentMessageListAction } from '../../store/actions';
+import { pushCurrentMessageListAction, showAction } from '../../store/actions';
 
 import { TimHelperService } from '../../tim-helper.service';
 import { emojiMap, emojiName, emojiUrl } from '../../util/emojiMap';
@@ -123,9 +123,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       .sendMessage(message)
       .then(({ data }) => {
         console.log('发送成功', data);
-
         this.store.dispatch(pushCurrentMessageListAction({ message: Object.assign({}, data.message) }));
-
         this.imagePicker.nativeElement.value = null;
       })
       .catch(imError => {
@@ -143,7 +141,6 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       onProgress: (percent) => {
         message['progress'] = percent;
         console.log('上传进度', percent);
-
       },
     });
 
@@ -171,7 +168,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       this.messageContent.trim().length === 0
     ) {
       this.messageContent = '';
-      console.warn('不能发送空消息哦！');
+      this.store.dispatch(showAction({ msgType: 'warn', message: '不能发送空消息哦！' }));
       return;
     }
     let message = this.timHelperService.tim.createTextMessage({

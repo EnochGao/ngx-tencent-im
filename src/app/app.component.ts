@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 import { TimHelperService } from './tencent-tim/tim-helper.service';
 
 @Component({
@@ -9,12 +8,11 @@ import { TimHelperService } from './tencent-tim/tim-helper.service';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'winkong-tencent-im';
   isLogin = false;
+
   constructor(
     private timHelperService: TimHelperService
   ) {
-
     this.timHelperService.eventBus$.subscribe(res => {
       if (res === 'login') {
         this.isLogin = true;

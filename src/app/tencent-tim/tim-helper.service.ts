@@ -22,9 +22,10 @@ import {
   getSelectConversationStates,
 } from './store/selectors';
 
-import { CreateTim } from './tim/create-tim';
-import { genTestUserSig } from './tim/GenerateTestUserSig';
+
 import { Tim } from './im.type';
+import { CreateTim } from './tim-config/create-tim';
+import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 
 @Injectable({
   providedIn: 'root'
@@ -91,6 +92,8 @@ export class TimHelperService {
         this.store.dispatch(loginAction({ isLogin: true }));
         this.store.dispatch(startComputeCurrentAction());
 
+        this.store.dispatch(showAction({ msgType: 'success', message: '登录成功！' }));
+
         if (imResponse.data.repeatLogin === true) {
           // 标识账号已登录，本次登录操作为重复登录。v2.5.1 起支持
           console.log(imResponse.data.errorInfo);
@@ -107,12 +110,9 @@ export class TimHelperService {
     }
     this.tim.logout().then(() => {
       this.eventBus$.next('logout');
-
       this.store.dispatch(loginAction({ isLogin: false }));
       this.store.dispatch(stopComputeCurrentAction());
-
       this.store.dispatch(loginAction({ isLogin: false }));
-
       // context.commit('reset');
     });
   }
@@ -215,11 +215,10 @@ export class TimHelperService {
         this.store.dispatch(updateCurrentConversationAction({ conversation: res.data.conversation }));
         // 3.2 获取消息列表
         this.getMessageList(conversationID);
-
-      });
-
+      }).catch(res => {
+        this.store.dispatch(showAction({ msgType: 'error', message: res }));
+      });;
     });
-
   }
 
   getMessageList(conversationID: string) {

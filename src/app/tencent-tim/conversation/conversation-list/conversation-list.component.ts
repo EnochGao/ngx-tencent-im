@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { ConversationItem } from '../../im.type';
 import { getSelectConversationStates } from '../../store/selectors';
+import { showAction } from '../../store/actions';
 
 
 @Component({
@@ -60,6 +61,7 @@ export class ConversationListComponent implements OnInit {
     // 拉取会话列表
     this.timHelperService.tim.getConversationList().then(({ data }) => {
       console.log('刷新成功', data);
+      this.store.dispatch(showAction({ msgType: 'success', message: '刷新成功！' }));
 
     }).catch((imError) => {
       console.error('getConversationList error:', imError); // 获取会话列表失败的相关信息
