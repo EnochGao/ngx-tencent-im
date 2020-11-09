@@ -12,6 +12,9 @@ export class LoginComponent implements OnInit {
   userList = [
     { value: 'user0', label: 'user0' },
     { value: 'user1', label: 'user1' },
+    { value: 'user2', label: 'user2' },
+    { value: 'user3', label: 'user3' },
+    { value: 'user4', label: 'user4' },
   ];
 
   validateForm!: FormGroup;

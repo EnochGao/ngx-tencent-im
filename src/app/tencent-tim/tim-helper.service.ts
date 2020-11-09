@@ -55,8 +55,6 @@ export class TimHelperService {
 
     // 获取当前会话
     this.store.select(getSelectConversationStates).subscribe(res => {
-      console.log('%c 获取当前会话::', 'color:green;font-size:20px', res);
-
       this.conversation = res;
 
       if (!res.currentConversation || !res.currentConversation.conversationID) {
@@ -79,9 +77,7 @@ export class TimHelperService {
       } else {
         this.currentConversationType = res.currentConversation.type;
       }
-
     });
-
   }
 
   login(userId: string) {
@@ -110,9 +106,10 @@ export class TimHelperService {
     }
     this.tim.logout().then(() => {
       this.eventBus$.next('logout');
-      this.store.dispatch(loginAction({ isLogin: false }));
       this.store.dispatch(stopComputeCurrentAction());
       this.store.dispatch(loginAction({ isLogin: false }));
+      this.store.dispatch(showAction({ msgType: 'success', message: '已退出！' }));
+
       // context.commit('reset');
     });
   }

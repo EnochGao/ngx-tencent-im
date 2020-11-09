@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TimHelperService } from '../../tim-helper.service';
 
 import { Store } from '@ngrx/store';
@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { ConversationItem } from '../../im.type';
 import { getSelectConversationStates } from '../../store/selectors';
 import { showAction } from '../../store/actions';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -13,25 +14,26 @@ import { showAction } from '../../store/actions';
   templateUrl: './conversation-list.component.html',
   styleUrls: ['./conversation-list.component.less']
 })
-export class ConversationListComponent implements OnInit {
+export class ConversationListComponent implements OnInit, OnDestroy {
   conversationList: Array<ConversationItem> = [];
   timeout = null;
   showDialog = false;
   userID = '';
+  subscription: Subscription;
   constructor(
     private store: Store,
     private timHelperService: TimHelperService
   ) { }
 
+
   ngOnInit(): void {
 
     // 获取当前会话
-    this.store.select(getSelectConversationStates).subscribe(res => {
-      console.log('%c getSelectConversationStates::', 'color:red;font-size:20px', res);
-
-      this.conversationList = res.conversationList;
-    });
-
+    this.subscription = this.store.select(getSelectConversationStates)
+      .subscribe(res => {
+        console.log('%c getSelectConversationStates::', 'color:red;font-size:20px', res);
+        this.conversationList = res.conversationList;
+      });
   };
 
   add() {
@@ -66,10 +68,12 @@ export class ConversationListComponent implements OnInit {
     }).catch((imError) => {
       console.error('getConversationList error:', imError); // 获取会话列表失败的相关信息
     });
+  }
 
-
-
-
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }
