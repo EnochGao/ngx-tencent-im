@@ -1,7 +1,8 @@
 <div class="my-profile-wrapper">
   <div class="popover">
     <i class="el-icon-setting edit-my-profile"></i>
-    <div class="my-avatar">
+    <div class="my-avatar" nz-button nz-popover nzType="primary" nzPopoverTitle="当前用户"
+      nzPopoverPlacement="right" [nzPopoverContent]="currentUser.userID">
       <app-avatar></app-avatar>
     </div>
   </div>

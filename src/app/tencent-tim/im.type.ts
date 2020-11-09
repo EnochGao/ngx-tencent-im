@@ -142,3 +142,22 @@ export interface Tim {
   updateGroupProfile: Function;
   updateMyProfile: Function;
 }
+
+
+export interface UserProfile {
+  adminForbidType: string;
+  allowType: string;
+  avatar: string;
+  birthday: number;
+  gender: string;
+  language: number;
+  lastUpdatedTime: number;
+  level: number;
+  location: string;
+  messageSettings: number;
+  nick: string;
+  profileCustomField: Array<any>;
+  role: number;
+  selfSignature: string;
+  userID: string;
+}
