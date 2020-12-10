@@ -1,10 +1,11 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
+import { UserProfile } from '../../im.type';
 import { SDKReadyAction, updateCurrentUserProfileAction } from '../actions';
 
 
 export interface UserState {
-  currentUserProfile: any,
+  currentUserProfile: UserProfile,
   isLogin: boolean,
   isSDKReady: boolean, // TIM SDK 是否 ready
   userID: number,
@@ -13,7 +14,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  currentUserProfile: {},
+  currentUserProfile: {} as UserProfile,
   isLogin: false,
   isSDKReady: false, // TIM SDK 是否 ready
   userID: 0,

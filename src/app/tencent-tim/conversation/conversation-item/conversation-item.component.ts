@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ConversationItem } from '../../im.type';
+import { ConversationItem, UserProfile } from '../../im.type';
 import { getDate, getTime, isToday } from '../../util/date';
 
 import { Store } from '@ngrx/store';
@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { TimHelperService } from '../../tim-helper.service';
 
 import { Subscription } from 'rxjs';
-import { getSelectConversationStates } from '../../store/selectors';
+import { getCurrentConversationSelector, getCurrentUserProfile, getSelectConversationStates } from '../../store/selectors';
 
 @Component({
   selector: 'app-conversation-item',
@@ -17,9 +17,6 @@ import { getSelectConversationStates } from '../../store/selectors';
 export class ConversationItemComponent implements OnInit, OnDestroy {
   TIM = TIM;
   avatarSrc: string;
-
-  date: string;
-  messageForShow: string;
 
   @Input()
   set conversation(value: ConversationItem) {
@@ -38,11 +35,14 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
   get conversation(): ConversationItem {
     return this._conversation;
   };
+
   private _conversation: ConversationItem;
 
-
   lastConversation: ConversationItem;
+  currentUserProfile: UserProfile;
+
   storeSubscription: Subscription;
+  profileSubscription: Subscription;
 
   constructor(
     private store: Store,
@@ -51,31 +51,17 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    if (
-      !this.conversation.lastMessage ||
-      !this.conversation.lastMessage.lastTime
-    ) {
-      this.date = '';
-    }
-    const date = new Date(this.conversation.lastMessage.lastTime * 1000);
-    if (isToday(date)) {
-      this.date = getTime(date);
-    }
-    this.date = getDate(date);
-
-    if (this.conversation.lastMessage.isRevoked) {
-      if (this.conversation.type === TIM.TYPES.CONV_C2C) {
-        this.messageForShow = '对方撤回了一条消息';
-      }
-      this.messageForShow = `${this.conversation.lastMessage.fromAccount}撤回了一条消息`;
-    }
-    this.messageForShow = this.conversation.lastMessage.messageForShow;
-
-    this.storeSubscription = this.store.select(getSelectConversationStates)
+    this.storeSubscription = this.store.select(getCurrentConversationSelector)
       .subscribe(res => {
-        this.lastConversation = res.currentConversation;
+        console.log('ccc', res);
+        this.lastConversation = res;
       });
 
+    this.profileSubscription = this.store.select(getCurrentUserProfile)
+      .subscribe(res => {
+        console.log('profiel', res);
+        this.currentUserProfile = res;
+      });
   }
 
   selectConversation() {
@@ -85,10 +71,39 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
     }
   }
 
+
+
+  get date() {
+    if (!this.conversation.lastMessage || !this.conversation.lastMessage.lastTime) {
+      return '';
+    }
+    const date = new Date(this.conversation.lastMessage.lastTime * 1000);
+    if (isToday(date)) {
+      return getTime(date);
+    }
+    return getDate(date);
+  }
+  get messageForShow() {
+    if (this.conversation.lastMessage.isRevoked) {
+      if (this.conversation.lastMessage.fromAccount === this.currentUserProfile?.userID) {
+        return '你撤回了一条消息';
+      }
+      if (this.conversation.type === TIM.TYPES.CONV_C2C) {
+        return '对方撤回了一条消息';
+      }
+      return `${this.conversation.lastMessage.fromAccount}撤回了一条消息`;
+    }
+    return this.conversation.lastMessage.messageForShow;
+  }
+
   ngOnDestroy(): void {
     if (this.storeSubscription) {
       this.storeSubscription.unsubscribe();
     }
+    if (this.profileSubscription) {
+      this.profileSubscription.unsubscribe();
+    }
   }
+
 
 }

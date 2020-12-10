@@ -1,3 +1,16 @@
+/** @description 消息会话 */
+export interface Conversation {
+  conversationID: string;
+  lastMessage: LastMessage;
+  peerReadTime: number;
+  type: string;
+  unreadCount: number;
+  userProfile: UserProfile;
+  groupProfile: GroupProfile;
+  _isInfoCompleted: boolean;
+  subType: string;
+  toAccount: string;
+}
 export interface ConversationItem {
   conversationID: string;
   lastMessage: LastMessage;
@@ -58,7 +71,7 @@ export interface LastMessage {
   payload: { text: string; };
   type: string;
 }
-
+/** @description 消息项 */
 export interface MessageItem {
   ID: string;
   avatar: string;
@@ -88,8 +101,29 @@ export interface MessageItem {
   progress?: number;
 }
 
+export interface IMResponse<T> {
+  code: number;
+  data: T;
+}
+export interface LoginSuccess {
+  a2Key: string;
+  actionStatus: string;
+  errorCode: number;
+  errorInfo: string;
+  tinyID: string;
+  repeatLogin: boolean;
+}
+
+/** @description 登录参数
+ *  @param userId 	用户 ID
+ *  @param userSig 	用户 签名
+ */
+export interface LoginOptions {
+  userID: string;
+  userSig: string;
+}
 export interface Tim {
-  addGroupMember: Function;
+  addGroupMember: () => Promise<any>;
   addToBlacklist: Function;
   callExperimentalAPI: Function;
   changeGroupOwner: Function;
@@ -108,20 +142,20 @@ export interface Tim {
   downloadLog: Function;
   getBlacklist: Function;
   getConversationList: Function;
-  getConversationProfile: Function;
+  getConversationProfile: (conversationID: string) => Promise<IMResponse<{ conversation: Conversation; }>>;
   getFriendList: Function;
   getGroupList: Function;
   getGroupMemberList: Function;
   getGroupMemberProfile: Function;
   getGroupOnlineMemberCount: Function;
   getGroupProfile: Function;
-  getMessageList: Function;
-  getMyProfile: Function;
+  getMessageList: (option: { conversationID: string; nextReqMessageID: string; count: number; }) => Promise<IMResponse<any>>;
+  getMyProfile: () => Promise<IMResponse<UserProfile>>;
   getUserProfile: Function;
   handleGroupApplication: Function;
   joinGroup: Function;
-  login: Function;
-  logout: Function;
+  login: (options: LoginOptions) => Promise<IMResponse<LoginSuccess>>;
+  logout: () => Promise<IMResponse<object>>;
   off: Function;
   on: Function;
   once: Function;
@@ -136,14 +170,15 @@ export interface Tim {
   setGroupMemberMuteTime: Function;
   setGroupMemberNameCard: Function;
   setGroupMemberRole: Function;
-  setLogLevel: Function;
-  setMessageRead: Function;
+  setLogLevel: (level: number) => void;
+  setMessageRead: (option: { conversationID: string; }) => Promise<IMResponse<any>>;
   setMessageRemindType: Function;
   updateGroupProfile: Function;
   updateMyProfile: Function;
 }
 
 
+/** @description 用户个人资料 */
 export interface UserProfile {
   adminForbidType: string;
   allowType: string;

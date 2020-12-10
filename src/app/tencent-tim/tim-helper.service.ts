@@ -23,9 +23,10 @@ import {
 } from './store/selectors';
 
 
-import { Tim } from './im.type';
+import { Conversation, IMResponse, LoginSuccess, MessageItem, Tim } from './im.type';
 import { CreateTim } from './tim-config/create-tim';
 import { genTestUserSig } from './tim-config/GenerateTestUserSig';
+import { ConversationState } from './store/reducer/conversation.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 export class TimHelperService {
   tim: Tim = CreateTim();
 
-  conversation: any;// 当前会话
+  conversation: ConversationState; // 当前会话
   toAccount: any;
   currentConversationType: any;
   eventBus$: Subject<string> = new Subject();
@@ -82,8 +83,7 @@ export class TimHelperService {
 
   login(userId: string) {
     this.tim.login({ userID: userId, userSig: genTestUserSig(userId).userSig })
-      .then((imResponse) => {
-
+      .then((imResponse: IMResponse<LoginSuccess>) => {
         this.eventBus$.next('login');
         this.store.dispatch(loginAction({ isLogin: true }));
         this.store.dispatch(startComputeCurrentAction());
@@ -104,7 +104,7 @@ export class TimHelperService {
     if (this.conversation.currentConversation.conversationID) {
       this.tim.setMessageRead({ conversationID: this.conversation.currentConversation.conversationID });
     }
-    this.tim.logout().then(() => {
+    this.tim.logout().then((res) => {
       this.eventBus$.next('logout');
       this.store.dispatch(stopComputeCurrentAction());
       this.store.dispatch(loginAction({ isLogin: false }));
@@ -154,7 +154,7 @@ export class TimHelperService {
     }
   }
 
-  onKickOut(event: any) {
+  onKickOut(event: { name: string, data: { type: string; }; }) {
     this.eventBus$.next('logout');
     this.store.dispatch(stopComputeCurrentAction());
     this.store.dispatch(loginAction({ isLogin: false }));
@@ -180,9 +180,7 @@ export class TimHelperService {
   }
 
   // 会话列表更新
-  onUpdateConversationList(event: any) {
-    console.log('%c 会话列表更新', 'color:red;font-size:20px;', event);
-
+  onUpdateConversationList(event: { data: Array<Conversation>; }) {
     this.store.dispatch(updateConversationListAction({ conversationList: event.data }));
   }
 
@@ -192,8 +190,7 @@ export class TimHelperService {
   /**
    * 切换会话
    * 调用时机：切换会话时
-   * @param {String} conversationID
-  */
+   */
   checkoutConversation(conversationID: string) {
 
     // this.store.commit('resetCurrentMemberList');
@@ -205,21 +202,22 @@ export class TimHelperService {
     }
 
     // 2.待切换的会话也进行已读上报
-    this.tim.setMessageRead({ conversationID }).then(res => {
-      console.log('待切换的会话也进行已读上报', res);
-
+    this.tim.setMessageRead({ conversationID }).then(_ => {
       // 3. 获取会话信息
-      this.tim.getConversationProfile(conversationID).then((res) => {
+      this.tim.getConversationProfile(conversationID).then((res: IMResponse<{ conversation: Conversation; }>) => {
         // 3.1 更新当前会话
         this.store.dispatch(updateCurrentConversationAction({ conversation: res.data.conversation }));
         // 3.2 获取消息列表
         this.getMessageList(conversationID);
-      }).catch(res => {
-        this.store.dispatch(showAction({ msgType: 'error', message: res }));
-      });;
+      }).catch(err => {
+        this.store.dispatch(showAction({ msgType: 'error', message: err }));
+      });
     });
   }
 
+  /**
+   * @description 获取消息
+   */
   getMessageList(conversationID: string) {
     if (this.conversation.currentConversation.isCompleted) {
       this.store.dispatch(showAction({
@@ -230,11 +228,11 @@ export class TimHelperService {
     }
     const { nextReqMessageID, currentMessageList } = this.conversation;
     this.tim.getMessageList({ conversationID, nextReqMessageID, count: 15 })
-      .then((imReponse) => {
+      .then((imResponse: IMResponse<{ isCompleted: boolean, nextReqMessageID: string, messageList: Array<MessageItem>; }>) => {
         this.store.dispatch(updateMessageAction({
-          nextReqMessageID: imReponse.data.nextReqMessageID,
-          isCompleted: imReponse.data.isCompleted,
-          currentMessageList: [...imReponse.data.messageList, ...currentMessageList]
+          nextReqMessageID: imResponse.data.nextReqMessageID,
+          isCompleted: imResponse.data.isCompleted,
+          currentMessageList: [...imResponse.data.messageList, ...currentMessageList]
         }));
       });
   }

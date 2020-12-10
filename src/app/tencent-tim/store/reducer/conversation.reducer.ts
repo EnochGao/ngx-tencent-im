@@ -1,14 +1,25 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { checkoutConversationAction, pushCurrentMessageListAction, removeMessageAction, resetAction, resetCurrentConversationAction, updateConversationListAction, updateCurrentConversationAction, updateCurrentUserProfileAction, updateMessageAction } from '../actions';
+import { Conversation, MessageItem } from '../../im.type';
+import {
+  checkoutConversationAction,
+  pushCurrentMessageListAction,
+  removeMessageAction,
+  resetAction,
+  resetCurrentConversationAction,
+  updateConversationListAction,
+  updateCurrentConversationAction,
+  updateCurrentUserProfileAction,
+  updateMessageAction
+} from '../actions';
 
 
 export interface ConversationState {
   currentConversation: any;
-  currentMessageList: Array<any>;
+  currentMessageList: Array<MessageItem>;
   nextReqMessageID: string;
-  isCompleted: boolean;// 当前会话消息列表是否已经拉完了所有消息
-  conversationList: Array<any>;
+  isCompleted: boolean; // 当前会话消息列表是否已经拉完了所有消息
+  conversationList: Array<Conversation>;
 }
 
 export const initialState: ConversationState = {
@@ -27,15 +38,15 @@ const _conversationReducer = createReducer(
       currentConversation: conversation,
       currentMessageList: [],
       nextReqMessageID: '',
-      isCompleted: false// 当前会话消息列表是否已经拉完了所有消息
+      isCompleted: false // 当前会话消息列表是否已经拉完了所有消息
     };
   }),
   on(updateMessageAction, (state, { nextReqMessageID, isCompleted, currentMessageList }) => {
     return {
       ...state,
-      currentMessageList: currentMessageList,
-      nextReqMessageID: nextReqMessageID,
-      isCompleted: isCompleted// 当前会话消息列表是否已经拉完了所有消息
+      currentMessageList,
+      nextReqMessageID,
+      isCompleted // 当前会话消息列表是否已经拉完了所有消息
     };
   }),
   on(updateConversationListAction, (state, { conversationList }) => {
@@ -49,8 +60,6 @@ const _conversationReducer = createReducer(
     currentConversation: {}
   })),
   on(pushCurrentMessageListAction, (state, { message }) => {
-    // console.log('%c state::', 'color:red;font-size:30px', state);
-    // console.log('%c pushCurrentMessageList::', 'color:red;font-size:30px', message);
 
     // 还没当前会话，则跳过
     if (!state.currentConversation.conversationID) {
@@ -58,14 +67,11 @@ const _conversationReducer = createReducer(
     }
     if (Array.isArray(message)) {
       // 筛选出当前会话的消息
-      let result = message.filter(item => item.conversationID === state.currentConversation.conversationID);
-      let currentMessageList = [...state.currentMessageList, ...result];
+      const result = message.filter(item => item.conversationID === state.currentConversation.conversationID);
+      const currentMessageList = [...state.currentMessageList, ...result];
       return { ...state, currentMessageList };
     } else if (message.conversationID === state.currentConversation.conversationID) {
-      let currentMessageList = [...state.currentMessageList, message];
-      console.log('currentMessageList:::', currentMessageList);
-      console.log({ ...state, currentMessageList });
-      
+      const currentMessageList = [...state.currentMessageList, message];
       return { ...state, currentMessageList };
     }
     return { ...state };
@@ -73,7 +79,7 @@ const _conversationReducer = createReducer(
   on(removeMessageAction, (state, { message }) => {
     const index = state.currentMessageList.findIndex(({ ID }) => ID === message.ID);
     if (index >= 0) {
-      let currentMessageList: Array<any> = state.currentMessageList;
+      const currentMessageList: Array<any> = state.currentMessageList;
       currentMessageList.splice(index, 1);
       return { ...state, currentMessageList };
     }

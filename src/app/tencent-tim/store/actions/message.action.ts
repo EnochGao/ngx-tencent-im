@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { MessageItem } from '../../im.type';
 
 export const showAction = createAction(
   '[showMessage]',
@@ -6,6 +7,5 @@ export const showAction = createAction(
 );
 export const updateMessageAction = createAction(
   '[updateMessage]',
-  props<{ nextReqMessageID: string; isCompleted: boolean; currentMessageList: any; }>()
+  props<{ nextReqMessageID: string; isCompleted: boolean; currentMessageList: Array<MessageItem>; }>()
 );
-
