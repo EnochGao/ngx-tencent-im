@@ -8,7 +8,8 @@
     </button>
   </div>
   <div class="scroll-container">
-    <app-conversation-item [conversation]="item" *ngFor="let item of conversationList">
+    <app-conversation-item [currentConversation]="currentConversation" [conversation]="item"
+      *ngFor="let item of conversationList">
     </app-conversation-item>
   </div>
 </div>

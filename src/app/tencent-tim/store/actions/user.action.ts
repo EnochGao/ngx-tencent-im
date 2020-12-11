@@ -1,11 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-
-export interface Profile {
-  userID: string;
-  avatar: string;
-  birthday: number;
-  gender: string;
-}
+import { UserProfile } from '../../im.type';
 
 export enum UserActionTypes {
   SDKReady = '[user] toggleIsSDKReady',
@@ -19,6 +13,5 @@ export const SDKReadyAction = createAction(
 
 export const updateCurrentUserProfileAction = createAction(
   UserActionTypes.updateCurrentUserProfile,
-  props<{ profile: Profile; }>()
+  props<{ profile: UserProfile; }>()
 );
-

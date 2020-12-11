@@ -1,11 +1,11 @@
 <div class="conversation-item-container"
-  [ngClass]="{'choose': conversation.conversationID === lastConversation.conversationID }"
+  [ngClass]="{'choose': conversation.conversationID === currentConversation.conversationID }"
   (click)="selectConversation()">
   <div class="close-btn">
     <span class="tim-icon-close" title="删除会话"></span>
   </div>
   <div class="warp">
-    <app-avatar [avatarSrc]="avatarSrc"></app-avatar>
+    <app-avatar [src]="avatarSrc" [type]="conversation.type"></app-avatar>
     <div class="content">
       <div class="row-1">
         <div class="name">

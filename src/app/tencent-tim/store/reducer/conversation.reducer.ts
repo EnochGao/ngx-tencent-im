@@ -15,7 +15,7 @@ import {
 
 
 export interface ConversationState {
-  currentConversation: any;
+  currentConversation: Conversation;
   currentMessageList: Array<MessageItem>;
   nextReqMessageID: string;
   isCompleted: boolean; // 当前会话消息列表是否已经拉完了所有消息
@@ -23,7 +23,7 @@ export interface ConversationState {
 }
 
 export const initialState: ConversationState = {
-  currentConversation: {},
+  currentConversation: {} as Conversation,
   currentMessageList: [],
   nextReqMessageID: '',
   isCompleted: false, // 当前会话消息列表是否已经拉完了所有消息
@@ -57,7 +57,7 @@ const _conversationReducer = createReducer(
   }),
   on(resetCurrentConversationAction, (state) => ({
     ...state,
-    currentConversation: {}
+    currentConversation: {} as Conversation,
   })),
   on(pushCurrentMessageListAction, (state, { message }) => {
 

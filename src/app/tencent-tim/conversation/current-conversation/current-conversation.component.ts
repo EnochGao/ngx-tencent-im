@@ -2,16 +2,18 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import { ConversationItem } from '../../im.type';
-import { getSelectConversationStates } from '../../store/selectors';
+import { Conversation, ConversationItem } from '../../im.type';
+import { conversationSelector } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
 
 @Component({
@@ -19,18 +21,19 @@ import { TimHelperService } from '../../tim-helper.service';
   templateUrl: './current-conversation.component.html',
   styleUrls: ['./current-conversation.component.less']
 })
-export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDestroy {
-  currentConversation: ConversationItem;
+export class CurrentConversationComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+  currentConversation: Conversation;
   currentMessageList = [];
-  isShowScrollButtomTips = false;
-  preScrollHeight = 0;
+
+  isShowScrollBottomTips = false;
   isCompleted = false;
   subscription: Subscription;
   storeSubscription: Subscription;
 
-  isShowCurrentConversation = false;
-  isShowMessageSendBox = false;
+  preScrollHeight = 0;
+
   name: string;
+  toAccount: string;
 
   @ViewChild('messageList', { static: false }) messageListRef: ElementRef;
   constructor(
@@ -38,30 +41,40 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
     private timHelperService: TimHelperService,
 
   ) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('value changes', changes);
+  }
 
 
   ngAfterViewInit(): void {
-    if (this.isShowCurrentConversation) {
-      this.keepMessageListOnButtom();
-    }
-
+    this.keepMessageListOnBottom();
   }
 
   ngOnInit(): void {
 
     // 获取当前会话
-    this.storeSubscription = this.store.select(getSelectConversationStates)
+    this.storeSubscription = this.store.select(conversationSelector)
       .subscribe(res => {
         this.currentMessageList = res.currentMessageList;
         this.currentConversation = res.currentConversation;
         this.isCompleted = res.isCompleted;
-
-        this.showCurrentConversation();
-        this.showMessageSendBox();
+        console.log('当前会话', res);
+        if (!res.currentConversation || !res.currentConversation.conversationID) {
+          this.toAccount = '';
+        }
+        switch (res.currentConversation.type) {
+          case 'C2C':
+            this.toAccount = res.currentConversation.conversationID.replace('C2C', '');
+            break;
+          case 'GROUP':
+            this.toAccount = res.currentConversation.conversationID.replace('GROUP', '');
+            break;
+          default:
+            this.toAccount = res.currentConversation.conversationID;
+        }
         this.getName();
-
         if (res.currentMessageList && res.currentMessageList.length > 0) {
-          this.scrollMessageListToButtom();
+          this.keepMessageListOnBottom();
           this.timHelperService.tim.setMessageRead({ conversationID: this.currentConversation.conversationID });
         }
       }, err => {
@@ -71,7 +84,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
     this.subscription = this.timHelperService.eventBus$
       .subscribe((res: string) => {
         if (res === 'scroll-bottom') {
-          this.scrollMessageListToButtom();
+          this.scrollMessageListToBottom();
         }
         // if (res === 'select-item') {
         //   this.scrollMessageListToButtom();
@@ -82,7 +95,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
 
   getMore() {
     this.timHelperService.getMessageList(this.currentConversation.conversationID);
-    this.isShowScrollButtomTips = true;
+    // this.isShowScrollBottomTips = true;
   }
 
   onscroll({ target: { scrollTop } }) {
@@ -92,11 +105,11 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
       return;
     }
     if (this.preScrollHeight - messageListNode.clientHeight - scrollTop < 20) {
-      this.isShowScrollButtomTips = false;
+      this.isShowScrollBottomTips = false;
     }
   }
 
-  scrollMessageListToButtom() {
+  scrollMessageListToBottom() {
     let messageListNode = this.messageListRef.nativeElement;
     if (!messageListNode) {
       return;
@@ -104,47 +117,48 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
 
     setTimeout(() => {
       messageListNode.scrollTop = messageListNode.scrollHeight;
+      this.preScrollHeight = messageListNode.scrollHeight;
+      this.isShowScrollBottomTips = false;
     }, 0);
 
-    this.preScrollHeight = messageListNode.scrollHeight;
-    this.isShowScrollButtomTips = false;
   }
 
   // 如果滚到底部就保持在底部，否则提示是否要滚到底部
-  keepMessageListOnButtom() {
-    let messageListNode = this.messageListRef.nativeElement;
-    if (!messageListNode) {
-      return;
-    }
-    // 距离底部20px内强制滚到底部,否则提示有新消息
-    if (this.preScrollHeight - messageListNode.clientHeight - messageListNode.scrollTop < 20) {
-      setTimeout(() => {
-        messageListNode.scrollTop = messageListNode.scrollHeight;
-      }, 0);
+  keepMessageListOnBottom() {
+    setTimeout(() => {
+      let messageListNode = this.messageListRef.nativeElement;
+      if (!messageListNode) {
+        return;
+      }
 
-      this.isShowScrollButtomTips = false;
-    } else {
-      this.isShowScrollButtomTips = true;
-    }
-    this.preScrollHeight = messageListNode.scrollHeight;
+      // 距离底部20px内强制滚到底部,否则提示有新消息
+      if (this.preScrollHeight - messageListNode.clientHeight - messageListNode.scrollTop < 20) {
+        messageListNode.scrollTop = messageListNode.scrollHeight;
+        this.isShowScrollBottomTips = false;
+      } else {
+        this.isShowScrollBottomTips = true;
+      }
+      this.preScrollHeight = messageListNode.scrollHeight;
+    }, 0);
+
   }
 
   private getName() {
     if (this.currentConversation?.type === 'C2C') {
-      this.name = this.currentConversation?.conversationID.replace('C2C', '');
+      this.name = this.currentConversation.userProfile.nick || this.toAccount;
     } else if (this.currentConversation?.type === 'GROUP') {
-      this.name = this.currentConversation?.conversationID.replace('GROUP', '');
+      this.name = this.currentConversation.groupProfile.name || this.toAccount;
     } else if (this.currentConversation?.conversationID === '@TIM#SYSTEM') {
       this.name = '系统通知';
     }
   }
 
-  private showCurrentConversation() {
-    this.isShowCurrentConversation = !!this.currentConversation?.conversationID;
+  get showCurrentConversation() {
+    return !!this.currentConversation?.conversationID;
   }
 
-  private showMessageSendBox() {
-    this.isShowMessageSendBox = (this.currentConversation.type !== TIM.TYPES.CONV_SYSTEM);
+  get showMessageSendBox() {
+    return (this.currentConversation.type !== TIM.TYPES.CONV_SYSTEM);
   }
   ngOnDestroy(): void {
     if (this.subscription) {

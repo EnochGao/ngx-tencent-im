@@ -3,8 +3,8 @@ import { TimHelperService } from '../../tim-helper.service';
 
 import { Store } from '@ngrx/store';
 
-import { ConversationItem } from '../../im.type';
-import { getConversationListSelector } from '../../store/selectors';
+import { Conversation, ConversationItem } from '../../im.type';
+import { currentConversationSelector, getConversationListSelector } from '../../store/selectors';
 import { showAction } from '../../store/actions';
 import { Subscription } from 'rxjs';
 
@@ -20,14 +20,22 @@ export class ConversationListComponent implements OnInit, OnDestroy {
   showDialog = false;
   userID = '';
   subscription: Subscription;
+  storeSubscription: Subscription;
+  currentConversation: Conversation;
+
   constructor(
     private store: Store,
     private timHelperService: TimHelperService
   ) { }
 
-
   ngOnInit(): void {
-    // 获取当前会话
+
+    this.storeSubscription = this.store.select(currentConversationSelector)
+      .subscribe(res => {
+        this.currentConversation = res;
+      });
+
+    // 获取当前list会话
     this.subscription = this.store.select(getConversationListSelector)
       .subscribe(res => {
         this.conversationList = res;
@@ -71,6 +79,9 @@ export class ConversationListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
     }
   }
 

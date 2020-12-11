@@ -25,7 +25,7 @@ export const initialState: UserState = {
 const _userReducer = createReducer(
   initialState,
   on(SDKReadyAction, (state, { SDKReadyState }) => ({ ...state, isSDKReady: SDKReadyState })),
-  on(updateCurrentUserProfileAction, (state, { profile }) => ({ ...state, currentUserProfile: profile })),
+  on(updateCurrentUserProfileAction, (state, { profile }) => ({ ...state, currentUserProfile: profile as UserProfile })),
 );
 
 export function UserReducer(state: UserState | undefined, action: Action) {

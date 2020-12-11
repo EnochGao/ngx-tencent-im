@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ConversationItem, UserProfile } from '../../im.type';
+import { Conversation, ConversationItem, UserProfile } from '../../im.type';
 import { getDate, getTime, isToday } from '../../util/date';
 
 import { Store } from '@ngrx/store';
@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { TimHelperService } from '../../tim-helper.service';
 
 import { Subscription } from 'rxjs';
-import { getCurrentConversationSelector, getCurrentUserProfile, getSelectConversationStates } from '../../store/selectors';
+import { currentConversationSelector, getCurrentUserProfile } from '../../store/selectors';
 
 @Component({
   selector: 'app-conversation-item',
@@ -15,33 +15,11 @@ import { getCurrentConversationSelector, getCurrentUserProfile, getSelectConvers
   styleUrls: ['./conversation-item.component.less']
 })
 export class ConversationItemComponent implements OnInit, OnDestroy {
+  @Input() currentConversation: Conversation;
+  @Input() conversation: Conversation;
+
   TIM = TIM;
-  avatarSrc: string;
-
-  @Input()
-  set conversation(value: ConversationItem) {
-
-    this._conversation = value;
-    switch (value.type) {
-      case 'GROUP':
-        this.avatarSrc = value.groupProfile?.avatar;
-      case 'C2C':
-        this.avatarSrc = value.userProfile?.avatar;
-      default:
-        this.avatarSrc = 'https://imgcache.qq.com/open/qcloud/video/act/webim-avatar/avatar-2.png';
-    }
-
-  }
-  get conversation(): ConversationItem {
-    return this._conversation;
-  };
-
-  private _conversation: ConversationItem;
-
-  lastConversation: ConversationItem;
   currentUserProfile: UserProfile;
-
-  storeSubscription: Subscription;
   profileSubscription: Subscription;
 
   constructor(
@@ -49,29 +27,31 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
     private timHelperService: TimHelperService
   ) { }
 
-
   ngOnInit(): void {
-    this.storeSubscription = this.store.select(getCurrentConversationSelector)
-      .subscribe(res => {
-        console.log('ccc', res);
-        this.lastConversation = res;
-      });
-
     this.profileSubscription = this.store.select(getCurrentUserProfile)
       .subscribe(res => {
-        console.log('profiel', res);
         this.currentUserProfile = res;
       });
   }
 
   selectConversation() {
-    if (this.conversation.conversationID !== this.lastConversation.conversationID) {
+    if (this.conversation.conversationID !== this.currentConversation.conversationID) {
       this.timHelperService.checkoutConversation(this.conversation.conversationID);
       this.timHelperService.eventBus$.next('select-item');
     }
   }
 
+  get avatarSrc() {
+    switch (this.conversation.type) {
+      case 'GROUP':
+        return this.conversation.groupProfile?.avatar;
+      case 'C2C':
+        return this.conversation.userProfile?.avatar;
+      default:
+        return 'https://imgcache.qq.com/open/qcloud/video/act/webim-avatar/avatar-2.png';
+    }
 
+  };
 
   get date() {
     if (!this.conversation.lastMessage || !this.conversation.lastMessage.lastTime) {
@@ -97,13 +77,9 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.storeSubscription) {
-      this.storeSubscription.unsubscribe();
-    }
     if (this.profileSubscription) {
       this.profileSubscription.unsubscribe();
     }
   }
-
 
 }

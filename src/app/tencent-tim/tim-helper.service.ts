@@ -19,7 +19,7 @@ import {
 import {
   getCurrentUserProfile,
   getMessage,
-  getSelectConversationStates,
+  conversationSelector,
 } from './store/selectors';
 
 
@@ -55,7 +55,7 @@ export class TimHelperService {
     // });
 
     // 获取当前会话
-    this.store.select(getSelectConversationStates).subscribe(res => {
+    this.store.select(conversationSelector).subscribe(res => {
       this.conversation = res;
 
       if (!res.currentConversation || !res.currentConversation.conversationID) {
@@ -171,7 +171,6 @@ export class TimHelperService {
   }
 
   onReceiveMessage({ data: messageList }) {
-    console.log('收到消息--->', messageList);
 
     // this.handleVideoMessage(messageList);
     // this.handleAt(messageList);
@@ -219,7 +218,7 @@ export class TimHelperService {
    * @description 获取消息
    */
   getMessageList(conversationID: string) {
-    if (this.conversation.currentConversation.isCompleted) {
+    if (this.conversation.isCompleted) {
       this.store.dispatch(showAction({
         msgType: 'info',
         message: '已经没有更多的历史消息了哦'

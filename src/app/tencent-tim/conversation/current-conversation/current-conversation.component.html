@@ -1,5 +1,5 @@
 <div class="current-conversation-wrapper">
-  <div class="current-conversation" *ngIf="isShowCurrentConversation" (scroll)="onscroll($event)">
+  <div class="current-conversation" *ngIf="showCurrentConversation" (scroll)="onscroll($event)">
     <div class="header">
       <div class="name">{{name}}</div>
       <!-- <div class="btn-more-info" title="查看详细信息">
@@ -15,10 +15,10 @@
           [currentConversation]="currentConversation">
         </app-message-item>
       </div>
-      <div class="newMessageTips" *ngIf="isShowScrollButtomTips"
-        (click)="scrollMessageListToButtom()">回到最新位置</div>
+      <div class="newMessageTips" *ngIf="isShowScrollBottomTips"
+        (click)="scrollMessageListToBottom()">回到最新位置</div>
     </div>
-    <div class="footer" *ngIf="isShowMessageSendBox">
+    <div class="footer" *ngIf="showMessageSendBox">
       <app-message-send-box></app-message-send-box>
     </div>
   </div>
