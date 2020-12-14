@@ -20,7 +20,7 @@ export const removeMessageAction = createAction(
   '[removeMessage]',
   props<{ message: any; }>()
 );
-export const resetAction = createAction(
+export const resetConversationAction = createAction(
   '[reset]'
 );
 

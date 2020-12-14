@@ -3,7 +3,8 @@ import { UserProfile } from '../../im.type';
 
 export enum UserActionTypes {
   SDKReady = '[user] toggleIsSDKReady',
-  updateCurrentUserProfile = '[user] updateCurrentUserProfile'
+  updateCurrentUserProfile = '[user] updateCurrentUserProfile',
+  resetUser = '[user] resetUser',
 }
 
 export const SDKReadyAction = createAction(
@@ -14,4 +15,8 @@ export const SDKReadyAction = createAction(
 export const updateCurrentUserProfileAction = createAction(
   UserActionTypes.updateCurrentUserProfile,
   props<{ profile: UserProfile; }>()
+);
+
+export const resetUserAction = createAction(
+  UserActionTypes.resetUser
 );

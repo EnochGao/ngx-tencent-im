@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { TimHelperService } from '../../tim-helper.service';
 
 import { Subscription } from 'rxjs';
-import { currentConversationSelector, getCurrentUserProfile } from '../../store/selectors';
+import { currentUserProfileSelector } from '../../store/selectors';
 
 @Component({
   selector: 'app-conversation-item',
@@ -28,7 +28,7 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.profileSubscription = this.store.select(getCurrentUserProfile)
+    this.profileSubscription = this.store.select(currentUserProfileSelector)
       .subscribe(res => {
         this.currentUserProfile = res;
       });
@@ -37,7 +37,7 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
   selectConversation() {
     if (this.conversation.conversationID !== this.currentConversation.conversationID) {
       this.timHelperService.checkoutConversation(this.conversation.conversationID);
-      this.timHelperService.eventBus$.next('select-item');
+      // this.timHelperService.eventBus$.next('select-item');
     }
   }
 

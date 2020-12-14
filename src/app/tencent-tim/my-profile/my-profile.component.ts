@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { UserProfile } from '../im.type';
-import { getCurrentUserProfile } from '../store/selectors';
+import { currentUserProfileSelector } from '../store/selectors';
 
 @Component({
   selector: 'app-my-profile',
@@ -17,7 +17,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.store.select(getCurrentUserProfile).subscribe(res => {
+    this.subscription = this.store.select(currentUserProfileSelector).subscribe(res => {
       if (res) {
         this.currentUser = res;
       }

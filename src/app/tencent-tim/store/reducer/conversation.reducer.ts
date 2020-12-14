@@ -5,7 +5,7 @@ import {
   checkoutConversationAction,
   pushCurrentMessageListAction,
   removeMessageAction,
-  resetAction,
+  resetConversationAction,
   resetCurrentConversationAction,
   updateConversationListAction,
   updateCurrentConversationAction,
@@ -86,7 +86,7 @@ const _conversationReducer = createReducer(
     return { ...state };
 
   }),
-  on(resetAction, (state) => {
+  on(resetConversationAction, (state) => {
     return Object.assign(state, {
       currentConversation: {},
       currentMessageList: [],

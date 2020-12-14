@@ -1,24 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import TIM from 'tim-js-sdk';
-import { ConversationItem, MessageItem } from '../../im.type';
+import { Subscription } from 'rxjs';
+import { Conversation, MessageItem, UserProfile } from '../../im.type';
+import { currentUserProfileSelector } from '../../store/selectors';
 
 @Component({
   selector: 'app-message-item',
   templateUrl: './message-item.component.html',
   styleUrls: ['./message-item.component.less']
 })
-export class MessageItemComponent implements OnInit {
+export class MessageItemComponent implements OnInit, OnDestroy {
   TIM = TIM;
-  @Input() currentConversation: ConversationItem;
+  currentUserProfile: UserProfile;
+  subscription: Subscription;
+  @Input() currentConversation: Conversation;
   @Input() message: MessageItem;
 
   constructor(
-
+    private store: Store
   ) { }
 
+
   ngOnInit(): void {
+    this.subscription = this.store.select(currentUserProfileSelector)
+      .subscribe(res => {
+        this.currentUserProfile = res;
+      });
   }
+
   // 是否显示头像，群提示消息不显示头像
   get showAvatar() {
     if (this.currentConversation.type === 'C2C' && !this.message.isRevoked) { // C2C且没有撤回的消息
@@ -28,23 +37,33 @@ export class MessageItemComponent implements OnInit {
     }
     return false;
   }
+
   get currentConversationType() {
     if (this.currentConversation) {
       return this.currentConversation.type;
     }
   }
 
+  get avatar() {
+    if (this.currentConversation.type === 'C2C') {
+      return this.isMine
+        ? this.currentUserProfile.avatar
+        : this.currentConversation.userProfile.avatar;
+    } else if (this.currentConversation.type === 'GROUP') {
+      return this.isMine
+        ? this.currentUserProfile.avatar
+        : this.message.avatar;
+    } else {
+      return '';
+    }
+  }
+
   get isMine() {
-    // console.log(this.currentUserProfile, this.currentConversation);
     return this.message.flow === 'out';
   }
 
   get messagePosition() {
-    if (
-      ['TIMGroupTipElem', 'TIMGroupSystemNoticeElem'].includes(
-        this.message.type
-      )
-    ) {
+    if (['TIMGroupTipElem', 'TIMGroupSystemNoticeElem'].includes(this.message.type)) {
       return 'position-center';
     }
     if (this.message.isRevoked) { // 撤回消息
@@ -52,17 +71,12 @@ export class MessageItemComponent implements OnInit {
     }
     if (this.isMine) {
       return 'position-right';
-    } else {
-      return 'position-left';
     }
+    return 'position-left';
   }
 
   get showMessageHeader() {
-    if (
-      ['TIMGroupTipElem', 'TIMGroupSystemNoticeElem'].includes(
-        this.message.type
-      )
-    ) {
+    if (['TIMGroupTipElem', 'TIMGroupSystemNoticeElem'].includes(this.message.type)) {
       return false;
     }
     if (this.message.isRevoked) { // 撤回消息
@@ -70,4 +84,12 @@ export class MessageItemComponent implements OnInit {
     }
     return true;
   }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+
 }

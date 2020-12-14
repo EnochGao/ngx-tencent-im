@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import {
   loginAction,
   pushCurrentMessageListAction,
+  resetConversationAction,
+  resetUserAction,
   SDKReadyAction,
   showAction,
   startComputeCurrentAction,
@@ -17,11 +19,8 @@ import {
 } from './store/actions';
 
 import {
-  getCurrentUserProfile,
-  getMessage,
   conversationSelector,
 } from './store/selectors';
-
 
 import { Conversation, IMResponse, LoginSuccess, MessageItem, Tim } from './im.type';
 import { CreateTim } from './tim-config/create-tim';
@@ -33,51 +32,18 @@ import { ConversationState } from './store/reducer/conversation.reducer';
 })
 export class TimHelperService {
   tim: Tim = CreateTim();
-
   conversation: ConversationState; // 当前会话
-  toAccount: any;
-  currentConversationType: any;
   eventBus$: Subject<string> = new Subject();
+
   constructor(
     private store: Store,
   ) {
-
     // 初始化监听器
     this.initListener();
-
-    // this.store.pipe(select(getCurrentUserProfile)).subscribe(res => {
-    //   console.log('getCurrentUserProfile:::', res);
-    // });;
-
-
-    // this.store.pipe(select(getMessage)).subscribe(res => {
-    //   console.log('getMessage:::', res);
-    // });
 
     // 获取当前会话
     this.store.select(conversationSelector).subscribe(res => {
       this.conversation = res;
-
-      if (!res.currentConversation || !res.currentConversation.conversationID) {
-        this.toAccount = '';
-      } else {
-        switch (res.currentConversation.type) {
-          case 'C2C':
-            this.toAccount = res.currentConversation.conversationID.replace('C2C', '');
-            break;
-          case 'GROUP':
-            this.toAccount = res.currentConversation.conversationID.replace('GROUP', '');
-            break;
-          default:
-            this.toAccount = res.currentConversation.conversationID;
-        }
-      }
-
-      if (!res.currentConversation || !res.currentConversation.type) {
-        this.currentConversationType = '';
-      } else {
-        this.currentConversationType = res.currentConversation.type;
-      }
     });
   }
 
@@ -109,8 +75,9 @@ export class TimHelperService {
       this.store.dispatch(stopComputeCurrentAction());
       this.store.dispatch(loginAction({ isLogin: false }));
       this.store.dispatch(showAction({ msgType: 'success', message: '已退出！' }));
+      this.store.dispatch(resetUserAction());
+      this.store.dispatch(resetConversationAction());
 
-      // context.commit('reset');
     });
   }
 

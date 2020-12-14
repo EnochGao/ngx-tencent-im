@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { pushCurrentMessageListAction, showAction } from '../../store/actions';
+import { currentConversationSelector } from '../../store/selectors';
 
 import { TimHelperService } from '../../tim-helper.service';
 import { emojiMap, emojiName, emojiUrl } from '../../util/emojiMap';
@@ -19,6 +20,10 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   focus = false;
   // 消息内容
   messageContent: string = '';
+
+  toAccount: any;
+  currentConversationType: any;
+
   @ViewChild('imagePicker', { static: false }) imagePicker: ElementRef;
   @ViewChild('filePicker', { static: false }) filePicker: ElementRef;
   @ViewChild('textInput', { static: true }) textInput: ElementRef;
@@ -28,6 +33,28 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.store.select(currentConversationSelector).subscribe(currentConversation => {
+      if (!currentConversation || !currentConversation.conversationID) {
+        this.toAccount = '';
+      } else {
+        switch (currentConversation.type) {
+          case 'C2C':
+            this.toAccount = currentConversation.conversationID.replace('C2C', '');
+            break;
+          case 'GROUP':
+            this.toAccount = currentConversation.conversationID.replace('GROUP', '');
+            break;
+          default:
+            this.toAccount = currentConversation.conversationID;
+        }
+      }
+
+      if (!currentConversation || !currentConversation.type) {
+        this.currentConversationType = '';
+      } else {
+        this.currentConversationType = currentConversation.type;
+      }
+    });
     this.textInput.nativeElement.addEventListener('paste', this.handlePaste.bind(this));
   }
 
@@ -81,8 +108,8 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
     }
     // 1. 创建消息实例，接口返回的实例可以上屏
     let message = this.timHelperService.tim.createImageMessage({
-      to: this.timHelperService.toAccount,
-      conversationType: this.timHelperService.currentConversationType,
+      to: this.toAccount,
+      conversationType: this.currentConversationType,
       payload: {
         file: file,
       },
@@ -102,8 +129,8 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
 
   sendImage(event: any) {
     let message = this.timHelperService.tim.createImageMessage({
-      to: this.timHelperService.toAccount,
-      conversationType: this.timHelperService.currentConversationType,
+      to: this.toAccount,
+      conversationType: this.currentConversationType,
       payload: {
         file: this.imagePicker.nativeElement // 或者用event.target
       },
@@ -128,8 +155,8 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
 
   sendFile(event: any) {
     const message = this.timHelperService.tim.createFileMessage({
-      to: this.timHelperService.toAccount,
-      conversationType: this.timHelperService.currentConversationType,
+      to: this.toAccount,
+      conversationType: this.currentConversationType,
       payload: {
         file: document.getElementById('filePicker'), // 或者用event.target
       },
@@ -167,8 +194,8 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       return;
     }
     let message = this.timHelperService.tim.createTextMessage({
-      to: this.timHelperService.toAccount,
-      conversationType: this.timHelperService.currentConversationType,
+      to: this.toAccount,
+      conversationType: this.currentConversationType,
       payload: { text: this.messageContent }
     });
     this.store.dispatch(pushCurrentMessageListAction({ message }));

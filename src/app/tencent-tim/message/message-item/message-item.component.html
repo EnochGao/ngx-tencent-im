@@ -4,7 +4,7 @@
 
     <div class="col-1" *ngIf="showAvatar">
       <!-- 头像 -->
-      <app-avatar></app-avatar>
+      <app-avatar [src]="avatar"></app-avatar>
     </div>
     <div class="col-2">
       <!-- 消息主体 -->
@@ -46,7 +46,6 @@
   </div>
 
   <div class="system-layout" *ngIf="currentConversationType === TIM.TYPES.CONV_SYSTEM">
-
     <div class="col-1">
       <app-avatar></app-avatar>
     </div>

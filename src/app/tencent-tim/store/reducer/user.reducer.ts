@@ -1,7 +1,7 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
 import { UserProfile } from '../../im.type';
-import { SDKReadyAction, updateCurrentUserProfileAction } from '../actions';
+import { resetUserAction, SDKReadyAction, updateCurrentUserProfileAction } from '../actions';
 
 
 export interface UserState {
@@ -26,6 +26,10 @@ const _userReducer = createReducer(
   initialState,
   on(SDKReadyAction, (state, { SDKReadyState }) => ({ ...state, isSDKReady: SDKReadyState })),
   on(updateCurrentUserProfileAction, (state, { profile }) => ({ ...state, currentUserProfile: profile as UserProfile })),
+  on(resetUserAction, (state) => ({
+    ...state,
+    ...initialState
+  })),
 );
 
 export function UserReducer(state: UserState | undefined, action: Action) {

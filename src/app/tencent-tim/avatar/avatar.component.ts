@@ -8,19 +8,12 @@ import { MessageItem } from '../im.type';
 })
 export class AvatarComponent implements OnInit {
   @Input() shape: string = 'circle';
-  // @Input() message: MessageItem;
   @Input() src: string;
   @Input() type: string = 'C2C';
 
   constructor() { }
 
   ngOnInit(): void {
-    // if (this.message) {
-    //   if (this.message.flow === 'in') {
-    //     this.src = 'https://imgcache.qq.com/open/qcloud/video/act/webim-avatar/avatar-2.png';
-    //   }
-    // }
-
     if (/^(https:|http:|\/\/)/.test(this.src)) {
     } else {
       this.src = this.getDefaultAvatar();
