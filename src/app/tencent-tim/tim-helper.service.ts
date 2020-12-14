@@ -74,10 +74,10 @@ export class TimHelperService {
       this.eventBus$.next('logout');
       this.store.dispatch(stopComputeCurrentAction());
       this.store.dispatch(loginAction({ isLogin: false }));
-      this.store.dispatch(showAction({ msgType: 'success', message: '已退出！' }));
       this.store.dispatch(resetUserAction());
       this.store.dispatch(resetConversationAction());
 
+      this.store.dispatch(showAction({ msgType: 'success', message: '已退出！' }));
     });
   }
 
@@ -125,6 +125,8 @@ export class TimHelperService {
     this.eventBus$.next('logout');
     this.store.dispatch(stopComputeCurrentAction());
     this.store.dispatch(loginAction({ isLogin: false }));
+    this.store.dispatch(resetUserAction());
+    this.store.dispatch(resetConversationAction());
     this.store.dispatch(showAction({ msgType: 'warn', message: '由于多实例登录被踢出，请重新登录!' }));
   }
 
