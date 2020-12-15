@@ -31,13 +31,26 @@
 
     <!-- 头像 群组没有获取单个头像的接口，暂时无法显示头像-->
     <div class="col-1" *ngIf="showAvatar">
-      <app-avatar class="group-member-avatar"></app-avatar>
+      <app-avatar class="group-member-avatar" [src]="avatar">
+      </app-avatar>
     </div>
     <div class="col-2">
       <!-- 消息主体 -->
-      <!-- <message-header v-if="showMessageHeader" :message="message" /> -->
+      <app-message-header *ngIf="showMessageHeader" [message]="message"
+        [currentConversation]="currentConversation" [currentUserProfile]="currentUserProfile">
+      </app-message-header>
       <div class="content-wrapper">
-
+        <app-message-status-icon [message]="message" *ngIf="isMine"></app-message-status-icon>
+        <app-text-element [isMine]="isMine" [message]="message" [payload]="message.payload"
+          *ngIf="message.type === TIM.TYPES.MSG_TEXT"></app-text-element>
+        <app-image-element [isMine]="isMine" [message]="message" [payload]="message.payload"
+          *ngIf="message.type === TIM.TYPES.MSG_IMAGE"></app-image-element>
+        <app-file-element [isMine]="isMine" [message]="message" [payload]="message.payload"
+          *ngIf="message.type === TIM.TYPES.MSG_FILE"></app-file-element>
+        <app-group-tip-element [isMine]="isMine" [message]="message" [payload]="message.payload"
+          *ngIf="message.type === TIM.TYPES.MSG_GRP_TIP"></app-group-tip-element>
+        <app-custom-element [isMine]="isMine" [message]="message" [payload]="message.payload"
+          *ngIf="message.type === TIM.TYPES.MSG_CUSTOM"></app-custom-element>
       </div>
     </div>
     <div class="col-3">
@@ -47,7 +60,7 @@
 
   <div class="system-layout" *ngIf="currentConversationType === TIM.TYPES.CONV_SYSTEM">
     <div class="col-1">
-      <app-avatar></app-avatar>
+      <app-avatar [src]="avatar" [type]="currentConversationType"></app-avatar>
     </div>
     <div class="col-2">
       <!-- <message-header :message="message" />

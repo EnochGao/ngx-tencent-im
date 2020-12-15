@@ -1,0 +1,13 @@
+<app-message-bubble [message]="message" [isMine]="isMine">
+  <div class="custom-element-wrapper">
+    <div class="survey" *ngIf="this.payload.data === 'survey';else other">
+      <div class="title">对IM DEMO的评分和建议</div>
+      <!-- <el-rate v-model="rate" disabled show-score text-color="#ff9900" score-template="{value}">
+      </el-rate> -->
+      <div class="suggestion">{{this.payload.extension}}</div>
+    </div>
+    <ng-template #other>
+      <span class="text" title="您可以自行解析自定义消息">{{text}}</span>
+    </ng-template>
+  </div>
+</app-message-bubble>

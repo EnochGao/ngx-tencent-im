@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { MessageItem } from '../im.type';
 
 @Component({
@@ -6,20 +6,27 @@ import { MessageItem } from '../im.type';
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.less'],
 })
-export class AvatarComponent implements OnInit {
+export class AvatarComponent implements OnInit, OnChanges {
   @Input() shape: string = 'circle';
   @Input() src: string;
   @Input() type: string = 'C2C';
   @Input() title: string;
+  avatarSrc: string;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (/^(https:|http:|\/\/)/.test(this.src)) {
+      this.avatarSrc = this.src;
     } else {
-      this.src = this.getDefaultAvatar();
+      this.avatarSrc = this.getDefaultAvatar();
     }
   }
+
+
+  ngOnInit(): void {
+  }
+
 
   getDefaultAvatar() {
     switch (this.type) {

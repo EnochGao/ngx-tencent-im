@@ -3,7 +3,7 @@
     <i class="el-icon-setting edit-my-profile"></i>
     <div class="my-avatar" nz-button nz-popover nzType="primary" nzPopoverTitle="当前用户"
       nzPopoverPlacement="right" [nzPopoverContent]="currentUser.userID">
-      <app-avatar></app-avatar>
+      <app-avatar [src]="currentUser.avatar"></app-avatar>
     </div>
   </div>
 </div>

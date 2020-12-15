@@ -43,6 +43,10 @@ import { reducers } from './store/reducer';
 import { environment } from 'src/environments/environment';
 import { ConversationProfileComponent } from './conversation/conversation-profile/conversation-profile.component';
 import { UserProfileComponent } from './conversation/conversation-profile/conversation-profile/user-profile/user-profile.component';
+import { GroupListComponent } from './group/group-list/group-list.component';
+import { GroupTipElementComponent } from './message/message-element/group-tip-element/group-tip-element.component';
+import { MessageHeaderComponent } from './message/message-header/message-header.component';
+import { CustomElementComponent } from './message/message-element/custom-element/custom-element.component';
 
 
 
@@ -64,7 +68,11 @@ import { UserProfileComponent } from './conversation/conversation-profile/conver
     ImageElementComponent,
     FileElementComponent,
     ConversationProfileComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    GroupListComponent,
+    GroupTipElementComponent,
+    MessageHeaderComponent,
+    CustomElementComponent
   ],
   imports: [
     CommonModule,

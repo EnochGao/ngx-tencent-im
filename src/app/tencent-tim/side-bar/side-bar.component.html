@@ -1,19 +1,26 @@
 <div class="side-bar-wrapper">
   <div class="bar-left">
     <app-my-profile></app-my-profile>
-    <div class="tab-items">
-      <div id="conversation-list" class="iconfont icon-conversation active" title="会话列表">
-        <!-- <sup class="unread">
-          99
-        </sup> -->
+    <div class="tab-items" (click)="handleClick($event)">
+      <div id="conversation-list" class="iconfont icon-conversation" title="会话列表"
+        [ngClass]="{'active': active ===activeName.CONVERSATION_LIST }">
+        <sup class="unread" *ngIf="totalUnreadCount !== 0">
+          <span *ngIf="totalUnreadCount > 99;else count">99+</span>
+          <ng-template #count>
+            {{totalUnreadCount}}
+          </ng-template>
+        </sup>
       </div>
-      <div id="group-list" class="iconfont icon-group" title="群组列表"></div>
+      <div id="group-list" class="iconfont icon-group" title="群组列表"
+        [ngClass]="{'active': active ===activeName.GROUP_LIST}">
+      </div>
     </div>
     <div class="bottom">
       <div class="iconfont icon-tuichu" title="退出" (click)="logout()"></div>
     </div>
   </div>
   <div class="bar-right">
-    <app-conversation-list></app-conversation-list>
+    <app-conversation-list *ngIf="active ===activeName.CONVERSATION_LIST"></app-conversation-list>
+    <app-group-list *ngIf="active ===activeName.GROUP_LIST"></app-group-list>
   </div>
 </div>

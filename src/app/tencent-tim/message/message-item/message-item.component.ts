@@ -20,7 +20,6 @@ export class MessageItemComponent implements OnInit, OnDestroy {
     private store: Store
   ) { }
 
-
   ngOnInit(): void {
     this.subscription = this.store.select(currentUserProfileSelector)
       .subscribe(res => {

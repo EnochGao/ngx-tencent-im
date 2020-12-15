@@ -48,7 +48,7 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
       case 'C2C':
         return this.conversation.userProfile?.avatar;
       default:
-        return 'https://imgcache.qq.com/open/qcloud/video/act/webim-avatar/avatar-2.png';
+        return null;
     }
 
   };
