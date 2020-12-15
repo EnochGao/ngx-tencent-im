@@ -41,6 +41,8 @@ import { StoreModule } from '@ngrx/store';
 
 import { reducers } from './store/reducer';
 import { environment } from 'src/environments/environment';
+import { ConversationProfileComponent } from './conversation/conversation-profile/conversation-profile.component';
+import { UserProfileComponent } from './conversation/conversation-profile/conversation-profile/user-profile/user-profile.component';
 
 
 
@@ -60,7 +62,9 @@ import { environment } from 'src/environments/environment';
     MessageFooterComponent,
     MessageSendBoxComponent,
     ImageElementComponent,
-    FileElementComponent
+    FileElementComponent,
+    ConversationProfileComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,

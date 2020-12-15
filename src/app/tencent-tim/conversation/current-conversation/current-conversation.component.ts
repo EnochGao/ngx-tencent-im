@@ -29,6 +29,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
   preScrollHeight = 0;
   name: string;
   toAccount: string;
+  showConversationProfile = false;
 
   eventBusSubscription: Subscription;
   conversationSubscription: Subscription;
@@ -92,6 +93,10 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
 
   ngAfterViewInit(): void {
     this.keepMessageListOnBottom();
+  }
+
+  showMore() {
+    this.showConversationProfile = !this.showConversationProfile;
   }
 
   getMore() {

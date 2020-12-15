@@ -15,5 +15,5 @@ export const currentConversationSelector = createSelector(selectCurrentConversat
 
 
 const selectConversationList = (state: ReducerState) => state.conversation.conversationList;
-export const getConversationListSelector =
+export const conversationListSelector =
   createSelector(selectConversationList, (state: Array<Conversation>) => state);

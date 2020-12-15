@@ -1,0 +1,17 @@
+<div class="profile-user">
+  <app-avatar [title]="userProfile.userID" [src]="userProfile.avatar">
+  </app-avatar>
+  <div class="nick-name text-ellipsis">
+    <span *ngIf="userProfile.nick;else elseBlock" [title]="userProfile.nick">
+      {{ userProfile.nick }}
+    </span>
+    <ng-template #elseBlock>
+      <span class="anonymous" title="该用户未设置昵称">
+        [Anonymous]
+      </span>
+    </ng-template>
+  </div>
+  <div class="gender" *ngIf="genderClass">
+    <span [title]="gender" class="iconfont" [class]="genderClass"></span>
+  </div>
+</div>

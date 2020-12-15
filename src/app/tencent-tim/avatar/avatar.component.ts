@@ -1,15 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MessageItem } from '../im.type';
 
 @Component({
   selector: 'app-avatar',
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.less']
+  styleUrls: ['./avatar.component.less'],
 })
 export class AvatarComponent implements OnInit {
   @Input() shape: string = 'circle';
   @Input() src: string;
   @Input() type: string = 'C2C';
+  @Input() title: string;
 
   constructor() { }
 

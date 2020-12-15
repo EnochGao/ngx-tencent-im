@@ -2,8 +2,9 @@
   <div class="current-conversation" *ngIf="showCurrentConversation" (scroll)="onscroll($event)">
     <div class="header">
       <div class="name">{{name}}</div>
-      <!-- <div class="btn-more-info" title="查看详细信息">
-      </div> -->
+      <div class="btn-more-info" title="查看详细信息" [ngClass]="{'left-arrow': !showConversationProfile}"
+        *ngIf="!currentConversation.conversationID.includes('SYSTEM')" (click)="showMore()">
+      </div>
     </div>
     <div class="content">
       <div class="message-list" #messageList (scroll)="onscroll($event)">
@@ -22,7 +23,7 @@
       <app-message-send-box></app-message-send-box>
     </div>
   </div>
-  <div class="profile">
-
+  <div class="profile" *ngIf="showConversationProfile">
+    <app-conversation-profile></app-conversation-profile>
   </div>
 </div>

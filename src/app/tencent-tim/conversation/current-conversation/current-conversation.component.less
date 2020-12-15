@@ -6,35 +6,32 @@
   display: flex;
 
   .current-conversation {
-
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 80vh;
+  }
 
-    .profile {
+  .profile {
+    height: 80vh;
+    overflow-y: scroll;
+    width: 220px;
+    border-left: 1px solid #e7e7e7;
+    flex-shrink: 0;
+  }
 
-      height: 80vh;
-      overflow-y: scroll;
-      width: 220px;
-      border-left: 1px solid #e7e7e7;
-      flex-shrink: 0;
-    }
+  .more {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+  }
 
-    .more {
-
-      display: flex;
-      justify-content: center;
-      font-size: 12px;
-    }
-
-    .no-more {
-      display: flex;
-      justify-content: center;
-      color: #a5b5c1;
-      font-size: 12px;
-      padding: 10px 10px;
-    }
+  .no-more {
+    display: flex;
+    justify-content: center;
+    color: #a5b5c1;
+    font-size: 12px;
+    padding: 10px 10px;
   }
 }
 

@@ -4,7 +4,7 @@ import { TimHelperService } from '../../tim-helper.service';
 import { Store } from '@ngrx/store';
 
 import { Conversation, ConversationItem } from '../../im.type';
-import { currentConversationSelector, getConversationListSelector } from '../../store/selectors';
+import { currentConversationSelector, conversationListSelector } from '../../store/selectors';
 import { showAction } from '../../store/actions';
 import { Subscription } from 'rxjs';
 
@@ -36,7 +36,7 @@ export class ConversationListComponent implements OnInit, OnDestroy {
       });
 
     // 获取当前list会话
-    this.subscription = this.store.select(getConversationListSelector)
+    this.subscription = this.store.select(conversationListSelector)
       .subscribe(res => {
         this.conversationList = res;
       });
