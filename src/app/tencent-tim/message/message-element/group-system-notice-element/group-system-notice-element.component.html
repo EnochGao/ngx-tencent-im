@@ -1,0 +1,32 @@
+<app-message-bubble [message]="message" [isMine]="false">
+  <div class="group-system-element-wrapper">
+    {{ text }}
+    <button nz-button *ngIf="isJoinGroupRequest" type="text" (click)="showDialog = true">处理</button>
+  </div>
+</app-message-bubble>
+
+
+<nz-modal nzTitle="处理加群申请" [(nzVisible)]="showDialog" width="30%">
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">处理结果</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <nz-radio-group [(ngModel)]="form.handleAction" name="handleAction">
+          <label nz-radio nzValue="Agree">同意</label>
+          <label nz-radio nzValue="Reject">拒绝</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]=" 6">附言</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <textarea rows="3" nz-input [(ngModel)]="form.handleMessage"
+          name="handleMessage"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <span class="dialog-footer">
+    <button (click)="showDialog = false">取 消</button>
+    <button type="primary" (click)="handleGroupApplication()">确 定</button>
+  </span>
+</nz-modal>

@@ -1,6 +1,6 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { loginAction, startComputeCurrentAction, stopComputeCurrentAction, } from '../actions';
+import { startComputeCurrentAction, stopComputeCurrentAction, } from '../actions';
 
 
 export interface ComputeCurrentState {
@@ -34,4 +34,3 @@ const _computeCurrentReducer = createReducer(
 export function computeCurrentReducer(state: ComputeCurrentState | undefined, action: Action) {
   return _computeCurrentReducer(state, action);
 }
-

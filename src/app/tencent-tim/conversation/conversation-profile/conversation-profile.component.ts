@@ -17,8 +17,12 @@ export class ConversationProfileComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store
   ) { }
+
   ngOnInit(): void {
-    this.subscription = this.store.select(currentConversationSelector).subscribe(res => this.currentConversation = res);
+    this.subscription = this.store.select(currentConversationSelector)
+      .subscribe(res => {
+        this.currentConversation = res;
+      });
   }
 
   ngOnDestroy(): void {

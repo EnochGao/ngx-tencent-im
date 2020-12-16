@@ -28,7 +28,6 @@
 
   <div *ngIf="currentConversationType === TIM.TYPES.CONV_GROUP" class="group-layout"
     [class]="messagePosition">
-
     <!-- 头像 群组没有获取单个头像的接口，暂时无法显示头像-->
     <div class="col-1" *ngIf="showAvatar">
       <app-avatar class="group-member-avatar" [src]="avatar">
@@ -63,8 +62,11 @@
       <app-avatar [src]="avatar" [type]="currentConversationType"></app-avatar>
     </div>
     <div class="col-2">
-      <!-- <message-header :message="message" />
-      <group-system-notice-element :payload="message.payload" :message="message" /> -->
+      <app-message-header *ngIf="showMessageHeader" [message]="message"
+        [currentConversation]="currentConversation" [currentUserProfile]="currentUserProfile">
+      </app-message-header>
+      <app-group-system-notice-element [message]="message" [payload]="message.payload">
+      </app-group-system-notice-element>
     </div>
   </div>
 </div>

@@ -2,4 +2,6 @@
   <app-user-profile *ngIf="currentConversation.type === TIM.TYPES.CONV_C2C"
     [userProfile]="currentConversation.userProfile"></app-user-profile>
 
+  <app-group-profile *ngIf="currentConversation.type === TIM.TYPES.CONV_GROUP"
+    [currentConversation]="currentConversation"></app-group-profile>
 </div>

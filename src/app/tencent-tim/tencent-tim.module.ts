@@ -34,6 +34,8 @@ import {
   NzIconModule,
   NzModalModule,
   NzToolTipModule,
+  NzButtonModule,
+  NzRadioModule,
 } from 'ng-zorro-antd';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -47,6 +49,10 @@ import { GroupListComponent } from './group/group-list/group-list.component';
 import { GroupTipElementComponent } from './message/message-element/group-tip-element/group-tip-element.component';
 import { MessageHeaderComponent } from './message/message-header/message-header.component';
 import { CustomElementComponent } from './message/message-element/custom-element/custom-element.component';
+import { GroupSystemNoticeElementComponent } from './message/message-element/group-system-notice-element/group-system-notice-element.component';
+import { GroupProfileComponent } from './conversation/conversation-profile/conversation-profile/group-profile/group-profile.component';
+import { GroupMemberListComponent } from './group/group-member-list/group-member-list.component';
+import { GroupItemComponent } from './group/group-item/group-item.component';
 
 
 
@@ -72,7 +78,11 @@ import { CustomElementComponent } from './message/message-element/custom-element
     GroupListComponent,
     GroupTipElementComponent,
     MessageHeaderComponent,
-    CustomElementComponent
+    CustomElementComponent,
+    GroupSystemNoticeElementComponent,
+    GroupProfileComponent,
+    GroupMemberListComponent,
+    GroupItemComponent
   ],
   imports: [
     CommonModule,
@@ -84,8 +94,10 @@ import { CustomElementComponent } from './message/message-element/custom-element
     NzFormModule,
     NzInputModule,
     NzProgressModule,
+    NzButtonModule,
     NzIconModule,
     NzMessageModule,
+    NzRadioModule,
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: false,

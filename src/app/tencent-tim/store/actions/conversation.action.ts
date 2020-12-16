@@ -2,29 +2,28 @@ import { createAction, props } from '@ngrx/store';
 import { Conversation, MessageItem } from '../../im.type';
 
 export const updateCurrentConversationAction = createAction(
-  '[updateCurrentConversation]',
+  '[conversation] updateCurrentConversation',
   props<{ conversation: Conversation; }>()
 );
 export const updateConversationListAction = createAction(
-  '[updateConversationList]',
+  '[conversation] updateConversationList',
   props<{ conversationList: Array<Conversation>; }>()
 );
 export const resetCurrentConversationAction = createAction(
-  '[resetCurrentConversation]'
+  '[conversation] resetCurrentConversation'
 );
 export const pushCurrentMessageListAction = createAction(
-  '[pushCurrentMessageList]',
+  '[conversation] pushCurrentMessageList',
   props<{ message: MessageItem; }>()
 );
 export const removeMessageAction = createAction(
-  '[removeMessage]',
+  '[conversation] removeMessage',
   props<{ message: any; }>()
 );
 export const resetConversationAction = createAction(
-  '[reset]'
+  '[conversation] reset'
 );
-
 export const checkoutConversationAction = createAction(
-  '[checkoutConversation]',
+  '[conversation] checkoutConversation',
   props<{ conversationID: string; }>()
 );

@@ -1,0 +1,33 @@
+.scroll-container {
+  overflow-y: scroll;
+  flex: 1;
+
+  .group-item {
+    display: flex;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: #404953;
+    }
+
+    app-avatar::ng-deep {
+      .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+        flex-shrink: 0;
+      }
+    }
+
+    .group-name {
+      flex: 1;
+      color: #f7f7f8;
+      line-height: 30px;
+    }
+  }
+}

@@ -22,10 +22,11 @@ import {
   conversationSelector,
 } from './store/selectors';
 
-import { Conversation, IMResponse, LoginSuccess, MessageItem, Tim } from './im.type';
+import { Conversation, GroupProfile, IMResponse, LoginSuccess, MessageItem, Tim } from './im.type';
 import { CreateTim } from './tim-config/create-tim';
 import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 import { ConversationState } from './store/reducer/conversation.reducer';
+import { updateGroupListAction } from './store/actions/group.action';
 
 @Injectable({
   providedIn: 'root'
@@ -95,7 +96,8 @@ export class TimHelperService {
     this.tim.on(TIM.EVENT.MESSAGE_RECEIVED, this.onReceiveMessage, this);
     // 会话列表更新
     this.tim.on(TIM.EVENT.CONVERSATION_LIST_UPDATED, this.onUpdateConversationList, this);
-
+    // 群组列表更新
+    this.tim.on(TIM.EVENT.GROUP_LIST_UPDATED, this.onUpdateGroupList, this);
     // 网络监测
     this.tim.on(TIM.EVENT.NET_STATE_CHANGE, this.onNetStateChange, this);
     // 已读回执
@@ -150,6 +152,11 @@ export class TimHelperService {
   // 会话列表更新
   onUpdateConversationList(event: { data: Array<Conversation>; }) {
     this.store.dispatch(updateConversationListAction({ conversationList: event.data }));
+  }
+
+  // 群列表更新
+  onUpdateGroupList(event: { data: Array<GroupProfile>; }) {
+    this.store.dispatch(updateGroupListAction({ groupList: event.data }));
   }
 
   onNetStateChange(event: any) {

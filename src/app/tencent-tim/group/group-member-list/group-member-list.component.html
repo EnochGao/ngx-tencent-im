@@ -1,0 +1,32 @@
+<div class="group-member-list-wrapper">
+  <div class="header">
+    <span
+      class="member-count text-ellipsis">群成员：{{currentConversation?.groupProfile.memberNum}}</span>
+    <!-- <popover v-model="addGroupMemberVisible">
+      <add-group-member></add-group-member>
+      <div slot="reference" class="btn-add-member" title="添加群成员">
+        <span class="tim-icon-friend-add"></span>
+      </div>
+    </popover> -->
+  </div>
+  <div class="scroll-content">
+    <div class="group-member-list">
+      <!-- <div *ngFor="let member of members; trackBy: member.userID">
+        <popover placement="right" :key="member.userID">
+          <group-member-info :member="member" />
+          <div slot="reference" class="group-member" @click="currentMemberID = member.userID">
+            <avatar :title="getGroupMemberAvatarText(member.role)" :src="member.avatar" />
+            <div class="member-name text-ellipsis">
+              <span v-if="member.nameCard" :title="member.nameCard">{{ member.nameCard }}</span>
+              <span v-else-if="member.nick" :title="member.nick">{{ member.nick }}</span>
+              <span v-else :title="member.userID">{{ member.userID }}</span>
+            </div>
+          </div>
+        </popover>
+      </div> -->
+    </div>
+  </div>
+  <div class="more">
+    <!-- <button nzButton *ngIf="showLoadMore" type="text" (click)="loadMore()">查看更多</button> -->
+  </div>
+</div>

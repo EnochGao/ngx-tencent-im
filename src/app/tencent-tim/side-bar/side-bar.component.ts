@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Conversation } from '../im.type';
+import { showAction } from '../store/actions';
+import { updateGroupListAction } from '../store/actions/group.action';
 import { ConversationState } from '../store/reducer/conversation.reducer';
 import { conversationSelector } from '../store/selectors';
 
@@ -31,7 +33,6 @@ export class SideBarComponent implements OnInit {
   ngOnInit(): void {
     // 获取当前会话
     this.store.select(conversationSelector).subscribe(res => {
-      console.log('哈哈', res);
       this.computeCount(res);
     });
   }
@@ -61,6 +62,20 @@ export class SideBarComponent implements OnInit {
 
   logout() {
     this.timHelperService.logout();
+  }
+
+
+  getGroupList() {
+    this.timHelperService.tim
+      .getGroupList()
+      .then(({ data: groupList }) => {
+        this.store.dispatch(updateGroupListAction({ groupList }));
+      })
+      .catch((error) => {
+        this.store.dispatch(
+          showAction({ msgType: 'error', message: error.message })
+        );
+      });
   }
 
   computeCount(state: ConversationState) {

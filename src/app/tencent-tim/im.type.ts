@@ -21,6 +21,9 @@ export interface ConversationItem {
   groupProfile: GroupProfile;
 }
 export interface GroupProfile {
+  avatar: string;
+  createTime: number;
+  groupCustomField: Array<any>;
   groupID: string;
   infoSequence: string;
   introduction: string;
@@ -36,8 +39,8 @@ export interface GroupProfile {
   ownerID: string;
   selfInfo: SelfInfo;
   type: string;
-  avatar: string;
-
+  maxMemberNum: number;
+  memberNum: number;
 }
 export interface UserProfile {
   adminForbidType: string;
@@ -152,7 +155,7 @@ export interface Tim {
   getMessageList: (option: { conversationID: string; nextReqMessageID: string; count: number; }) => Promise<IMResponse<any>>;
   getMyProfile: () => Promise<IMResponse<UserProfile>>;
   getUserProfile: Function;
-  handleGroupApplication: Function;
+  handleGroupApplication: (options: { handleAction: string, handleMessage: string, message: MessageItem; }) => Promise<IMResponse<any>>;
   joinGroup: Function;
   login: (options: LoginOptions) => Promise<IMResponse<LoginSuccess>>;
   logout: () => Promise<IMResponse<object>>;
