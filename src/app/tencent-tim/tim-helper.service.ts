@@ -22,11 +22,12 @@ import {
   conversationSelector,
 } from './store/selectors';
 
-import { Conversation, GroupProfile, IMResponse, LoginSuccess, MessageItem, Tim } from './im.type';
+import { Conversation, GroupProfile, IMResponse, LoginSuccess, Member, MessageItem, Tim } from './im.type';
 import { CreateTim } from './tim-config/create-tim';
 import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 import { ConversationState } from './store/reducer/conversation.reducer';
-import { updateGroupListAction } from './store/actions/group.action';
+import { updateCurrentMemberListAction, updateGroupListAction } from './store/actions/group.action';
+import { currentMemberListSelector } from './store/selectors/group.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,7 @@ import { updateGroupListAction } from './store/actions/group.action';
 export class TimHelperService {
   tim: Tim = CreateTim();
   conversation: ConversationState; // 当前会话
+  currentMemberList: Array<Member>; // 当前会话
   eventBus$: Subject<string> = new Subject();
 
   constructor(
@@ -46,6 +48,12 @@ export class TimHelperService {
     this.store.select(conversationSelector).subscribe(res => {
       this.conversation = res;
     });
+
+    // 获取当前成员
+    this.store.select(currentMemberListSelector).subscribe(res => {
+      this.currentMemberList = res;
+    });
+
   }
 
   login(userId: string) {
@@ -184,6 +192,10 @@ export class TimHelperService {
         this.store.dispatch(updateCurrentConversationAction({ conversation: res.data.conversation }));
         // 3.2 获取消息列表
         this.getMessageList(conversationID);
+
+        if (res.data.conversation.type === TIM.TYPES.CONV_GROUP) {
+          this.getGroupMemberList(res.data.conversation.groupProfile.groupID);
+        }
       }).catch(err => {
         this.store.dispatch(showAction({ msgType: 'error', message: err }));
       });
@@ -211,4 +223,18 @@ export class TimHelperService {
         }));
       });
   }
+  /**
+   * @description 获取群成员
+   */
+  getGroupMemberList(groupID: string) {
+    this.tim.getGroupMemberList({
+      groupID: groupID,
+      offset: this.currentMemberList.length,
+      count: 30
+    }).then((imResponse) => {
+      this.store.dispatch(updateCurrentMemberListAction({ currentMemberList: imResponse.data.memberList }));
+    });
+  }
+
+
 }

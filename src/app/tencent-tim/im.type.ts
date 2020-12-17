@@ -74,6 +74,20 @@ export interface LastMessage {
   payload: { text: string; };
   type: string;
 }
+
+export interface Member {
+  userID: string,
+  avatar: string;
+  nick: string,
+  role: string,
+  joinTime: number,
+  lastSendMsgTime: string;
+  nameCard: string;
+  muteUntil: number,
+  memberCustomField: Array<any>;
+}
+
+
 /** @description 消息项 */
 export interface MessageItem {
   ID: string;

@@ -1,6 +1,6 @@
-# WinkongTencentIm
+# TencentIm Angular Demo
 
-`TencentIm` 即时通信Angualr版本
+`TencentIm` 即时通信Angular版本
 
 ## 启动
 

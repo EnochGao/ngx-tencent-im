@@ -1,6 +1,11 @@
 {
-  "name": "winkong-tencent-im",
+  "name": "ng-tencent-im",
   "version": "0.0.0",
+  "keywords": [
+    "Tencent Im demo",
+    "Angular",
+    "Im"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

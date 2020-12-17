@@ -1,7 +1,7 @@
 import { Action, on } from "@ngrx/store";
 import { createReducer } from "@ngrx/store";
 import { GroupProfile } from "../../im.type";
-import { updateGroupListAction } from "../actions/group.action";
+import { updateCurrentMemberListAction, updateGroupListAction } from "../actions/group.action";
 
 export interface GroupState {
   groupList: Array<any>;
@@ -19,7 +19,10 @@ const _groupReducer = createReducer(
   initialState,
   on(updateGroupListAction, (state: GroupState, { groupList }) => {
     return { ...state, groupList };
-  })
+  }),
+  on(updateCurrentMemberListAction, (state: GroupState, { currentMemberList }) => {
+    return { ...state, currentMemberList };
+  }),
 );
 
 export function groupReducer(state: GroupState | undefined, action: Action) {
