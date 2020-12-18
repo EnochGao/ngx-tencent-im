@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { TencentTimComponent } from './tencent-tim/tencent-tim.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
@@ -88,6 +89,7 @@ import { GroupMemberInfoComponent } from './group/group-member-info/group-member
   ],
   imports: [
     CommonModule,
+    DragDropModule,
     NzGridModule,
     NzPopoverModule,
     FormsModule,
