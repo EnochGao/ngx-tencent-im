@@ -11,8 +11,14 @@
   </div>
   <div class="scroll-content">
     <div class="group-member-list">
-      <div *ngFor="let member of members;">
-        <div slot="reference" class="group-member" (click)="currentMemberID = member.userID">
+      <div *ngFor="let member of members;" nz-popover [nzPopoverContent]="contentTemplate"
+        nzPopoverPlacement="topRight">
+        <ng-template #contentTemplate>
+          <app-group-member-info [member]="member" [currentConversation]="currentConversation">
+          </app-group-member-info>
+        </ng-template>
+
+        <div class="group-member" (click)="currentMemberID = member.userID">
           <app-avatar [title]="getGroupMemberAvatarText(member.role)" [src]="member.avatar">
           </app-avatar>
           <div class="member-name text-ellipsis">
@@ -22,21 +28,10 @@
               [title]="member.userID">{{ member.userID }}</span>
           </div>
         </div>
-        <!-- <popover placement="right" :key="member.userID">
-          <group-member-info :member="member" />
-          <div slot="reference" class="group-member" @click="currentMemberID = member.userID">
-            <avatar :title="getGroupMemberAvatarText(member.role)" :src="member.avatar" />
-            <div class="member-name text-ellipsis">
-              <span v-if="member.nameCard" :title="member.nameCard">{{ member.nameCard }}</span>
-              <span v-else-if="member.nick" :title="member.nick">{{ member.nick }}</span>
-              <span v-else :title="member.userID">{{ member.userID }}</span>
-            </div>
-          </div>
-        </popover> -->
       </div>
     </div>
   </div>
   <div class="more">
-    <!-- <button nzButton *ngIf="showLoadMore" type="text" (click)="loadMore()">查看更多</button> -->
+    <a *ngIf="showLoadMore" (click)="loadMore()">查看更多</a>
   </div>
 </div>

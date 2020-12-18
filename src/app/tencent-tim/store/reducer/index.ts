@@ -1,6 +1,10 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { computeCurrentReducer, ComputeCurrentState } from './compute-current.reducer';
-import { conversationIDReducer, ConversationIDState, conversationReducer, ConversationState } from './conversation.reducer';
+import {
+  conversationIDReducer,
+  ConversationIDState,
+  conversationReducer,
+  ConversationState
+} from './conversation.reducer';
 import { groupReducer, GroupState } from './group.reducer';
 import { LoginReducer, LoginState, } from './login.reducer';
 import { showMessageReducer, MessageState } from './message.reducer';
@@ -14,7 +18,6 @@ export interface ReducerState {
   message: MessageState;
   currentConversationID: ConversationIDState;
   conversation: ConversationState;
-  computeCurrent: ComputeCurrentState;
   group: GroupState;
 }
 // register the reducer functions
@@ -24,6 +27,5 @@ export const reducers: ActionReducerMap<ReducerState> = {
   message: showMessageReducer,
   currentConversationID: conversationIDReducer,
   conversation: conversationReducer,
-  computeCurrent: computeCurrentReducer,
   group: groupReducer
 };

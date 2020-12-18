@@ -10,8 +10,6 @@ import {
   resetUserAction,
   SDKReadyAction,
   showAction,
-  startComputeCurrentAction,
-  stopComputeCurrentAction,
   updateConversationListAction,
   updateCurrentConversationAction,
   updateCurrentUserProfileAction,
@@ -26,7 +24,7 @@ import { Conversation, GroupProfile, IMResponse, LoginSuccess, Member, MessageIt
 import { CreateTim } from './tim-config/create-tim';
 import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 import { ConversationState } from './store/reducer/conversation.reducer';
-import { updateCurrentMemberListAction, updateGroupListAction } from './store/actions/group.action';
+import { resetCurrentMemberListAction, updateCurrentMemberListAction, updateGroupListAction } from './store/actions/group.action';
 import { currentMemberListSelector } from './store/selectors/group.selector';
 
 @Injectable({
@@ -61,10 +59,8 @@ export class TimHelperService {
       .then((imResponse: IMResponse<LoginSuccess>) => {
         this.eventBus$.next('login');
         this.store.dispatch(loginAction({ isLogin: true }));
-        this.store.dispatch(startComputeCurrentAction());
-
+        // this.store.dispatch(startComputeCurrentAction());
         this.store.dispatch(showAction({ msgType: 'success', message: '登录成功！' }));
-
         if (imResponse.data.repeatLogin === true) {
           // 标识账号已登录，本次登录操作为重复登录。v2.5.1 起支持
           console.log(imResponse.data.errorInfo);
@@ -81,7 +77,7 @@ export class TimHelperService {
     }
     this.tim.logout().then((res) => {
       this.eventBus$.next('logout');
-      this.store.dispatch(stopComputeCurrentAction());
+      // this.store.dispatch(stopComputeCurrentAction());
       this.store.dispatch(loginAction({ isLogin: false }));
       this.store.dispatch(resetUserAction());
       this.store.dispatch(resetConversationAction());
@@ -133,7 +129,7 @@ export class TimHelperService {
 
   onKickOut(event: { name: string, data: { type: string; }; }) {
     this.eventBus$.next('logout');
-    this.store.dispatch(stopComputeCurrentAction());
+    // this.store.dispatch(stopComputeCurrentAction());
     this.store.dispatch(loginAction({ isLogin: false }));
     this.store.dispatch(resetUserAction());
     this.store.dispatch(resetConversationAction());
@@ -176,7 +172,7 @@ export class TimHelperService {
    */
   checkoutConversation(conversationID: string) {
 
-    // this.store.commit('resetCurrentMemberList');
+    this.store.dispatch(resetCurrentMemberListAction());
 
     // 1.切换会话前，将切换前的会话进行已读上报
     if (this.conversation.currentConversation.conversationID) {
@@ -231,7 +227,7 @@ export class TimHelperService {
       groupID: groupID,
       offset: this.currentMemberList.length,
       count: 30
-    }).then((imResponse) => {
+    }).then((imResponse: IMResponse<{ memberList: Array<Member>; }>) => {
       this.store.dispatch(updateCurrentMemberListAction({ currentMemberList: imResponse.data.memberList }));
     });
   }

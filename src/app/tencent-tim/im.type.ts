@@ -162,7 +162,7 @@ export interface Tim {
   getConversationProfile: (conversationID: string) => Promise<IMResponse<{ conversation: Conversation; }>>;
   getFriendList: Function;
   getGroupList: Function;
-  getGroupMemberList: Function;
+  getGroupMemberList: (options: { groupID: string, offset: number, count: number; }) => Promise<IMResponse<{ memberList: Array<Member>; }>>;
   getGroupMemberProfile: Function;
   getGroupOnlineMemberCount: Function;
   getGroupProfile: Function;

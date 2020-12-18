@@ -53,6 +53,7 @@ import { GroupSystemNoticeElementComponent } from './message/message-element/gro
 import { GroupProfileComponent } from './conversation/conversation-profile/conversation-profile/group-profile/group-profile.component';
 import { GroupMemberListComponent } from './group/group-member-list/group-member-list.component';
 import { GroupItemComponent } from './group/group-item/group-item.component';
+import { GroupMemberInfoComponent } from './group/group-member-info/group-member-info.component';
 
 
 
@@ -82,7 +83,8 @@ import { GroupItemComponent } from './group/group-item/group-item.component';
     GroupSystemNoticeElementComponent,
     GroupProfileComponent,
     GroupMemberListComponent,
-    GroupItemComponent
+    GroupItemComponent,
+    GroupMemberInfoComponent
   ],
   imports: [
     CommonModule,

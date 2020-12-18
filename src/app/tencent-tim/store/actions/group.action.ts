@@ -10,3 +10,6 @@ export const updateCurrentMemberListAction = createAction(
   '[group] updateCurrentMemberList',
   props<{ currentMemberList: Array<Member>; }>()
 );
+export const resetCurrentMemberListAction = createAction(
+  '[group] resetCurrentMemberList'
+);

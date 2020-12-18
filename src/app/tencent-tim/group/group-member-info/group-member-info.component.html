@@ -1,0 +1,41 @@
+<div>
+  <div>
+    <span class="label">userID:</span>
+    {{ member.userID }}
+    <a *ngIf="showCancelBan" type="text" (click)="cancelMute()">取消禁言</a>
+    <!-- <el-popover title="禁言" v-model="popoverVisible" v-show="showBan">
+      <el-input v-model="muteTime" placeholder="请输入禁言时间"
+        @keydown.enter.native="setGroupMemberMuteTime" />
+      <el-button slot="reference" type="text" style="color:red;">禁言</el-button>
+    </el-popover> -->
+  </div>
+  <div>
+    <span class="label">nick:</span>
+    {{ member.nick || '暂无' }}
+  </div>
+  <div>
+    <span class="label">nameCard:</span>
+    {{ member.nameCard || '暂无' }}
+    <!-- <el-popover title="修改群名片" v-model="nameCardPopoverVisible" v-show="showEditNameCard">
+      <el-input v-model="nameCard" placeholder="请输入群名片"
+        @keydown.enter.native="setGroupMemberNameCard" />
+      <i class="el-icon-edit" title="修改群名片" slot="reference"
+        style="cursor:pointer; font-size:1.6rem;"></i>
+    </el-popover> -->
+  </div>
+  <div>
+    <span class="label">role:</span>
+    <span class="content role" [title]="changeRoleTitle">{{ member.role }}</span>
+  </div>
+  <div *ngIf="showMuteUntil">
+    <span class="label">禁言至:</span>
+    <span class="content">{{ muteUntil }}</span>
+  </div>
+  <a type="text" *ngIf="canChangeRole" (click)="changeMemberRole()">
+    {{
+    member.role === 'Admin' ? '取消管理员' : '设为管理员'
+    }}
+  </a>
+  <a type="text" *ngIf="showKickout" style="color:red;" (click)="kickoutGroupMember()">踢出群组
+  </a>
+</div>
