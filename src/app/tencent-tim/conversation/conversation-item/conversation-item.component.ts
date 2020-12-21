@@ -8,6 +8,7 @@ import { TimHelperService } from '../../tim-helper.service';
 
 import { Subscription } from 'rxjs';
 import { currentUserProfileSelector } from '../../store/selectors';
+import { resetCurrentConversationAction, showAction } from '../../store/actions';
 
 @Component({
   selector: 'app-conversation-item',
@@ -75,6 +76,44 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
     }
     return this.conversation.lastMessage.messageForShow;
   }
+
+  get conversationName() {
+    if (this.conversation.type === TIM.TYPES.CONV_C2C) {
+      return this.conversation.userProfile.nick || this.conversation.userProfile.userID;
+    }
+    if (this.conversation.type === TIM.TYPES.CONV_GROUP) {
+      return this.conversation.groupProfile.name || this.conversation.groupProfile.groupID;
+    }
+    if (this.conversation.type === TIM.TYPES.CONV_SYSTEM) {
+      return '系统通知';
+    }
+    return '';
+  }
+
+
+  deleteConversation(event) {
+    // 停止冒泡，避免和点击会话的事件冲突
+    event.stopPropagation();
+    this.timHelperService.tim
+      .deleteConversation(this.conversation.conversationID)
+      .then(() => {
+        this.store.dispatch(
+          showAction({
+            message: `会话【${this.conversationName}】删除成功!`,
+            msgType: 'success'
+          }));
+        this.store.dispatch(resetCurrentConversationAction());
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({
+            message: `会话【${this.conversationName}】删除失败!, error=${error.message}`,
+            msgType: 'error'
+          }));
+
+      });
+  }
+
 
   ngOnDestroy(): void {
     if (this.profileSubscription) {

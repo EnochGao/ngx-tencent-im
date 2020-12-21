@@ -37,6 +37,7 @@ import {
   NzToolTipModule,
   NzButtonModule,
   NzRadioModule,
+  NzSwitchModule
 } from 'ng-zorro-antd';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -102,6 +103,7 @@ import { GroupMemberInfoComponent } from './group/group-member-info/group-member
     NzIconModule,
     NzMessageModule,
     NzRadioModule,
+    NzSwitchModule,
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: false,

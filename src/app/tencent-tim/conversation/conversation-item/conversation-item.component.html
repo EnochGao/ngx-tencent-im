@@ -2,7 +2,7 @@
   [ngClass]="{'choose': conversation.conversationID === currentConversation.conversationID }"
   (click)="selectConversation()">
   <div class="close-btn">
-    <span class="tim-icon-close" title="删除会话"></span>
+    <span class="tim-icon-close" title="删除会话" (click)="deleteConversation($event)"></span>
   </div>
   <div class="warp">
     <app-avatar [src]="avatarSrc" [type]="conversation.type"></app-avatar>

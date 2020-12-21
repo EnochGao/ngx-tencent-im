@@ -1,0 +1,54 @@
+.group-info-content {
+  padding: 10px 10px;
+
+  app-avatar ::ng-deep {
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.edit {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.info-item {
+  margin-bottom: 12px;
+
+  .label {
+    font-size: 14px;
+    color: #a5b5c1;
+  }
+
+  .active {
+    color: #000;
+  }
+
+  .content {
+    color: #404953;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  .long-content {
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}

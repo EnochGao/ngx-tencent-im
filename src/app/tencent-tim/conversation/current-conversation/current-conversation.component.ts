@@ -76,9 +76,16 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
         this.currentMessageList = res.currentMessageList;
         this.isCompleted = res.isCompleted;
         if (res.currentMessageList && res.currentMessageList.length > 0) {
-          this.keepMessageListOnBottom();
-          this.timHelperService.tim.setMessageRead({ conversationID: this.currentConversation.conversationID });
+          if (this.currentConversation.conversationID) {
+            this.keepMessageListOnBottom();
+            this.timHelperService.tim.setMessageRead({ conversationID: this.currentConversation.conversationID });
+          }
         }
+
+        if (this.currentConversation.conversationID === '@TIM#SYSTEM' || typeof this.currentConversation.conversationID === 'undefined') {
+          this.showConversationProfile = false;
+        }
+
       }, err => {
         console.log('获取当前会话err', err);
       });
@@ -93,6 +100,8 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
 
   ngAfterViewInit(): void {
     this.keepMessageListOnBottom();
+
+
   }
 
   showMore() {
