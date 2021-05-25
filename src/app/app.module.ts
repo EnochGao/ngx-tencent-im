@@ -13,6 +13,7 @@ import zh from '@angular/common/locales/zh';
 import { LoginComponent } from './login/login.component';
 import { NzButtonModule, NzFormModule, NzInputModule, NzSelectModule } from 'ng-zorro-antd';
 import { TencentTimModule } from './tencent-tim/tencent-tim.module';
+import { NgTencentImModule } from 'dist/ng-tencent-im';
 
 registerLocaleData(zh);
 
@@ -32,7 +33,8 @@ registerLocaleData(zh);
     NzInputModule,
     NzButtonModule,
     NzSelectModule,
-    TencentTimModule
+    TencentTimModule,
+    NgTencentImModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

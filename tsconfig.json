@@ -14,7 +14,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-tencent-im": [
+        "dist/ng-tencent-im/ng-tencent-im",
+        "dist/ng-tencent-im"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
