@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NgTencentImComponent } from './ng-tencent-im.component';
 
@@ -6,7 +6,7 @@ describe('NgTencentImComponent', () => {
   let component: NgTencentImComponent;
   let fixture: ComponentFixture<NgTencentImComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ NgTencentImComponent ]
     })
