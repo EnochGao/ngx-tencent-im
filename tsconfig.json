@@ -18,6 +18,8 @@
     "paths": {
       "ng-tencent-im": [
         "dist/ng-tencent-im/ng-tencent-im",
+        "dist/ng-tencent-im",
+        "dist/ng-tencent-im/ng-tencent-im",
         "dist/ng-tencent-im"
       ]
     }

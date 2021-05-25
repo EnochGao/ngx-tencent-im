@@ -8,16 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { LoginComponent } from './login/login.component';
 import { TencentTimModule } from './tencent-tim/tencent-tim.module';
-import { NgTencentImModule } from 'dist/ng-tencent-im';
+
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +25,6 @@ registerLocaleData(zh);
     FormsModule,
     ReactiveFormsModule,
     TencentTimModule,
-    NgTencentImModule
   ],
   bootstrap: [AppComponent]
 })
