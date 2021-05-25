@@ -24,15 +24,9 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+              "src/assets"
             ],
             "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.less"
             ],
             "scripts": [
@@ -137,46 +131,6 @@
             "production": {
               "devServerTarget": "winkong-tencent-im:serve:production"
             }
-          }
-        }
-      }
-    },
-    "ng-tencent-im": {
-      "projectType": "library",
-      "root": "projects/ng-tencent-im",
-      "sourceRoot": "projects/ng-tencent-im/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/ng-tencent-im/tsconfig.lib.json",
-            "project": "projects/ng-tencent-im/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ng-tencent-im/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ng-tencent-im/src/test.ts",
-            "tsConfig": "projects/ng-tencent-im/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-tencent-im/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/ng-tencent-im/tsconfig.lib.json",
-              "projects/ng-tencent-im/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
