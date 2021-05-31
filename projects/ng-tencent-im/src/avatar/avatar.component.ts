@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { MessageItem } from '../im.type';
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-avatar',

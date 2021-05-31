@@ -3,7 +3,5 @@
  */
 
 // SystemJS module definition
-declare var COS: any;
-declare var TIM: any;
-
-
+// declare var COS: any;
+// declare var TIM: any;

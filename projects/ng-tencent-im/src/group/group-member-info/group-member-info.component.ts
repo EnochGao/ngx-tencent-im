@@ -4,6 +4,7 @@ import { Conversation, Member, UserProfile } from '../../im.type';
 import { currentUserProfileSelector } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
 import { getFullDate } from '../../util/date';
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-group-member-info',

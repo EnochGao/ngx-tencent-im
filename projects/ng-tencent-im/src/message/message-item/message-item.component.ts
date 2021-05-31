@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Conversation, MessageItem, UserProfile } from '../../im.type';
 import { currentUserProfileSelector } from '../../store/selectors';
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-message-item',

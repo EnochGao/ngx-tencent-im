@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MessageItem } from 'src/app/tencent-tim/im.type';
+import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
+
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-group-tip-element',

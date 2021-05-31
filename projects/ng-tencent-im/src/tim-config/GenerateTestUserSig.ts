@@ -1,4 +1,6 @@
-declare const LibGenerateTestUserSig;
+
+
+import LibGenerateTestUserSig from './lib-generate-test-usersig.min.js';
 
 /*eslint-disable*/
 /*

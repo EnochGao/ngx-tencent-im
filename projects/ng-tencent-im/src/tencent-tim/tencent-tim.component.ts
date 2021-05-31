@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { NzMessageService } from 'ng-zorro-antd';
+
 import { Subscription } from 'rxjs';
 import { getMessage } from '../store/selectors';
 
@@ -10,24 +10,19 @@ import { getMessage } from '../store/selectors';
   styleUrls: ['./tencent-tim.component.less']
 })
 export class TencentTimComponent implements OnInit, OnDestroy {
+
+  @Output() message = new EventEmitter<any>();
+
   subscription: Subscription;
+
   constructor(
-    private store: Store,
-    private message: NzMessageService
+    private store: Store
   ) { }
 
   ngOnInit(): void {
     this.subscription = this.store.select(getMessage)
       .subscribe((res: { type: string, message: string; }) => {
-        if (res.type === 'success') {
-          this.message.success(res.message);
-        }
-        if (res.type === 'warn') {
-          this.message.warning(res.message);
-        }
-        if (res.type === 'error') {
-          this.message.error(res.message);
-        }
+        this.message.emit(res);
       });
   }
 

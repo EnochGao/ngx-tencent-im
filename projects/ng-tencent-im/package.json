@@ -10,6 +10,7 @@
     "tim-js-sdk": "^2.10.2"
   },
   "dependencies": {
-    "tslib": "^2.1.0"
+    "tslib": "^2.1.0",
+    "ng-zorro-antd": "^11.4.1"
   }
 }

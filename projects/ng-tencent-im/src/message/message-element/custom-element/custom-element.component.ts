@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MessageItem } from 'src/app/tencent-tim/im.type';
-import { formatDuration } from 'src/app/tencent-tim/util/formatDuration';
-import { ACTION } from 'src/app/tencent-tim/util/trtcCustomMessageMap';
+import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
+import { formatDuration } from 'projects/ng-tencent-im/src/util/formatDuration';
+import { ACTION } from 'projects/ng-tencent-im/src/util/trtcCustomMessageMap';
+
 
 @Component({
   selector: 'app-custom-element',

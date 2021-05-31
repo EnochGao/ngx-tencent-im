@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -20,38 +20,45 @@ import {
   conversationSelector,
 } from './store/selectors';
 
-import { Conversation, GroupProfile, IMResponse, LoginSuccess, Member, MessageItem, Tim } from './im.type';
-import { CreateTim } from './tim-config/create-tim';
+import { Conversation, GroupProfile, IMResponse, LoginSuccess, Member, MessageItem, NgTimConfig, NG_Tim_CONFIG, Tim } from './im.type';
+
 import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 import { ConversationState } from './store/reducer/conversation.reducer';
 import { resetCurrentMemberListAction, updateCurrentMemberListAction, updateGroupListAction } from './store/actions/group.action';
 import { currentMemberListSelector } from './store/selectors/group.selector';
+import TIM from 'tim-js-sdk';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimHelperService {
-  tim: Tim = CreateTim();
+  tim: Tim;
+
   conversation: ConversationState; // 当前会话
   currentMemberList: Array<Member>; // 当前会话
   eventBus$: Subject<string> = new Subject();
 
   constructor(
+    @Inject(NG_Tim_CONFIG) public config: NgTimConfig,
     private store: Store,
   ) {
-    // 初始化监听器
-    this.initListener();
 
-    // 获取当前会话
-    this.store.select(conversationSelector).subscribe(res => {
-      this.conversation = res;
+    this.initTim(config).then(() => {
+      // 初始化监听器
+      this.initListener();
+
+      this.login(config.account);
+
+      // 获取当前会话
+      this.store.select(conversationSelector).subscribe(res => {
+        this.conversation = res;
+      });
+
+      // 获取当前成员
+      this.store.select(currentMemberListSelector).subscribe(res => {
+        this.currentMemberList = res;
+      });
     });
-
-    // 获取当前成员
-    this.store.select(currentMemberListSelector).subscribe(res => {
-      this.currentMemberList = res;
-    });
-
   }
 
   login(userId: string) {
@@ -232,5 +239,17 @@ export class TimHelperService {
     });
   }
 
+
+  private async initTim(config: NgTimConfig) {
+    const cosImport = await import('cos-js-sdk-v5');
+    const timImport = await import('tim-js-sdk');
+    this.tim = timImport.create({
+      SDKAppID: config.sdkAppId,
+    });
+    // 无日志级别
+    this.tim.setLogLevel(config.level || 1);
+    // 注册 cos
+    this.tim.registerPlugin({ 'cos-js-sdk': cosImport });
+  }
 
 }

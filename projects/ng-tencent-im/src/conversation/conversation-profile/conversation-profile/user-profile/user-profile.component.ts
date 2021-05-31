@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserProfile } from 'src/app/tencent-tim/im.type';
+import { UserProfile } from 'projects/ng-tencent-im/src/im.type';
+
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-user-profile',

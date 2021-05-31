@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Conversation } from '../../im.type';
 import { currentConversationSelector } from '../../store/selectors';
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-conversation-profile',

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from 'src/app/tencent-tim/im.type';
+import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
+
 
 @Component({
   selector: 'app-file-element',

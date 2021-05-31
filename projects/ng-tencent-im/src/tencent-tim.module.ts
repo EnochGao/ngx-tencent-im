@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 import { TencentTimComponent } from './tencent-tim/tencent-tim.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
@@ -25,21 +25,6 @@ import {
   MessageItemComponent,
 } from './message';
 
-import {
-  NzFormModule,
-  NzGridModule,
-  NzInputModule,
-  NzPopoverModule,
-  NzMessageModule,
-  NzProgressModule,
-  NzIconModule,
-  NzModalModule,
-  NzToolTipModule,
-  NzButtonModule,
-  NzRadioModule,
-  NzSwitchModule
-} from 'ng-zorro-antd';
-
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
@@ -56,6 +41,24 @@ import { GroupProfileComponent } from './conversation/conversation-profile/conve
 import { GroupMemberListComponent } from './group/group-member-list/group-member-list.component';
 import { GroupItemComponent } from './group/group-item/group-item.component';
 import { GroupMemberInfoComponent } from './group/group-member-info/group-member-info.component';
+import { NgTimConfig, NG_Tim_CONFIG } from './im.type';
+
+
+
+
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
 
@@ -90,20 +93,25 @@ import { GroupMemberInfoComponent } from './group/group-member-info/group-member
   ],
   imports: [
     CommonModule,
-    DragDropModule,
-    NzGridModule,
-    NzPopoverModule,
     FormsModule,
+    NzPopoverModule,
     NzToolTipModule,
     NzModalModule,
+    NzImageModule,
     NzFormModule,
     NzInputModule,
-    NzProgressModule,
+    NzPopconfirmModule,
+    // NzProgressModule,
     NzButtonModule,
     NzIconModule,
     NzMessageModule,
-    NzRadioModule,
-    NzSwitchModule,
+    // NzRadioModule,
+    // NzSwitchModule,
+    NzSelectModule,
+    // NzCardModule,
+    NzBadgeModule,
+    // NzSpaceModule
+    NzCollapseModule,
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: false,
@@ -121,4 +129,16 @@ import { GroupMemberInfoComponent } from './group/group-member-info/group-member
     TencentTimComponent
   ]
 })
-export class TencentTimModule { }
+export class TencentTimModule {
+  static forRoot(config?: NgTimConfig): ModuleWithProviders<TencentTimModule> {
+    return {
+      ngModule: TencentTimModule,
+      providers: [
+        {
+          provide: NG_Tim_CONFIG,
+          useValue: config
+        }
+      ]
+    };
+  }
+}

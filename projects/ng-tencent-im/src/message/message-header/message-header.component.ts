@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Conversation, MessageItem, UserProfile } from '../../im.type';
 import { getFullDate } from '../../util/date';
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-message-header',

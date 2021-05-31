@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MessageItem } from 'src/app/tencent-tim/im.type';
-import { removeMessageAction, showAction } from 'src/app/tencent-tim/store/actions';
-import { TimHelperService } from 'src/app/tencent-tim/tim-helper.service';
-import { translateGroupSystemNotice } from 'src/app/tencent-tim/util/common';
+
+import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
+import { removeMessageAction, showAction } from 'projects/ng-tencent-im/src/store/actions';
+import { TimHelperService } from 'projects/ng-tencent-im/src/tim-helper.service';
+import { translateGroupSystemNotice } from 'projects/ng-tencent-im/src/util/common';
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-group-system-notice-element',

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { TimHelperService } from 'projects/ng-tencent-im/src/tim-helper.service';
 
-import { TimHelperService } from './tencent-tim/tim-helper.service';
+
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,8 @@ export class AppComponent {
   constructor(
     private timHelperService: TimHelperService
   ) {
+
+
     this.timHelperService.eventBus$.subscribe(res => {
       if (res === 'login') {
         this.isLogin = true;

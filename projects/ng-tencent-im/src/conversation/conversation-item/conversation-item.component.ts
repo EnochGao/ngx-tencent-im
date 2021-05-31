@@ -10,6 +10,9 @@ import { Subscription } from 'rxjs';
 import { currentUserProfileSelector } from '../../store/selectors';
 import { resetCurrentConversationAction, showAction } from '../../store/actions';
 
+import TIM from 'tim-js-sdk';
+
+
 @Component({
   selector: 'app-conversation-item',
   templateUrl: './conversation-item.component.html',

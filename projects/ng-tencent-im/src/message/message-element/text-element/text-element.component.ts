@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from 'src/app/tencent-tim/im.type';
-import { decodeText } from 'src/app/tencent-tim/util/decodeText';
+import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
+import { decodeText } from 'projects/ng-tencent-im/src/util/decodeText';
+
 
 @Component({
   selector: 'app-text-element',

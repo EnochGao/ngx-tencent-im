@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { Conversation, ConversationItem } from '../../im.type';
 import { conversationSelector, currentConversationSelector } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
+import TIM from 'tim-js-sdk';
 
 @Component({
   selector: 'app-current-conversation',

@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Conversation, GroupProfile } from 'src/app/tencent-tim/im.type';
-import { resetCurrentConversationAction, showAction } from 'src/app/tencent-tim/store/actions';
-import { TimHelperService } from 'src/app/tencent-tim/tim-helper.service';
+import { Conversation, GroupProfile } from 'projects/ng-tencent-im/src/im.type';
+import { resetCurrentConversationAction, showAction } from 'projects/ng-tencent-im/src/store/actions';
+import { TimHelperService } from 'projects/ng-tencent-im/src/tim-helper.service';
+import TIM from 'tim-js-sdk';
+
 
 @Component({
   selector: 'app-group-profile',

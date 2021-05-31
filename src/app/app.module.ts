@@ -8,7 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { TencentTimModule } from './tencent-tim/tencent-tim.module';
+import { TencentTimModule } from 'projects/ng-tencent-im/src/tencent-tim.module';
+
 
 
 registerLocaleData(zh);
@@ -24,7 +25,11 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    TencentTimModule,
+    TencentTimModule.forRoot({
+      account: 'user1',
+      level: 4,
+      sdkAppId: 1400440675
+    }),
   ],
   bootstrap: [AppComponent]
 })
