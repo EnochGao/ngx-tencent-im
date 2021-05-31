@@ -15,7 +15,7 @@ export class AppComponent {
     private timHelperService: TimHelperService
   ) {
 
-
+    this.timHelperService.login('user1');
     this.timHelperService.eventBus$.subscribe(res => {
       if (res === 'login') {
         this.isLogin = true;
