@@ -11,6 +11,7 @@ import { currentUserProfileSelector } from '../../store/selectors';
 import { resetCurrentConversationAction, showAction } from '../../store/actions';
 
 import TIM from 'tim-js-sdk';
+import { MESSAGE_STATUS } from '../../shared.data';
 
 
 @Component({
@@ -103,7 +104,7 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
         this.store.dispatch(
           showAction({
             message: `会话【${this.conversationName}】删除成功!`,
-            msgType: 'success'
+            msgType: MESSAGE_STATUS.success
           }));
         this.store.dispatch(resetCurrentConversationAction());
       })
@@ -111,7 +112,7 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
         this.store.dispatch(
           showAction({
             message: `会话【${this.conversationName}】删除失败!, error=${error.message}`,
-            msgType: 'error'
+            msgType: MESSAGE_STATUS.error
           }));
 
       });

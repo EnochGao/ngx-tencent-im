@@ -1,4 +1,3 @@
-import { InjectionToken } from "@angular/core";
 
 /** @description 消息会话 */
 export interface Conversation {
@@ -218,9 +217,8 @@ export interface UserProfile {
 
 
 export interface NgTimConfig {
-  account: string;
+  enableDefaultLogin?: boolean;
+  account?: string;
   level: number;
   sdkAppId: number;
 }
-
-export const NG_Tim_CONFIG = new InjectionToken<NgTimConfig>('config');

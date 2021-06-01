@@ -7,6 +7,7 @@ import { Conversation, ConversationItem } from '../../im.type';
 import { currentConversationSelector, conversationListSelector } from '../../store/selectors';
 import { showAction } from '../../store/actions';
 import { Subscription } from 'rxjs';
+import { MESSAGE_STATUS } from '../../shared.data';
 
 
 @Component({
@@ -69,7 +70,7 @@ export class ConversationListComponent implements OnInit, OnDestroy {
     // 拉取会话列表
     this.timHelperService.tim.getConversationList().then(({ data }) => {
       console.log('刷新成功', data);
-      this.store.dispatch(showAction({ msgType: 'success', message: '刷新成功！' }));
+      this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.success, message: '刷新成功！' }));
 
     }).catch((imError) => {
       console.error('getConversationList error:', imError); // 获取会话列表失败的相关信息

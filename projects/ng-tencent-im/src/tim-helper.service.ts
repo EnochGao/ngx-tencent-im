@@ -20,7 +20,7 @@ import {
   conversationSelector,
 } from './store/selectors';
 
-import { Conversation, GroupProfile, IMResponse, LoginSuccess, Member, MessageItem, NgTimConfig, NG_Tim_CONFIG, Tim } from './im.type';
+import { Conversation, GroupProfile, IMResponse, LoginSuccess, Member, MessageItem, NgTimConfig, Tim } from './im.type';
 
 import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 import { ConversationState } from './store/reducer/conversation.reducer';
@@ -29,6 +29,7 @@ import { currentMemberListSelector } from './store/selectors/group.selector';
 
 import TIM from 'tim-js-sdk';
 import COS from "cos-js-sdk-v5";
+import { MESSAGE_STATUS, NG_Tim_CONFIG } from './shared.data';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,14 +41,17 @@ export class TimHelperService {
   eventBus$: Subject<string> = new Subject();
 
   constructor(
-    @Inject(NG_Tim_CONFIG) public config: NgTimConfig,
     private store: Store,
+    @Inject(NG_Tim_CONFIG) public config: NgTimConfig,
   ) {
     this.initTim(config);
     // 初始化监听器
     this.initListener();
 
-    // this.login(config.account);
+    if (config.enableDefaultLogin) {
+      this.login(config.account);
+    }
+
 
     // 获取当前会话
     this.store.select(conversationSelector).subscribe(res => {
@@ -66,7 +70,7 @@ export class TimHelperService {
         this.eventBus$.next('login');
         this.store.dispatch(loginAction({ isLogin: true }));
         // this.store.dispatch(startComputeCurrentAction());
-        this.store.dispatch(showAction({ msgType: 'success', message: '登录成功！' }));
+        this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.success, message: '登录成功！' }));
         if (imResponse.data.repeatLogin === true) {
           // 标识账号已登录，本次登录操作为重复登录。v2.5.1 起支持
           console.log(imResponse.data.errorInfo);
@@ -88,7 +92,7 @@ export class TimHelperService {
       this.store.dispatch(resetUserAction());
       this.store.dispatch(resetConversationAction());
 
-      this.store.dispatch(showAction({ msgType: 'success', message: '已退出！' }));
+      this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.success, message: '已退出！' }));
     });
   }
 
@@ -126,7 +130,7 @@ export class TimHelperService {
         })
         .catch(error => {
           this.store.dispatch(showAction({
-            msgType: 'error',
+            msgType: MESSAGE_STATUS.warning,
             message: error.message
           }));
         });
@@ -139,7 +143,7 @@ export class TimHelperService {
     this.store.dispatch(loginAction({ isLogin: false }));
     this.store.dispatch(resetUserAction());
     this.store.dispatch(resetConversationAction());
-    this.store.dispatch(showAction({ msgType: 'warn', message: '由于多实例登录被踢出，请重新登录!' }));
+    this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.warning, message: '由于多实例登录被踢出，请重新登录!' }));
   }
 
   onError({ data }) {
@@ -199,7 +203,7 @@ export class TimHelperService {
           this.getGroupMemberList(res.data.conversation.groupProfile.groupID);
         }
       }).catch(err => {
-        this.store.dispatch(showAction({ msgType: 'error', message: err }));
+        this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.error, message: err }));
       });
     });
   }
@@ -210,7 +214,7 @@ export class TimHelperService {
   getMessageList(conversationID: string) {
     if (this.conversation.isCompleted) {
       this.store.dispatch(showAction({
-        msgType: 'info',
+        msgType: MESSAGE_STATUS.info,
         message: '已经没有更多的历史消息了哦'
       }));
       return;

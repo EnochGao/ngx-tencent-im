@@ -41,7 +41,7 @@ import { GroupProfileComponent } from './conversation/conversation-profile/conve
 import { GroupMemberListComponent } from './group/group-member-list/group-member-list.component';
 import { GroupItemComponent } from './group/group-item/group-item.component';
 import { GroupMemberInfoComponent } from './group/group-member-info/group-member-info.component';
-import { NgTimConfig, NG_Tim_CONFIG } from './im.type';
+import { NgTimConfig } from './im.type';
 
 
 
@@ -59,6 +59,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NG_Tim_CONFIG } from './shared.data';
 
 
 

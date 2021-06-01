@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
+import { MESSAGE_STATUS } from 'projects/ng-tencent-im/src/shared.data';
 import { removeMessageAction, showAction } from 'projects/ng-tencent-im/src/store/actions';
 import { TimHelperService } from 'projects/ng-tencent-im/src/tim-helper.service';
 import { translateGroupSystemNotice } from 'projects/ng-tencent-im/src/util/common';
@@ -52,7 +53,7 @@ export class GroupSystemNoticeElementComponent implements OnInit {
         this.store.dispatch(removeMessageAction({ message: this.message }));
       })
       .catch((error) => {
-        this.store.dispatch(showAction({ msgType: 'error', message: error.message }));
+        this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.error, message: error.message }));
       });
   }
 

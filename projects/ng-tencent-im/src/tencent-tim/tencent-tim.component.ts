@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { Store } from '@ngrx/store';
 
 import { Subscription } from 'rxjs';
+import { MESSAGE_STATUS } from '../shared.data';
 import { getMessage } from '../store/selectors';
 
 @Component({

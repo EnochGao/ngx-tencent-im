@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { TencentTimModule } from 'projects/ng-tencent-im/src/tencent-tim.module';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 
 
@@ -25,6 +26,8 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    NzMessageModule,
+
     TencentTimModule.forRoot({
       account: 'user1',
       level: 4,

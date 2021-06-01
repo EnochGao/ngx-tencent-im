@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Conversation } from '../im.type';
+import { MESSAGE_STATUS } from '../shared.data';
 import { showAction } from '../store/actions';
 import { updateGroupListAction } from '../store/actions/group.action';
 import { ConversationState } from '../store/reducer/conversation.reducer';
@@ -73,7 +74,7 @@ export class SideBarComponent implements OnInit {
       })
       .catch((error) => {
         this.store.dispatch(
-          showAction({ msgType: 'error', message: error.message })
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
         );
       });
   }

@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { MESSAGE_STATUS } from '../../shared.data';
 import { pushCurrentMessageListAction, showAction } from '../../store/actions';
 import { currentConversationSelector } from '../../store/selectors';
 
@@ -190,7 +191,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       this.messageContent.trim().length === 0
     ) {
       this.messageContent = '';
-      this.store.dispatch(showAction({ msgType: 'warn', message: '不能发送空消息哦！' }));
+      this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.warning, message: '不能发送空消息哦！' }));
       return;
     }
     let message = this.timHelperService.tim.createTextMessage({

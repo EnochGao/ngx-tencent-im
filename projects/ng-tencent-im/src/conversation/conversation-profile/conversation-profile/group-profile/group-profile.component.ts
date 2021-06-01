@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Conversation, GroupProfile } from 'projects/ng-tencent-im/src/im.type';
+import { MESSAGE_STATUS } from 'projects/ng-tencent-im/src/shared.data';
 import { resetCurrentConversationAction, showAction } from 'projects/ng-tencent-im/src/store/actions';
 import { TimHelperService } from 'projects/ng-tencent-im/src/tim-helper.service';
 import TIM from 'tim-js-sdk';
@@ -45,7 +46,7 @@ export class GroupProfileComponent implements OnInit {
   ) { };
 
   ngOnInit(): void {
-    console.log('currentConversation::😂😂😂', this.currentConversation);
+
     this.groupProfile = this.currentConversation.groupProfile;
 
     switch (this.groupProfile.type) {
@@ -94,14 +95,14 @@ export class GroupProfileComponent implements OnInit {
         this.showChangeGroupOwner = false;
         this.store.dispatch(
           showAction({
-            msgType: 'success',
+            msgType: MESSAGE_STATUS.success,
             message: `转让群主成功，新群主ID：${this.newOwnerUserID}`,
           }));
         this.newOwnerUserID = '';
       })
       .catch((error) => {
         showAction({
-          msgType: 'error',
+          msgType: MESSAGE_STATUS.error,
           message: error.message,
         });
       });
@@ -113,7 +114,7 @@ export class GroupProfileComponent implements OnInit {
       .then(({ data: { groupID } }) => {
         this.store.dispatch(
           showAction({
-            msgType: 'success',
+            msgType: MESSAGE_STATUS.success,
             message: `退群成功`,
           }));
         if (groupID === this.groupProfile.groupID) {
@@ -122,7 +123,7 @@ export class GroupProfileComponent implements OnInit {
       })
       .catch((error) => {
         showAction({
-          msgType: 'error',
+          msgType: MESSAGE_STATUS.error,
           message: error.message,
         });
       });
@@ -134,7 +135,7 @@ export class GroupProfileComponent implements OnInit {
       .then(({ data: { groupID } }) => {
         this.store.dispatch(
           showAction({
-            msgType: 'success',
+            msgType: MESSAGE_STATUS.success,
             message: `群：${this.groupProfile.name || this.groupProfile.groupID}解散成功！`,
           }));
         if (groupID === this.groupProfile.groupID) {
@@ -143,7 +144,7 @@ export class GroupProfileComponent implements OnInit {
       })
       .catch((error) => {
         showAction({
-          msgType: 'error',
+          msgType: MESSAGE_STATUS.error,
           message: error.message,
         });
       });
@@ -161,14 +162,14 @@ export class GroupProfileComponent implements OnInit {
             this.active = true;
             this.store.dispatch(
               showAction({
-                msgType: 'success',
+                msgType: MESSAGE_STATUS.success,
                 message: `全体禁言`,
               }));
           } else {
             this.active = false;
             this.store.dispatch(
               showAction({
-                msgType: 'success',
+                msgType: MESSAGE_STATUS.success,
                 message: `取消全体禁言`,
               }));
           }
@@ -176,7 +177,7 @@ export class GroupProfileComponent implements OnInit {
         .catch((error) => {
           this.store.dispatch(
             showAction({
-              msgType: 'error',
+              msgType: MESSAGE_STATUS.error,
               message: error.message,
             }));
         });
@@ -186,7 +187,7 @@ export class GroupProfileComponent implements OnInit {
       }, 0);
       this.store.dispatch(
         showAction({
-          msgType: 'error',
+          msgType: MESSAGE_STATUS.error,
           message: '普通群成员不能对全体禁言',
         }));
     }
