@@ -6,16 +6,19 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { zh_CN } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { NzFormModule } from 'ng-zorro-antd/form';
+
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { TencentTimModule } from 'ng-tencent-im';
+import { extModules } from 'src/environments/environment';
 import { LoginComponent } from './login/login.component';
-import { NzButtonModule, NzFormModule, NzInputModule, NzSelectModule } from 'ng-zorro-antd';
-import { TencentTimModule } from './tencent-tim/tencent-tim.module';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 registerLocaleData(zh);
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,12 +32,15 @@ registerLocaleData(zh);
     FormsModule,
     ReactiveFormsModule,
     NzFormModule,
-    NzInputModule,
-    NzButtonModule,
     NzSelectModule,
-    TencentTimModule
+    NzButtonModule,
+    NzMessageModule,
+    TencentTimModule.forRoot({
+      level: 4,
+      sdkAppId: 1400440675
+    }),
+    extModules
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

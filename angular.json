@@ -22,24 +22,25 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+              "src/assets"
             ],
             "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "src/styles.less"
+              "src/styles.less",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "dist/ng-tencent-im/assets/icon/iconfont.css",
+              "dist/ng-tencent-im/assets/icon/tim.css"
             ],
-            "scripts": [
-              "src/app/tencent-tim/tim-config/lib-generate-test-usersig.min.js",
-              "./node_modules/cos-js-sdk-v5/dist/cos-js-sdk-v5.min.js",
-              "./node_modules/tim-js-sdk/tim-js.js"
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true,
+            "allowedCommonJsDependencies": [
+              "cos-js-sdk-v5"
             ]
           },
           "configurations": {
@@ -53,7 +54,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -133,6 +133,37 @@
             "production": {
               "devServerTarget": "winkong-tencent-im:serve:production"
             }
+          }
+        }
+      }
+    },
+    "ng-tencent-im": {
+      "projectType": "library",
+      "root": "projects/ng-tencent-im",
+      "sourceRoot": "projects/ng-tencent-im/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ng-tencent-im/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-tencent-im/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-tencent-im/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-tencent-im/src/test.ts",
+            "tsConfig": "projects/ng-tencent-im/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-tencent-im/karma.conf.js"
           }
         }
       }

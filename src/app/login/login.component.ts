@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TimHelperService } from 'ng-tencent-im';
+import { genTestUserSig } from '../tim-config/GenerateTestUserSig';
 
-import { TimHelperService } from '../tencent-tim/tim-helper.service';
 
 @Component({
   selector: 'app-login',
@@ -9,24 +10,24 @@ import { TimHelperService } from '../tencent-tim/tim-helper.service';
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
-  userList = [
-    { value: 'user0', label: 'user0' },
-    { value: 'user1', label: 'user1' },
-    { value: 'user2', label: 'user2' },
-    { value: 'user3', label: 'user3' },
-    { value: 'user4', label: 'user4' },
-  ];
-
   validateForm!: FormGroup;
+
+  listOfUser: Array<{ label: string; value: string; }> = [];;
 
   constructor(
     private fb: FormBuilder,
     private timHelperService: TimHelperService
-  ) { }
+  ) {
+    const children: Array<{ label: string; value: string; }> = [];
+    for (let i = 0; i < 10; i++) {
+      children.push({ label: 'user' + i, value: 'user' + i });
+    }
+    this.listOfUser = children;
+  }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
-      user: ['user0', [Validators.required]],
+      userName: [null, [Validators.required]],
     });
   }
 
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    this.timHelperService.login(this.validateForm.value.user);
+    this.timHelperService.setUserSig(genTestUserSig(this.validateForm.value.userName).userSig);
+    this.timHelperService.login(this.validateForm.value.userName);
   }
 
 }

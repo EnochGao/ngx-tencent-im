@@ -3,13 +3,10 @@
     <app-login>
     </app-login>
   </div>
-
   <div class="loading" *ngIf="isLogin">
-    <app-tencent-tim></app-tencent-tim>
-
+    <app-tencent-tim (message)="messageTip($event)"></app-tencent-tim>
     <div class="chat-wrapper"></div>
   </div>
-
   <div class="bg">
   </div>
 </div>

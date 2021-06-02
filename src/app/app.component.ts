@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
-import { TimHelperService } from './tencent-tim/tim-helper.service';
+import { genTestUserSig } from './tim-config/GenerateTestUserSig';
+
+import { TimHelperService } from 'ng-tencent-im';
+
 
 @Component({
   selector: 'app-root',
@@ -11,8 +15,10 @@ export class AppComponent {
   isLogin = false;
 
   constructor(
+    private message: NzMessageService,
     private timHelperService: TimHelperService
   ) {
+
     this.timHelperService.eventBus$.subscribe(res => {
       if (res === 'login') {
         this.isLogin = true;
@@ -21,6 +27,21 @@ export class AppComponent {
         this.isLogin = false;
       }
     });
+  }
+
+
+  messageTip(message: any) {
+    switch (message.type) {
+      case 'success': this.message.success(message.message);
+        break;
+      case 'error': this.message.error(message.message);
+        break;
+      case 'warning': this.message.warning(message.message);
+        break;
+
+      default:
+        break;
+    }
   }
 
 }
