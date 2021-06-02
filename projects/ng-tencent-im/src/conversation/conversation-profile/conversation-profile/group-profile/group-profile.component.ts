@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Conversation, GroupProfile } from 'projects/ng-tencent-im/src/im.type';
-import { MESSAGE_STATUS } from 'projects/ng-tencent-im/src/shared.data';
-import { resetCurrentConversationAction, showAction } from 'projects/ng-tencent-im/src/store/actions';
-import { TimHelperService } from 'projects/ng-tencent-im/src/tim-helper.service';
+import { Conversation, GroupProfile } from '../../../../im.type';
+import { MESSAGE_STATUS } from '../../../../shared.data';
+import { resetCurrentConversationAction, showAction } from '../../../../store/actions';
+import { TimHelperService } from '../../../../tim-helper.service';
 import TIM from 'tim-js-sdk';
 
 

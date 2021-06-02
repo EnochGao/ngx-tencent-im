@@ -22,7 +22,6 @@ import {
 
 import { Conversation, GroupProfile, IMResponse, LoginSuccess, Member, MessageItem, NgTimConfig, Tim } from './im.type';
 
-import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 import { ConversationState } from './store/reducer/conversation.reducer';
 import { resetCurrentMemberListAction, updateCurrentMemberListAction, updateGroupListAction } from './store/actions/group.action';
 import { currentMemberListSelector } from './store/selectors/group.selector';
@@ -30,20 +29,24 @@ import { currentMemberListSelector } from './store/selectors/group.selector';
 import TIM from 'tim-js-sdk';
 import COS from "cos-js-sdk-v5";
 import { MESSAGE_STATUS, NG_Tim_CONFIG } from './shared.data';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TimHelperService {
-  tim: Tim;
 
+  tim: Tim;
   conversation: ConversationState; // 当前会话
   currentMemberList: Array<Member>; // 当前会话
   eventBus$: Subject<string> = new Subject();
+
+  private _userSig: string;
 
   constructor(
     private store: Store,
     @Inject(NG_Tim_CONFIG) public config: NgTimConfig,
   ) {
+
     this.initTim(config);
     // 初始化监听器
     this.initListener();
@@ -64,8 +67,17 @@ export class TimHelperService {
     });
   }
 
+
+  public setUserSig(userSig: string) {
+    this._userSig = userSig;
+  }
+
   login(userId: string) {
-    this.tim.login({ userID: userId, userSig: genTestUserSig(userId).userSig })
+    if (!this._userSig) {
+      throw Error('请配置签名！');
+    }
+
+    this.tim.login({ userID: userId, userSig: this._userSig })
       .then((imResponse: IMResponse<LoginSuccess>) => {
         this.eventBus$.next('login');
         this.store.dispatch(loginAction({ isLogin: true }));

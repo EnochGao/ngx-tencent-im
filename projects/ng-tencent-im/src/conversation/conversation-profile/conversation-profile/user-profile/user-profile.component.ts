@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserProfile } from 'projects/ng-tencent-im/src/im.type';
+import { UserProfile } from '../../../../im.type';
 
 import TIM from 'tim-js-sdk';
 

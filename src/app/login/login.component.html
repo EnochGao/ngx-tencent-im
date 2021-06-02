@@ -1,0 +1,12 @@
+<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your username!">
+      <nz-select formControlName="userName">
+        <nz-option *ngFor="let option of listOfUser" [nzLabel]="option.label"
+          [nzValue]="option.value"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">登录</button>
+</form>

@@ -1,6 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 import { TencentTimComponent } from './tencent-tim/tencent-tim.component';
@@ -29,7 +31,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 
 import { reducers } from './store/reducer';
-import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
 import { ConversationProfileComponent } from './conversation/conversation-profile/conversation-profile.component';
 import { UserProfileComponent } from './conversation/conversation-profile/conversation-profile/user-profile/user-profile.component';
 import { GroupListComponent } from './group/group-list/group-list.component';
@@ -42,9 +44,6 @@ import { GroupMemberListComponent } from './group/group-member-list/group-member
 import { GroupItemComponent } from './group/group-item/group-item.component';
 import { GroupMemberInfoComponent } from './group/group-member-info/group-member-info.component';
 import { NgTimConfig } from './im.type';
-
-
-
 
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -59,9 +58,9 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NG_Tim_CONFIG } from './shared.data';
-
-
 
 @NgModule({
   declarations: [
@@ -95,6 +94,7 @@ import { NG_Tim_CONFIG } from './shared.data';
   imports: [
     CommonModule,
     FormsModule,
+    DragDropModule,
     NzPopoverModule,
     NzToolTipModule,
     NzModalModule,
@@ -102,17 +102,14 @@ import { NG_Tim_CONFIG } from './shared.data';
     NzFormModule,
     NzInputModule,
     NzPopconfirmModule,
-    // NzProgressModule,
     NzButtonModule,
     NzIconModule,
     NzMessageModule,
-    // NzRadioModule,
-    // NzSwitchModule,
     NzSelectModule,
-    // NzCardModule,
     NzBadgeModule,
-    // NzSpaceModule
     NzCollapseModule,
+    NzRadioModule,
+    NzSwitchModule,
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: false,
@@ -120,10 +117,6 @@ import { NG_Tim_CONFIG } from './shared.data';
         strictStateSerializability: false,
         strictActionSerializability: false,
       }
-    }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production
     }),
   ],
   exports: [
@@ -139,7 +132,7 @@ export class TencentTimModule {
           provide: NG_Tim_CONFIG,
           useValue: config
         }
-      ]
+      ],
     };
   }
 }

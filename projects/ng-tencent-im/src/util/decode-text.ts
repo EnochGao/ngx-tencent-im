@@ -1,15 +1,8 @@
-import { emojiMap, emojiUrl } from './emojiMap';
-/** 传入messageBody（群系统消息SystemMessage，群提示消息GroupTip除外）
- * payload = {
- *  msgType: 'TIMTextElem',
- *  msgContent: {
- *    text: 'AAA[龇牙]AAA[龇牙]AAA[龇牙AAA]'
- *  }
- *}
- **/
+import { emojiMap, emojiUrl } from './emoji-map';
+
+
 export function decodeText(payload: any) {
   let renderDom = [];
-  // 文本消息
   let temp = payload.text;
   let left = -1;
   let right = -1;

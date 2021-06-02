@@ -1,8 +1,3 @@
-/**
- * 利用 document.title 做新消息提示
- * @export
- * @param {Number} count
- */
 export function titleNotify(count: number) {
   const hasNewMessage = count > 0;
   if (hasNewMessage) {

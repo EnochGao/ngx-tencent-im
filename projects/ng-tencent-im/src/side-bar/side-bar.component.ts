@@ -8,7 +8,7 @@ import { ConversationState } from '../store/reducer/conversation.reducer';
 import { conversationSelector } from '../store/selectors';
 
 import { TimHelperService } from '../tim-helper.service';
-import { titleNotify } from '../util/titleNotice';
+import { titleNotify } from '../util/title-notice';
 
 @Component({
   selector: 'app-side-bar',

@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
-import { formatDuration } from 'projects/ng-tencent-im/src/util/formatDuration';
-import { ACTION } from 'projects/ng-tencent-im/src/util/trtcCustomMessageMap';
+import { MessageItem } from '../../../im.type';
+import { formatDuration } from '../../../util/format-duration';
+import { ACTION } from '../../../util/trtc-custom-message-map';
 
 
 @Component({
@@ -22,8 +22,8 @@ export class CustomElementComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.text = this.translateCustomMessage(this.payload);
-    console.log('哈哈哈哈',this.text)
-    console.log('哈哈哈哈1',this.payload)
+    console.log('哈哈哈哈', this.text);
+    console.log('哈哈哈哈1', this.payload);
   }
 
   translateCustomMessage(payload) {

@@ -1,4 +1,4 @@
-import { MessageItem } from "../im.type";
+import { MessageItem } from '../im.type';
 
 export function translateGroupSystemNotice(message: MessageItem) {
   const groupName = message.payload.groupProfile.name || message.payload.groupProfile.groupID;

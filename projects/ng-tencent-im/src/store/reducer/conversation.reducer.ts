@@ -9,10 +9,8 @@ import {
   resetCurrentConversationAction,
   updateConversationListAction,
   updateCurrentConversationAction,
-  updateCurrentUserProfileAction,
   updateMessageAction
 } from '../actions';
-
 
 export interface ConversationState {
   currentConversation: Conversation;

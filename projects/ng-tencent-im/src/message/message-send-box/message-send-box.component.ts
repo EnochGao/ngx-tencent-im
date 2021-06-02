@@ -5,7 +5,7 @@ import { pushCurrentMessageListAction, showAction } from '../../store/actions';
 import { currentConversationSelector } from '../../store/selectors';
 
 import { TimHelperService } from '../../tim-helper.service';
-import { emojiMap, emojiName, emojiUrl } from '../../util/emojiMap';
+import { emojiMap, emojiName, emojiUrl } from '../../util/emoji-map';
 
 @Component({
   selector: 'app-message-send-box',

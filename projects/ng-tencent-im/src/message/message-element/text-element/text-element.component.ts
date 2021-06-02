@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
-import { decodeText } from 'projects/ng-tencent-im/src/util/decodeText';
+import { MessageItem } from '../../../im.type';
+import { decodeText } from '../../../util/decode-text';
 
 
 @Component({

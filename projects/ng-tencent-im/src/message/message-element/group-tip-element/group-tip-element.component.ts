@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MessageItem } from 'projects/ng-tencent-im/src/im.type';
+import { MessageItem } from '../../../im.type';
 
 import TIM from 'tim-js-sdk';
 

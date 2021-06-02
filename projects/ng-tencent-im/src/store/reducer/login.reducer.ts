@@ -1,6 +1,6 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { loginAction, LoginActionTypes, } from '../actions';
+import { loginAction, } from '../actions';
 
 
 export interface LoginState {
@@ -19,4 +19,3 @@ const _loginReducer = createReducer(
 export function LoginReducer(state: LoginState | undefined, action: Action) {
   return _loginReducer(state, action);
 }
-
