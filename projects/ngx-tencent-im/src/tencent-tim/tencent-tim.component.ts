@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { getMessage } from '../store/selectors';
 
 @Component({
-  selector: 'app-tencent-tim',
+  selector: 'ngx-tencent-tim',
   templateUrl: './tencent-tim.component.html',
   styleUrls: ['./tencent-tim.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush

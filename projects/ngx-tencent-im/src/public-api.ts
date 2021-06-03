@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ng-tencent-im
+ * Public API Surface of ngx-tencent-im
  */
 export * from './type';
 

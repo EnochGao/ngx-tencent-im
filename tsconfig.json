@@ -13,11 +13,10 @@
     "target": "es2015",
     "lib": ["es2018", "dom"],
     "paths": {
-      "ng-tencent-im": [
-        // "dist/ng-tencent-im/tencent-tim",
-        // "dist/ng-tencent-im",
-        "projects/ng-tencent-im/src/public-api.ts",
-
+      "ngx-tencent-im": [
+        // "dist/ngx-tencent-im/tencent-tim",
+        // "dist/ngx-tencent-im",
+        "projects/ngx-tencent-im/src/public-api.ts"
       ]
     }
   },

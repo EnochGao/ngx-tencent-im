@@ -19,7 +19,7 @@
     word-wrap: break-word;
     word-break: break-all;
     padding: 10px;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
 
     span {
       white-space: pre-wrap;
@@ -38,7 +38,7 @@
       height: 40px;
       content: "\e900";
       // content "\e906"
-      font-family: 'tim' !important;
+      font-family: "tim" !important;
       font-size: 24px; // 32px 在mac上会模糊 24px正常 , window 24px模糊 28px 32px正常  36px windows mac 基本一致，但是太大
     }
   }
@@ -62,14 +62,14 @@
   }
 
   .message-send {
-    background-color: #5cadff;
+    background-color: #9eea6a;
     margin-right: 15px;
     border-radius: 4px 0 4px 4px;
-    color: #fff;
+    color: #000;
 
     &::before {
       right: -10px;
-      color: #5cadff;
+      color: #9eea6a;
     }
 
     &.new {
@@ -84,7 +84,7 @@
     display: flex;
   }
 
-  .el-dropdown+.el-dropdown {
+  .el-dropdown + .el-dropdown {
     margin-left: 15px;
   }
 
@@ -94,7 +94,6 @@
 }
 
 .group-tip-element-wrapper {
-
   background: #fff;
   padding: 4px 15px;
   border-radius: 3px;

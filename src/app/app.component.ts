@@ -3,7 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 
-import { TimHelperService } from 'ng-tencent-im';
+import { TimHelperService } from 'ngx-tencent-im';
 
 
 @Component({

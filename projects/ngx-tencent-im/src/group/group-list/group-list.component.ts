@@ -22,6 +22,9 @@ export class GroupListComponent implements OnInit, OnDestroy {
       this.groupList = res;
     });
   }
+  createGroup() {
+
+  }
 
   ngOnDestroy(): void {
     if (this.subscription) {

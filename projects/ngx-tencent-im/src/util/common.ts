@@ -1,7 +1,7 @@
 import { MessageItem } from '../im.type';
 
 export function translateGroupSystemNotice(message: MessageItem) {
-  const groupName = message.payload.groupProfile.name || message.payload.groupProfile.groupID;
+  const groupName = message.payload?.groupProfile.name || message.payload?.groupProfile.groupID;
   switch (message.payload.operationType) {
     case 1:
       return `${message.payload.operatorID} 申请加入群组：${groupName}`;

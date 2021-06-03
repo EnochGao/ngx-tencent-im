@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "winkong-tencent-im": {
+    "winkongx-tencent-im": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/winkong-tencent-im",
+            "outputPath": "dist/winkongx-tencent-im",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -34,8 +34,8 @@
             "styles": [
               "src/styles.less",
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "dist/ng-tencent-im/assets/icon/iconfont.css",
-              "dist/ng-tencent-im/assets/icon/tim.css"
+              "dist/ngx-tencent-im/assets/icon/iconfont.css",
+              "dist/ngx-tencent-im/assets/icon/tim.css"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -81,20 +81,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "winkong-tencent-im:build",
+            "browserTarget": "winkongx-tencent-im:build",
             "open": true,
             "port": 4300
           },
           "configurations": {
             "production": {
-              "browserTarget": "winkong-tencent-im:build:production"
+              "browserTarget": "winkongx-tencent-im:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "winkong-tencent-im:build"
+            "browserTarget": "winkongx-tencent-im:build"
           }
         },
         "test": {
@@ -132,33 +132,33 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "winkong-tencent-im:serve"
+            "devServerTarget": "winkongx-tencent-im:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "winkong-tencent-im:serve:production"
+              "devServerTarget": "winkongx-tencent-im:serve:production"
             }
           }
         }
       }
     },
-    "ng-tencent-im": {
+    "ngx-tencent-im": {
       "projectType": "library",
-      "root": "projects/ng-tencent-im",
-      "sourceRoot": "projects/ng-tencent-im/src",
+      "root": "projects/ngx-tencent-im",
+      "sourceRoot": "projects/ngx-tencent-im/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ng-tencent-im/ng-package.json"
+            "project": "projects/ngx-tencent-im/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ng-tencent-im/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-tencent-im/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ng-tencent-im/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-tencent-im/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -166,15 +166,15 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ng-tencent-im/src/test.ts",
-            "tsConfig": "projects/ng-tencent-im/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-tencent-im/karma.conf.js"
+            "main": "projects/ngx-tencent-im/src/test.ts",
+            "tsConfig": "projects/ngx-tencent-im/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-tencent-im/karma.conf.js"
           }
         }
       }
     }
   },
-  "defaultProject": "winkong-tencent-im",
+  "defaultProject": "winkongx-tencent-im",
   "cli": {
     "analytics": false
   }

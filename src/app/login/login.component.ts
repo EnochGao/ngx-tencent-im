@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TimHelperService } from 'ng-tencent-im';
+import { TimHelperService } from 'ngx-tencent-im';
 import { genTestUserSig } from '../tim-config/GenerateTestUserSig';
 
 
