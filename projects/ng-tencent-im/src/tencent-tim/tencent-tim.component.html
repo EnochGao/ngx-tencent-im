@@ -1,10 +1,18 @@
-<div class="chat-wrapper" cdkDrag>
+<div class="chat-wrapper" cdkDrag (click)="$event.stopPropagation();showDetail=false">
   <div nz-row>
     <div nz-col [nzSpan]="8" cdkDragHandle>
       <app-side-bar></app-side-bar>
     </div>
-    <div nz-col [nzSpan]="16">
-      <app-current-conversation></app-current-conversation>
+    <div nz-col [nzSpan]="12" class="chat-content">
+      <div cdkDragHandle>
+        <lib-title (detailBtnClick)="showDetail=!showDetail"></lib-title>
+      </div>
+      <div>
+        <app-current-conversation></app-current-conversation>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="4" class="profile" *ngIf="showDetail" (click)="$event.stopPropagation()">
+      <app-conversation-profile></app-conversation-profile>
     </div>
   </div>
 </div>

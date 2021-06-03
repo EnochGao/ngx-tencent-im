@@ -1,0 +1,16 @@
+<div nz-row>
+  <div nz-col nzSpan="12">
+    <span class="title-name">
+      {{name}}
+    </span>
+  </div>
+  <div nz-col nzSpan="12" class="icon-content">
+    <div>
+      <i nz-icon nzType="minus" nzTheme="outline"></i>
+    </div>
+    <div>
+      <i [hidden]="detailIsHidden" nz-icon nzType="small-dash" nzTheme="outline" title="查看详细信息"
+        (click)="handleClick($event)"></i>
+    </div>
+  </div>
+</div>

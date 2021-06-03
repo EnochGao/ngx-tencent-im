@@ -1,20 +1,22 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Subscription } from 'rxjs';
-import { MESSAGE_STATUS } from '../shared.data';
 import { getMessage } from '../store/selectors';
 
 @Component({
   selector: 'app-tencent-tim',
   templateUrl: './tencent-tim.component.html',
-  styleUrls: ['./tencent-tim.component.less']
+  styleUrls: ['./tencent-tim.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TencentTimComponent implements OnInit, OnDestroy {
 
-  @Output() message = new EventEmitter<any>();
-
+  showDetail = false;
   subscription: Subscription;
+
+  @Output() message = new EventEmitter<any>();
 
   constructor(
     private store: Store

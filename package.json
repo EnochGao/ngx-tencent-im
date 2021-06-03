@@ -2,10 +2,16 @@
   "name": "ng-tencent-im",
   "version": "0.0.0",
   "keywords": [
-    "Tencent Im demo",
+    "ng-tencent-im",
     "Angular",
-    "Im"
+    "Im",
+    "demo"
   ],
+  "description": "An instant messaging demo developed based on Angular.",
+  "author": {
+    "name": "EnochGao",
+    "email": "enochgao@qq.com"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

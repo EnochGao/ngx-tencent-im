@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnChanges,
@@ -16,11 +17,13 @@ import { Conversation, ConversationItem } from '../../im.type';
 import { conversationSelector, currentConversationSelector } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
 import TIM from 'tim-js-sdk';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-current-conversation',
   templateUrl: './current-conversation.component.html',
-  styleUrls: ['./current-conversation.component.less']
+  styleUrls: ['./current-conversation.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDestroy {
   currentConversation: Conversation;
@@ -30,7 +33,6 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
   preScrollHeight = 0;
   name: string;
   toAccount: string;
-  showConversationProfile = false;
 
   eventBusSubscription: Subscription;
   conversationSubscription: Subscription;
@@ -48,6 +50,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
 
   constructor(
     private store: Store,
+    private cd: ChangeDetectorRef,
     private timHelperService: TimHelperService,
   ) { }
 
@@ -56,20 +59,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
     this.currentConversationSubscription = this.store.select(currentConversationSelector).subscribe(res => {
       this.currentConversation = res;
       this.preScrollHeight = 0;
-      if (!res || !res.conversationID) {
-        this.toAccount = '';
-      }
-      switch (res.type) {
-        case 'C2C':
-          this.toAccount = res.conversationID.replace('C2C', '');
-          break;
-        case 'GROUP':
-          this.toAccount = res.conversationID.replace('GROUP', '');
-          break;
-        default:
-          this.toAccount = res.conversationID;
-      }
-      this.getName();
+      this.cd.markForCheck();
     });
 
     this.conversationSubscription = this.store.select(conversationSelector)
@@ -82,11 +72,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
             this.timHelperService.tim.setMessageRead({ conversationID: this.currentConversation.conversationID });
           }
         }
-
-        if (this.currentConversation.conversationID === '@TIM#SYSTEM' || typeof this.currentConversation.conversationID === 'undefined') {
-          this.showConversationProfile = false;
-        }
-
+        this.cd.markForCheck();
       }, err => {
         console.log('获取当前会话err', err);
       });
@@ -95,18 +81,13 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
       .subscribe((res: string) => {
         if (res === 'scroll-bottom') {
           this.scrollMessageListToBottom();
+          this.cd.markForCheck();
         }
       });
   };
 
   ngAfterViewInit(): void {
     this.keepMessageListOnBottom();
-
-
-  }
-
-  showMore() {
-    this.showConversationProfile = !this.showConversationProfile;
   }
 
   getMore() {
@@ -169,16 +150,4 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
       }
     });
   }
-
-  private getName() {
-    if (this.currentConversation?.type === 'C2C') {
-      this.name = this.currentConversation.userProfile.nick || this.toAccount;
-    } else if (this.currentConversation?.type === 'GROUP') {
-      this.name = this.currentConversation.groupProfile.name || this.toAccount;
-    } else if (this.currentConversation?.conversationID === '@TIM#SYSTEM') {
-      this.name = '系统通知';
-    }
-  }
-
-
 }

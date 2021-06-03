@@ -214,11 +214,3 @@ export interface UserProfile {
   selfSignature: string;
   userID: string;
 }
-
-
-export interface NgTimConfig {
-  enableDefaultLogin?: boolean;
-  account?: string;
-  level: number;
-  sdkAppId: number;
-}

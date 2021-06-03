@@ -43,7 +43,7 @@ import { GroupProfileComponent } from './conversation/conversation-profile/conve
 import { GroupMemberListComponent } from './group/group-member-list/group-member-list.component';
 import { GroupItemComponent } from './group/group-item/group-item.component';
 import { GroupMemberInfoComponent } from './group/group-member-info/group-member-info.component';
-import { NgTimConfig } from './im.type';
+import { NgTimConfig } from './type';
 
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -61,6 +61,10 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NG_Tim_CONFIG } from './shared.data';
+import { TitleComponent } from './title/title.component';
+// import { AccountBookFill } from '@ant-design/icons-angular/icons';
+// import { IconDefinition } from '@ant-design/icons-angular';
+// const icons: IconDefinition[] = [AccountBookFill];
 
 @NgModule({
   declarations: [
@@ -89,7 +93,8 @@ import { NG_Tim_CONFIG } from './shared.data';
     GroupProfileComponent,
     GroupMemberListComponent,
     GroupItemComponent,
-    GroupMemberInfoComponent
+    GroupMemberInfoComponent,
+    TitleComponent
   ],
   imports: [
     CommonModule,
