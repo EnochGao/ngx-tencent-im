@@ -1,13 +1,13 @@
-<div class="chat-wrapper" cdkDrag (click)="$event.stopPropagation();showDetail=false">
+<div class="chat-wrapper" cdkDrag (click)="showDetail=false">
   <div nz-row>
     <div nz-col [nzSpan]="8" cdkDragHandle>
       <app-side-bar></app-side-bar>
     </div>
     <div nz-col [nzSpan]="12" class="chat-content">
-      <div cdkDragHandle>
+      <div cdkDragHandle class="chat-title">
         <lib-title (detailBtnClick)="showDetail=!showDetail"></lib-title>
       </div>
-      <div>
+      <div class="chat-content">
         <app-current-conversation></app-current-conversation>
       </div>
     </div>

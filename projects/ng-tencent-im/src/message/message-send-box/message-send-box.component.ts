@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MESSAGE_STATUS } from '../../shared.data';
 import { pushCurrentMessageListAction, showAction } from '../../store/actions';
@@ -10,7 +10,8 @@ import { emojiMap, emojiName, emojiUrl } from '../../util/emoji-map';
 @Component({
   selector: 'app-message-send-box',
   templateUrl: './message-send-box.component.html',
-  styleUrls: ['./message-send-box.component.less']
+  styleUrls: ['./message-send-box.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageSendBoxComponent implements OnInit, OnDestroy {
   active: boolean;
@@ -29,8 +30,9 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   @ViewChild('filePicker', { static: false }) filePicker: ElementRef;
   @ViewChild('textInput', { static: true }) textInput: ElementRef;
   constructor(
-    private timHelperService: TimHelperService,
     private store: Store,
+    private cd: ChangeDetectorRef,
+    private timHelperService: TimHelperService,
   ) { }
 
   ngOnInit(): void {
@@ -129,6 +131,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   }
 
   sendImage(event: any) {
+    console.log('sendImage');
     let message = this.timHelperService.tim.createImageMessage({
       to: this.toAccount,
       conversationType: this.currentConversationType,
@@ -209,7 +212,9 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
 
   }
 
-  handleSendImageClick(input: HTMLInputElement) {
+  handleSendImageClick(input: HTMLInputElement, event: Event) {
+    event.stopPropagation();
+
     input.click();
   }
 

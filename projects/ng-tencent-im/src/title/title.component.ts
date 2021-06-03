@@ -28,7 +28,7 @@ export class TitleComponent implements OnInit, OnDestroy {
       this.currentConversation = res;
       switch (res?.type) {
         case CONVERSATION_TYPE.client:
-          this.name = res.userProfile.nick;
+          this.name = res.userProfile.nick || res.userProfile.userID;
           break;
         case CONVERSATION_TYPE.group:
           this.name = res.groupProfile.name;
@@ -40,9 +40,7 @@ export class TitleComponent implements OnInit, OnDestroy {
           this.name = null;
           break;
       }
-
       this.cd.markForCheck();
-
     });
   }
 

@@ -27,7 +27,8 @@ import { resetCurrentMemberListAction, updateCurrentMemberListAction, updateGrou
 import { currentMemberListSelector } from './store/selectors/group.selector';
 
 import TIM from 'tim-js-sdk';
-import COS from "cos-js-sdk-v5";
+import TIMUploadPlugin from 'tim-upload-plugin';
+
 import { MESSAGE_STATUS, NG_Tim_CONFIG } from './shared.data';
 import { NgTimConfig } from './type';
 
@@ -255,7 +256,7 @@ export class TimHelperService {
     // 无日志级别
     this.tim.setLogLevel(config.level || 1);
     // 注册 cos
-    this.tim.registerPlugin({ 'cos-js-sdk': COS });
+    this.tim.registerPlugin({ 'tim-upload-plugin': TIMUploadPlugin });
   }
 
 }

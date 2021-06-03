@@ -28,6 +28,7 @@
       "ng-zorro-antd/popconfirm": "ng-zorro-antd/popconfirm",
       "ng-zorro-antd/button": "ng-zorro-antd/button",
       "ng-zorro-antd/select": "ng-zorro-antd/select",
+      "tim-upload-plugin": "tim-upload-plugin",
       "projects/ng-tencent-im/src/util/decode-text": "projects/ng-tencent-im/src/util/decode-text",
       "projects/ng-tencent-im/src/util/format-duration": "projects/ng-tencent-im/src/util/format-duration",
       "projects/ng-tencent-im/src/util/trtc-custom-message-map": "projects/ng-tencent-im/src/util/trtc-custom-message-map",

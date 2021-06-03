@@ -1,12 +1,22 @@
 <div class="message-send-box-wrapper" [ngClass]="{'white-background': focus}"
   (focus)="onfocus($event)">
   <div class="send-header-bar">
-    <i class="iconfont icon-smile" title="发表情" nz-popover nzPopoverTitle="Title"
+
+    <input type="file" #imagePicker accept=".jpg, .jpeg, .png, .gif" (change)="sendImage($event)"
+      (click)="$event.stopPropagation()" style="display:none" />
+
+    <input type="file" #filePicker (change)="sendFile($event)" (click)="$event.stopPropagation()"
+      style="display:none" />
+
+    <i nz-icon nzType="meh" nzTheme="outline" title="发表情" nz-popover nzPopoverTitle="Title"
       [(nzPopoverVisible)]="visible" nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate"
       [nzPopoverTitle]="'表情'"></i>
 
-    <i class="iconfont icon-tupian" title="发图片" (click)="handleSendImageClick(imagePicker)"></i>
-    <i class="iconfont icon-wenjian" title="发文件" (click)="handleSendFileClick(filePicker)"></i>
+    <i nz-icon nzType="picture" nzTheme="outline" title="发图片"
+      (click)="handleSendImageClick(imagePicker,$event)"></i>
+
+    <i nz-icon nzType="folder" nzTheme="outline" title="发文件"
+      (click)="handleSendFileClick(filePicker)"></i>
 
   </div>
   <div class="bottom">
@@ -15,16 +25,10 @@
       (keyup)="handleLine($event)">
     </textarea>
     <div class="btn-send" (click)="sendTextMessage()">
-      <div nzTooltipTitle="按Enter发送消息，Ctrl+Enter换行" nzTooltipPlacement="left" nz-button nz-tooltip
-        class="tim-icon-send"></div>
+      <button nzTooltipTitle="按Enter发送消息，Ctrl+Enter换行" nzTooltipPlacement="left" nz-button
+        nz-tooltip class="tim-icon-send">发送</button>
     </div>
   </div>
-  <input type="file" id="imagePicker" #imagePicker accept=".jpg, .jpeg, .png, .gif"
-    (change)="sendImage($event)" style="display:none" />
-
-  <input type="file" id="filePicker" #filePicker (change)="sendFile($event)" style="display:none" />
-
-
 </div>
 
 <ng-template #contentTemplate>
