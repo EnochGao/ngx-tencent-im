@@ -1,11 +1,17 @@
 {
-  "name": "ng-tencent-im",
+  "name": "ngx-tencent-im",
   "version": "0.0.0",
   "keywords": [
-    "Tencent Im demo",
+    "ngx-tencent-im",
     "Angular",
-    "Im"
+    "Im",
+    "demo"
   ],
+  "description": "An instant messaging demo developed based on Angular.",
+  "author": {
+    "name": "EnochGao",
+    "email": "enochgao@qq.com"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -31,6 +37,7 @@
     "ng-zorro-antd": "^11.4.1",
     "rxjs": "~6.5.4",
     "tim-js-sdk": "^2.10.2",
+    "tim-upload-plugin": "^1.0.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },

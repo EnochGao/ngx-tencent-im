@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TimHelperService } from 'ng-tencent-im';
+import { TimHelperService } from 'ngx-tencent-im';
 import { genTestUserSig } from '../tim-config/GenerateTestUserSig';
 
 
@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    this.timHelperService.setUserSig(genTestUserSig(this.validateForm.value.userName).userSig);
-    this.timHelperService.login(this.validateForm.value.userName);
+    this.timHelperService.login(this.validateForm.value.userName, genTestUserSig(this.validateForm.value.userName).userSig);
   }
 
 }

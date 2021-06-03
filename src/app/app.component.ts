@@ -3,7 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { genTestUserSig } from './tim-config/GenerateTestUserSig';
 
-import { TimHelperService } from 'ng-tencent-im';
+import { TimHelperService } from 'ngx-tencent-im';
 
 
 @Component({
@@ -18,6 +18,8 @@ export class AppComponent {
     private message: NzMessageService,
     private timHelperService: TimHelperService
   ) {
+
+    this.timHelperService.login('user0', genTestUserSig('user0').userSig);
 
     this.timHelperService.eventBus$.subscribe(res => {
       if (res === 'login') {

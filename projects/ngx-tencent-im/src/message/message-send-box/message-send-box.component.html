@@ -1,0 +1,40 @@
+<div class="message-send-box-wrapper" [ngClass]="{'white-background': focus}"
+  (focus)="onfocus($event)">
+  <div class="send-header-bar">
+
+    <input type="file" #imagePicker accept=".jpg, .jpeg, .png, .gif" (change)="sendImage($event)"
+      (click)="$event.stopPropagation()" style="display:none" />
+
+    <input type="file" #filePicker (change)="sendFile($event)" (click)="$event.stopPropagation()"
+      style="display:none" />
+
+    <i nz-icon nzType="meh" nzTheme="outline" title="发表情" nz-popover nzPopoverTitle="Title"
+      [(nzPopoverVisible)]="visible" nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate"
+      [nzPopoverTitle]="'表情'"></i>
+
+    <i nz-icon nzType="picture" nzTheme="outline" title="发图片"
+      (click)="handleSendImageClick(imagePicker,$event)"></i>
+
+    <i nz-icon nzType="folder" nzTheme="outline" title="发文件"
+      (click)="handleSendFileClick(filePicker)"></i>
+
+  </div>
+  <div class="bottom">
+    <textarea rows="4" resize="false" class="text-input" #textInput [(ngModel)]="messageContent"
+      (focus)="focus=true" (blur)="focus=false" (keydown)="keyDown($event)"
+      (keyup)="handleLine($event)">
+    </textarea>
+    <div class="btn-send" (click)="sendTextMessage()">
+      <button nzTooltipTitle="按Enter发送消息，Ctrl+Enter换行" nzTooltipPlacement="left" nz-button
+        nz-tooltip class="tim-icon-send">发送</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #contentTemplate>
+  <div class="emojis" [ngStyle]="{'width': '400px'}">
+    <div *ngFor="let item of emojiName" class="emoji" (click)="chooseEmoji(item)">
+      <img [src]="emojiUrl + emojiMap[item]" style="width:30px;height:30px" />
+    </div>
+  </div>
+</ng-template>
