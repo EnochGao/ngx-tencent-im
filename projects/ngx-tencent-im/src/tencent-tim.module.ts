@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
@@ -62,6 +62,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NG_Tim_CONFIG } from './shared.data';
 import { TitleComponent } from './title/title.component';
+import { CreateGroupComponent } from './group/create-group/create-group.component';
 // import { AccountBookFill } from '@ant-design/icons-angular/icons';
 // import { IconDefinition } from '@ant-design/icons-angular';
 // const icons: IconDefinition[] = [AccountBookFill];
@@ -94,11 +95,13 @@ import { TitleComponent } from './title/title.component';
     GroupMemberListComponent,
     GroupItemComponent,
     GroupMemberInfoComponent,
-    TitleComponent
+    TitleComponent,
+    CreateGroupComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     DragDropModule,
     NzPopoverModule,
     NzToolTipModule,

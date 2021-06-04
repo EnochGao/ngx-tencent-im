@@ -1,0 +1,79 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="groupID">群ID</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="groupID" id="groupID" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>
+      <span>群名称</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入名称!">
+      <input nz-input formControlName="name" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>群类型
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-select formControlName="type">
+        <nz-option *ngFor="let item of groupTypeOption" [nzLabel]="item.label"
+          [nzValue]="item.value">
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="avatar">群头像地址</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="avatar" formControlName="avatar" placeholder="avatar" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">群简介</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <textarea nz-input formControlName="introduction" placeholder="群简介" [maxlength]="240"
+        [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">群公告
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <textarea nz-input formControlName="notification" placeholder="群公告" [maxlength]="300"
+        [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">加群方式
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-radio-group formControlName="joinOption">
+        <label nz-radio nzValue="FreeAccess">自由加群</label>
+        <label nz-radio nzValue="NeedPermission">需要验证</label>
+        <label nz-radio nzValue="DisableApply">禁止加群</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">群成员列表
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-select #search nzMode="multiple" [nzLoading]="loading" nzPlaceHolder="请输入群成员 userID"
+        formControlName="memberList">
+        <nz-option *ngFor="let item of memberListOfOption" [nzLabel]="item" [nzValue]="item">
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row nzJustify="center">
+    <nz-form-control [nzSpan]="12" nzPush="8">
+      <button nz-button nzType="primary">立即创建</button>
+    </nz-form-control>
+    <nz-form-control [nzSpan]="12">
+      <button nz-button nzType="default" type="button" (click)="modalRef.destroy()">取消</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

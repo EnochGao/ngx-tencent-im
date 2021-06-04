@@ -16,3 +16,9 @@ export enum CONVERSATION_TYPE {
   group = 'GROUP',
   system = '@TIM#SYSTEM',
 }
+export enum TIM_TYPES {
+  GRP_WORK = 'Private',
+  GRP_PUBLIC = 'Public',
+  GRP_MEETING = 'ChatRoom',
+  GRP_AVCHATROOM = 'AVChatRoom',
+}
