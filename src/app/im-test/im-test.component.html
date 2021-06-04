@@ -1,0 +1,11 @@
+<button nz-button nzType="primary" [routerLink]="['../lazy']">lazy module</button>
+注意：若果要懒加载使用的话，本demo注释掉跟模块的相关引用
+
+<div class="container">
+  <div class="login" *ngIf="!isLogin">
+    <app-login></app-login>
+  </div>
+  <div class="tencent-im" *ngIf="isLogin">
+    <ngx-tencent-tim (message)="messageTip($event)"></ngx-tencent-tim>
+  </div>
+</div>

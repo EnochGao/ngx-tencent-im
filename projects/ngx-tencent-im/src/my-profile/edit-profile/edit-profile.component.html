@@ -1,0 +1,38 @@
+<form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">
+      <span>头像</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="avatar" placeholder="头像地址" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="avatar">昵称</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input formControlName="nick" placeholder="昵称" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">性别
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-radio-group formControlName="gender">
+        <label *ngFor="let item of radioOption" nz-radio
+          [nzValue]="item.value">{{item.label}}</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <nz-form-item nz-row nzJustify="center">
+    <nz-form-control [nzSpan]="12" nzPush="8">
+      <button nz-button nzType="primary">确定</button>
+    </nz-form-control>
+    <nz-form-control [nzSpan]="12">
+      <button nz-button nzType="default" type="button" (click)="modalRef.destroy()">取消</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

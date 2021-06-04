@@ -19,8 +19,8 @@
         </ng-template>
 
         <div class="group-member" (click)="currentMemberID = member.userID">
-          <app-avatar [title]="getGroupMemberAvatarText(member.role)" [src]="member.avatar">
-          </app-avatar>
+          <im-avatar [title]="getGroupMemberAvatarText(member.role)" [src]="member.avatar">
+          </im-avatar>
           <div class="member-name text-ellipsis">
             <span *ngIf="member.nameCard" [title]="member.nameCard">{{ member.nameCard }}</span>
             <span *ngIf="member.nick" [title]="member.nick">{{ member.nick }}</span>

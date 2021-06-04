@@ -4,7 +4,7 @@
 
     <div class="col-1" *ngIf="showAvatar">
       <!-- 头像 -->
-      <app-avatar [src]="avatar"></app-avatar>
+      <im-avatar [src]="avatar"></im-avatar>
     </div>
     <div class="col-2">
       <!-- 消息主体 -->
@@ -30,8 +30,8 @@
     [class]="messagePosition">
     <!-- 头像 群组没有获取单个头像的接口，暂时无法显示头像-->
     <div class="col-1" *ngIf="showAvatar">
-      <app-avatar class="group-member-avatar" [src]="avatar">
-      </app-avatar>
+      <im-avatar class="group-member-avatar" [src]="avatar">
+      </im-avatar>
     </div>
     <div class="col-2">
       <!-- 消息主体 -->
@@ -59,7 +59,7 @@
 
   <div class="system-layout" *ngIf="currentConversationType === TIM.TYPES.CONV_SYSTEM">
     <div class="col-1">
-      <app-avatar [src]="avatar" [type]="currentConversationType"></app-avatar>
+      <im-avatar [src]="avatar" [type]="currentConversationType"></im-avatar>
     </div>
     <div class="col-2">
       <app-message-header *ngIf="showMessageHeader" [message]="message"

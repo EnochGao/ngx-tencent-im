@@ -15,37 +15,11 @@ export class AppComponent {
   isLogin = false;
 
   constructor(
-    private message: NzMessageService,
-    private timHelperService: TimHelperService
   ) {
 
-    this.timHelperService.login('user0', genTestUserSig('user0').userSig);
-
-    this.timHelperService.eventBus$.subscribe(res => {
-      if (res === 'login') {
-        this.isLogin = true;
-      }
-      if (res === 'logout') {
-        this.isLogin = false;
-      }
-    });
   }
 
 
-  messageTip(message: any) {
-    switch (message.type) {
-      case 'success': this.message.success(message.message);
-        break;
-      case 'error': this.message.error(message.message);
-        break;
-      case 'warning': this.message.warning(message.message);
-        break;
-      case 'info': this.message.info(message.message);
-        break;
 
-      default:
-        break;
-    }
-  }
 
 }

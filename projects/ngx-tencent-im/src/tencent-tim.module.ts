@@ -64,9 +64,8 @@ import { NG_Tim_CONFIG } from './shared.data';
 import { TitleComponent } from './title/title.component';
 import { CreateGroupComponent } from './group/create-group/create-group.component';
 import { ApprovalJoinGroupComponent } from './message/message-element/group-system-notice-element/approval-join-group/approval-join-group.component';
-// import { AccountBookFill } from '@ant-design/icons-angular/icons';
-// import { IconDefinition } from '@ant-design/icons-angular';
-// const icons: IconDefinition[] = [AccountBookFill];
+import { ProfileCardComponent } from './my-profile/profile-card/profile-card.component';
+import { EditProfileComponent } from './my-profile/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +97,9 @@ import { ApprovalJoinGroupComponent } from './message/message-element/group-syst
     GroupMemberInfoComponent,
     TitleComponent,
     CreateGroupComponent,
-    ApprovalJoinGroupComponent
+    ApprovalJoinGroupComponent,
+    ProfileCardComponent,
+    EditProfileComponent
   ],
   imports: [
     CommonModule,

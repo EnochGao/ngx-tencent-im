@@ -16,16 +16,17 @@ import { extModules } from 'src/environments/environment';
 import { LoginComponent } from './login/login.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { ImTestComponent } from './im-test/im-test.component';
 
 registerLocaleData(zh);
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ImTestComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -34,11 +35,14 @@ registerLocaleData(zh);
     NzSelectModule,
     NzButtonModule,
     NzMessageModule,
+    NzButtonModule,
     TencentTimModule.forRoot({
       level: 4,
       sdkAppId: 1400440675
     }),
-    extModules
+    extModules,
+    AppRoutingModule,
+
   ],
   bootstrap: [AppComponent]
 })
