@@ -63,6 +63,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NG_Tim_CONFIG } from './shared.data';
 import { TitleComponent } from './title/title.component';
 import { CreateGroupComponent } from './group/create-group/create-group.component';
+import { ApprovalJoinGroupComponent } from './message/message-element/group-system-notice-element/approval-join-group/approval-join-group.component';
 // import { AccountBookFill } from '@ant-design/icons-angular/icons';
 // import { IconDefinition } from '@ant-design/icons-angular';
 // const icons: IconDefinition[] = [AccountBookFill];
@@ -96,7 +97,8 @@ import { CreateGroupComponent } from './group/create-group/create-group.componen
     GroupItemComponent,
     GroupMemberInfoComponent,
     TitleComponent,
-    CreateGroupComponent
+    CreateGroupComponent,
+    ApprovalJoinGroupComponent
   ],
   imports: [
     CommonModule,

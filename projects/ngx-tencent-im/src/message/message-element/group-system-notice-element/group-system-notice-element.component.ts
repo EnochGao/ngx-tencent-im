@@ -1,14 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { MessageItem } from '../../../im.type';
-import { MESSAGE_STATUS } from '../../../shared.data';
-import { removeMessageAction, showAction } from '../../../store/actions';
-import { TimHelperService } from '../../../tim-helper.service';
+import { TIM } from '../../../shared.data';
 import { translateGroupSystemNotice } from '../../../util/common';
-
-import TIM from 'tim-js-sdk';
-
+import { ApprovalJoinGroupComponent } from './approval-join-group/approval-join-group.component';
 
 @Component({
   selector: 'app-group-system-notice-element',
@@ -24,13 +19,9 @@ export class GroupSystemNoticeElementComponent implements OnInit {
   text: string;
   title: string;
   isJoinGroupRequest: boolean;
-  form = {
-    handleAction: 'Agree',
-    handleMessage: '',
-  };
+
   constructor(
-    private timHelperService: TimHelperService,
-    private store: Store
+    private modal: NzModalService
   ) { }
 
   ngOnInit(): void {
@@ -46,20 +37,18 @@ export class GroupSystemNoticeElementComponent implements OnInit {
     this.isJoinGroupRequest = (this.payload.operationType === 1);
   }
 
-  handleGroupApplication() {
-    this.timHelperService.tim
-      .handleGroupApplication({
-        handleAction: this.form.handleAction,
-        handleMessage: this.form.handleMessage,
-        message: this.message,
-      })
-      .then(() => {
-        this.showDialog = false;
-        this.store.dispatch(removeMessageAction({ message: this.message }));
-      })
-      .catch((error) => {
-        this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.error, message: error.message }));
-      });
+  approval() {
+    this.modal.create({
+      nzTitle: `处理加群申请`,
+      nzContent: ApprovalJoinGroupComponent,
+      nzMaskClosable: false,
+      nzFooter: null,
+      nzWidth: '40%',
+      nzStyle: { top: '20px' },
+      nzComponentParams: {
+        message: this.message
+      }
+    });
   }
 
 }
