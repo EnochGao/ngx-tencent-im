@@ -10,31 +10,22 @@
 
   .header-bar {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
     flex-shrink: 0;
     height: 50px;
     border-bottom: 1px solid #303841;
     padding: 10px 10px 10px 20px;
+    nz-select {
+      width: 100%;
+    }
 
     .group-seach-bar {
       width: 100%;
       margin-right: 10px;
-
-      // >>>.el-input {
-      //   input {
-      //     color: #a5b5c1;
-      //     border: none;
-      //     border-radius: 30px;
-      //     background-color: #303841 !important;
-
-      //     &::placeholder {
-      //       color: #76828c;
-      //     }
-      //   }
-
-      //   .el-icon-search {
-      //     color: #76828c;
-      //   }
-      // }
     }
 
     button {

@@ -1,5 +1,10 @@
 <div class="list-container">
   <div class="header-bar">
+    <nz-select #search nzShowSearch nzServerSearch nzSize="small" [nzLoading]="loading"
+      nzPlaceHolder="输入群ID搜索" [(ngModel)]="group" (ngModelChange)="applyJoinGroup($event)">
+      <nz-option *ngFor="let item of groupListOfOption" [nzLabel]="item.groupID" [nzValue]="item">
+      </nz-option>
+    </nz-select>
     <button title="创建群组" (click)="createGroup()">
       <i class="tim-icon-add"></i>
     </button>
