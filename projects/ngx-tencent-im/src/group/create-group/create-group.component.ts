@@ -94,7 +94,6 @@ export class CreateGroupComponent implements OnInit {
       this.loading = true;
       this.timeHelper.tim.getUserProfile({ userIDList: [userID] }).then(({ data }) => {
         this.memberListOfOption = data.map(item => item.userID);
-        console.log(this.memberListOfOption);
         this.loading = false;
         this.cd.markForCheck();
       }).catch((error: any) => {

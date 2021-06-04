@@ -27,6 +27,7 @@ import { resetCurrentMemberListAction, updateCurrentMemberListAction, updateGrou
 import { currentMemberListSelector } from './store/selectors/group.selector';
 
 import TIM from 'tim-js-sdk';
+
 import TIMUploadPlugin from 'tim-upload-plugin';
 
 import { MESSAGE_STATUS, NG_Tim_CONFIG } from './shared.data';
@@ -194,21 +195,23 @@ export class TimHelperService {
     }
 
     // 2.待切换的会话也进行已读上报
-    this.tim.setMessageRead({ conversationID }).then(_ => {
-      // 3. 获取会话信息
-      this.tim.getConversationProfile(conversationID).then((res: IMResponse<{ conversation: Conversation; }>) => {
-        // 3.1 更新当前会话
-        this.store.dispatch(updateCurrentConversationAction({ conversation: res.data.conversation }));
-        // 3.2 获取消息列表
-        this.getMessageList(conversationID);
+    this.tim.setMessageRead({ conversationID });
+    // 3. 获取会话信息
+    return this.tim.getConversationProfile(conversationID).then((res: IMResponse<{ conversation: Conversation; }>) => {
+      // 3.1 更新当前会话
+      this.store.dispatch(updateCurrentConversationAction({ conversation: res.data.conversation }));
+      // 3.2 获取消息列表
+      this.getMessageList(conversationID);
 
-        if (res.data.conversation.type === TIM.TYPES.CONV_GROUP) {
-          this.getGroupMemberList(res.data.conversation.groupProfile.groupID);
-        }
-      }).catch(err => {
-        this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.error, message: err }));
-      });
+      if (res.data.conversation.type === TIM.TYPES.CONV_GROUP) {
+        this.getGroupMemberList(res.data.conversation.groupProfile.groupID);
+      }
+      return Promise.resolve();
+
     });
+    // .catch(err => {
+    //   this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.error, message: err }));
+    // });
   }
 
   /**

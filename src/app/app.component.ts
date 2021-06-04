@@ -40,6 +40,8 @@ export class AppComponent {
         break;
       case 'warning': this.message.warning(message.message);
         break;
+      case 'info': this.message.info(message.message);
+        break;
 
       default:
         break;
