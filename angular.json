@@ -144,9 +144,14 @@
     },
     "ngx-tencent-im": {
       "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
       "root": "projects/ngx-tencent-im",
       "sourceRoot": "projects/ngx-tencent-im/src",
-      "prefix": "lib",
+      "prefix": "im",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
