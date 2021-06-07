@@ -40,6 +40,7 @@
     }
   },
   "assets": [
-    "./assets/**"
+    "./assets/**",
+    "./README-zh_CN.md"
   ]
 }
