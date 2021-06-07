@@ -61,6 +61,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+
 import { NG_Tim_CONFIG } from './shared.data';
 import { TitleComponent } from './title/title.component';
 import { CreateGroupComponent } from './group/create-group/create-group.component';
@@ -122,6 +124,7 @@ import { EditProfileComponent } from './my-profile/edit-profile/edit-profile.com
     NzBadgeModule,
     NzCollapseModule,
     NzRadioModule,
+    NzAvatarModule,
     NzSwitchModule,
     StoreModule.forRoot(reducers, {
       runtimeChecks: {

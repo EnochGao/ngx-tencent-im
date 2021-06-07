@@ -16,6 +16,9 @@ import { extModules } from 'src/environments/environment';
 import { LoginComponent } from './login/login.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+
 import { ImTestComponent } from './im-test/im-test.component';
 
 registerLocaleData(zh);
@@ -36,9 +39,12 @@ registerLocaleData(zh);
     NzButtonModule,
     NzMessageModule,
     NzButtonModule,
+    NzAvatarModule,
+    NzBadgeModule,
     TencentTimModule.forRoot({
       level: 4,
-      sdkAppId: 1400440675
+      sdkAppId: 1400440675,
+      minimized: true
     }),
     extModules,
     AppRoutingModule,

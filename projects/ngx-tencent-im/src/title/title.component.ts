@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, Output, EventEmitter, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Conversation } from '../im.type';
-import { CONVERSATION_TYPE } from '../shared.data';
+import { CONVERSATION_TYPE, NG_Tim_CONFIG } from '../shared.data';
 import { currentConversationSelector } from '../store/selectors';
+import { NgTimConfig } from '../type';
 
 @Component({
   selector: 'lib-title',
@@ -15,12 +16,15 @@ export class TitleComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   @Output() detailBtnClick = new EventEmitter<void>();
+  @Output() minimizeClick = new EventEmitter<void>();
 
   constructor(
     private store: Store,
+    @Inject(NG_Tim_CONFIG) public config: NgTimConfig,
   ) { }
 
   ngOnInit(): void {
+
     this.subscription = this.store.select(currentConversationSelector).subscribe((res: Conversation) => {
       this.currentConversation = res;
     });

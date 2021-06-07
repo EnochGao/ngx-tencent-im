@@ -5,8 +5,9 @@
     </span>
   </div>
   <div nz-col nzSpan="12" class="icon-content">
-    <div>
-      <i nz-icon nzType="minus" nzTheme="outline"></i>
+    <div class="minimize">
+      <i [hidden]="!config.minimized" nz-icon nzType="minus" nzTheme="outline"
+        (click)="minimizeClick.emit()"></i>
     </div>
     <div>
       <i [hidden]="detailIsHidden" nz-icon nzType="small-dash" nzTheme="outline" title="查看详细信息"

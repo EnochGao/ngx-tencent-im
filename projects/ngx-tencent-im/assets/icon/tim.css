@@ -49,3 +49,31 @@
 .tim-icon-angle-middle:before {
   content: "\e906";
 }
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+* {
+  font-family: MicrosoftYaHei, Arial, sans-serif;
+  scrollbar-width: none; /*火狐*/
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

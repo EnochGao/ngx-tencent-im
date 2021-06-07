@@ -3,6 +3,10 @@
     <app-login></app-login>
   </div>
   <div class="tencent-im" *ngIf="isLogin">
-    <ngx-tencent-tim (message)="messageTip($event)"></ngx-tencent-tim>
+    <ngx-tencent-tim [(hiddenWindow)]="hidden" (message)="messageTip($event)"></ngx-tencent-tim>
   </div>
 </div>
+
+<nz-badge [nzCount]="unread|async" class="notice" (click)="hidden=!hidden">
+  <nz-avatar nzIcon="user" [nzShape]="'square'"></nz-avatar>
+</nz-badge>

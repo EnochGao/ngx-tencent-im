@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Input } from '@angular/core';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 
@@ -13,10 +13,13 @@ import { getMessage } from '../store/selectors';
 })
 export class TencentTimComponent implements OnInit, OnDestroy {
 
-  showDetail = false;
-  subscription: Subscription;
+  @Input() hiddenWindow = false;
 
   @Output() message = new EventEmitter<any>();
+  @Output() hiddenWindowChange = new EventEmitter<boolean>();
+
+  showDetail = false;
+  subscription: Subscription;
 
   constructor(
     private store: Store

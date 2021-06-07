@@ -57,7 +57,6 @@ export class SideBarComponent implements OnInit {
 
   checkoutActive(name: string) {
     this.active = name;
-
   }
 
 
@@ -88,6 +87,7 @@ export class SideBarComponent implements OnInit {
       return this.totalUnreadCount = count + conversation.unreadCount;
     }, 0);
     titleNotify(result);
+    this.timHelperService.totalUnRead.next(result);
     return this.totalUnreadCount = result;
   }
 
