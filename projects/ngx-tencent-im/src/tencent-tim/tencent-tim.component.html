@@ -1,11 +1,13 @@
-<div class="chat-wrapper" cdkDrag (click)="showDetail=false">
+<div class="chat-wrapper" cdkDrag (click)="showDetail=false" [hidden]="hiddenWindow">
   <div class="chat-side" cdkDragHandle>
     <app-side-bar></app-side-bar>
   </div>
 
   <div class="chat-content">
     <div cdkDragHandle class="chat-title">
-      <lib-title (detailBtnClick)="showDetail=!showDetail"></lib-title>
+      <lib-title (detailBtnClick)="showDetail=!showDetail"
+        (minimizeClick)="hiddenWindow=true;hiddenWindowChange.emit(true)">
+      </lib-title>
     </div>
     <div class="chat-window">
       <app-current-conversation></app-current-conversation>

@@ -10,6 +10,10 @@ import { genTestUserSig } from '../tim-config/GenerateTestUserSig';
 })
 export class ImTestComponent implements OnInit {
   isLogin = false;
+  hidden = false;
+
+  unread = this.timHelperService.totalUnRead;
+
   constructor(
     private message: NzMessageService,
     private timHelperService: TimHelperService

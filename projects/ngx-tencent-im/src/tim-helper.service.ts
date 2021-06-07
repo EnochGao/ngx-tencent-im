@@ -42,6 +42,7 @@ export class TimHelperService {
   conversation: ConversationState; // 当前会话
   currentMemberList: Array<Member>; // 当前会话
   eventBus$: Subject<string> = new Subject();
+  totalUnRead: Subject<number> = new Subject();
 
   constructor(
     private store: Store,
