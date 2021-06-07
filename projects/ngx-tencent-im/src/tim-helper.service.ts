@@ -33,10 +33,8 @@ import TIMUploadPlugin from 'tim-upload-plugin';
 import { MESSAGE_STATUS, NG_Tim_CONFIG } from './shared.data';
 import { NgTimConfig } from './type';
 
-import { TencentTimModule } from './tencent-tim.module';
-
 @Injectable({
-  providedIn: TencentTimModule
+  providedIn: 'root'
 })
 export class TimHelperService {
 
