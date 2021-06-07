@@ -29,6 +29,7 @@
       "ng-zorro-antd/button": "ng-zorro-antd/button",
       "ng-zorro-antd/select": "ng-zorro-antd/select",
       "ng-zorro-antd/input-number": "ng-zorro-antd/input-number",
+      "ng-zorro-antd/avatar": "ng-zorro-antd/avatar",
       "tim-upload-plugin": "tim-upload-plugin",
       "projects/ngx-tencent-im/src/util/decode-text": "projects/ngx-tencent-im/src/util/decode-text",
       "projects/ngx-tencent-im/src/util/format-duration": "projects/ngx-tencent-im/src/util/format-duration",

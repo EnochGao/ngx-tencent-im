@@ -1,19 +1,9 @@
-:host ::ng-deep {
-  .avatar {
-    width: 40px !important;
-    height: 40px !important;
-    margin-right: 10px !important;
-    border-radius: 50% !important;
-    flex-shrink: 0 !important;
-  }
-}
-
 .conversation-item-container {
-  padding: 15px 20px;
+  padding: 15px 10px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: .2s;
+  transition: 0.2s;
 
   &:hover {
     background-color: #404953;
@@ -28,15 +18,18 @@
     right: -20px;
     top: 3px;
     color: #76828c;
-    transition: all .2s ease;
+    transition: all 0.2s ease;
 
     &:hover {
-      color: #f35f5f
+      color: #f35f5f;
     }
   }
 
   .warp {
     display: flex;
+    im-avatar {
+      padding-right: 10px;
+    }
   }
 
   .content {
@@ -64,7 +57,7 @@
           vertical-align: bottom;
           background-color: #f35f5f;
           border-radius: 10px;
-          color: #FFF;
+          color: #fff;
           display: inline-block;
           font-size: 12px;
           height: 18px;
