@@ -69,7 +69,6 @@ export class ConversationListComponent implements OnInit, OnDestroy {
 
     // 拉取会话列表
     this.timHelperService.tim.getConversationList().then(({ data }) => {
-      console.log('刷新成功', data);
       this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.success, message: '刷新成功！' }));
 
     }).catch((imError) => {

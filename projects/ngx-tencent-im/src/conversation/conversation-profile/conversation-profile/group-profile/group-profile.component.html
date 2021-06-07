@@ -10,14 +10,15 @@
     <div class="info-item">
       <div class="label">
         群头像
-        <i nz-icon nzType="edit" nzTheme="outline" *ngIf="editable" (click)="showEditFaceUrl = true"
+        <i nz-icon nzType="edit" nzTheme="outline" *ngIf="editable"
+          (click)="showEditFaceUrl = true;inputFocus(groupAvatar);$event.stopPropagation()"
           class="edit"></i>
       </div>
       <div class="content" *ngIf="!showEditFaceUrl">
-        <app-avatar [src]="groupProfile.avatar"></app-avatar>
+        <im-avatar [src]="groupProfile.avatar"></im-avatar>
       </div>
-      <!-- <el-input ref="editFaceUrl" v-else autofocus v-model="avatar" size="mini"
-        @blur="showEditFaceUrl = false" @keydown.enter.native="editFaceUrl" /> -->
+      <input #groupAvatar [hidden]="!showEditFaceUrl" nz-input [(ngModel)]="avatar"
+        placeholder="回车确认" (keydown.enter)="editFaceUrl()" (blur)="showEditFaceUrl = false">
     </div>
 
     <div class="info-item">
@@ -28,41 +29,42 @@
       <div class="label">
         群名称
         <i nz-icon nzType="edit" nzTheme="outline" *ngIf="editable" (click)="
-          showEditName = true;" class="edit"></i>
+          showEditName = true;inputFocus(groupName)" class="edit"></i>
       </div>
-
       <div class="content text-ellipsis" [title]="groupProfile.name" *ngIf="!showEditName">
         {{ groupProfile.name || '暂无' }}
       </div>
-      <!-- <el-input ref="editName" v-else autofocus v-model="name" size="mini"
-        @blur="showEditName = false" @keydown.enter.native="editName" /> -->
+      <input #groupName [hidden]="!showEditName" autofocus nz-input [(ngModel)]="name"
+        placeholder="回车确认" (keydown.enter)="editName()" (blur)="showEditName = false">
     </div>
 
     <div class="info-item">
       <div class="label">
         群介绍
         <i nz-icon nzType="edit" nzTheme="outline" *ngIf="editable" (click)="
-          showEditIntroduction = true;" class="edit"></i>
+          showEditIntroduction = true;inputFocus(groupIntroduction)" class="edit"></i>
       </div>
       <div class="long-content" [title]="groupProfile.introduction" *ngIf="!showEditIntroduction">
         {{ groupProfile.introduction || '暂无' }}
       </div>
-      <!-- <el-input ref="editIntroduction" v-else autofocus v-model="introduction" size="mini"
-        @blur="showEditIntroduction = false" @keydown.enter.native="editIntroduction" /> -->
+      <input #groupIntroduction [hidden]="!showEditIntroduction" autofocus nz-input
+        [(ngModel)]="introduction" placeholder="回车确认" (keydown.enter)="editIntroduction()"
+        (blur)="showEditIntroduction = false">
     </div>
     <div class="info-item">
       <div class="label">
         群公告
         <i nz-icon nzType="edit" nzTheme="outline" *ngIf="editable" (click)="
-          showEditNotification = true;
+          showEditNotification = true;inputFocus(groupNotification)
         " class="edit"></i>
       </div>
       <div class="long-content" [title]="groupProfile.notification" *ngIf="!showEditNotification">
         {{ groupProfile.notification || '暂无' }}
       </div>
 
-      <!-- <el-input ref="editNotification" v-else autofocus v-model="notification" size="mini"
-        @blur="showEditNotification = false" @keydown.enter.native="editNotification" /> -->
+      <input #groupNotification [hidden]="!showEditNotification" autofocus nz-input
+        [(ngModel)]="notification" placeholder="回车确认" (keydown.enter)="editNotification()"
+        (blur)="showEditNotification = false">
     </div>
     <div class="info-item" *ngIf="groupProfile.type !== 'Private'">
       <div class="label">
@@ -73,12 +75,13 @@
       </div>
       <div class="content" *ngIf="!showEditJoinOption">{{ joinOptionMap[groupProfile.joinOption] }}
       </div>
-      <!-- <el-select ref="editJoinOption" v-model="joinOption" v-show="showEditJoinOption" size="mini"
-        automatic-dropdown @blur="showEditJoinOption = false" @change="editJoinOption">
-        <el-option label="自由加入" value="FreeAccess"></el-option>
-        <el-option label="需要验证" value="NeedPermission"></el-option>
-        <el-option label="禁止加群" value="DisableApply"></el-option>
-      </el-select> -->
+      <nz-select [ngStyle]="{'width': '100%'}" [(ngModel)]="joinOption"
+        (ngModelChange)="editJoinOption()" (blur)="showEditJoinOption = false"
+        [hidden]="!showEditJoinOption">
+        <nz-option nzValue="FreeAccess" nzLabel="自由加入"></nz-option>
+        <nz-option nzValue="NeedPermission" nzLabel="需要验证"></nz-option>
+        <nz-option nzValue="DisableApply" nzLabel="禁止加群"></nz-option>
+      </nz-select>
     </div>
     <div class="info-item">
       <div class="label">
@@ -90,27 +93,28 @@
       <div class="content" *ngIf="!showEditMessageRemindType">
         {{ messageRemindTypeMap[this.groupProfile.selfInfo.messageRemindType] }}
       </div>
-      <!-- <el-select ref="editMessageRemindType" v-show="showEditMessageRemindType"
-        v-model="messageRemindType" size="mini" automatic-dropdown @change="editMessageRemindType"
-        @blur="showEditMessageRemindType = false">
-        <el-option label="接收消息并提示" value="AcceptAndNotify"></el-option>
-        <el-option label="接收消息但不提示" value="AcceptNotNotify"></el-option>
-        <el-option label="屏蔽消息" value="Discard"></el-option>
-      </el-select> -->
+
+      <nz-select [ngStyle]="{'width': '100%'}" [(ngModel)]="messageRemindType"
+        (ngModelChange)="editMessageRemindType()" (blur)="showEditMessageRemindType = false"
+        [hidden]="!showEditMessageRemindType">
+        <nz-option nzValue="AcceptAndNotify" nzLabel="接收消息并提示"></nz-option>
+        <nz-option nzValue="AcceptNotNotify" nzLabel="接收消息但不提示"></nz-option>
+        <nz-option nzValue="Discard" nzLabel="屏蔽消息"></nz-option>
+      </nz-select>
     </div>
 
     <div class="info-item">
       <div class="label">
         我的群名片
-        <i nz-icon nzType="edit" (click)="
-            showEditNameCard = true
-          " class="edit"></i>
+        <i nz-icon nzType="edit" (click)="showEditNameCard = true;inputFocus(groupNameCard)"
+          class="edit"></i>
       </div>
       <div class="content cursor-pointer" *ngIf="!showEditNameCard">
         {{ groupProfile.selfInfo.nameCard || '暂无' }}
       </div>
-      <!-- <el-input ref="editNameCard" v-else autofocus v-model="nameCard" size="mini"
-        @blur="showEditNameCard = false" @keydown.enter.native="editNameCard" /> -->
+
+      <input #groupNameCard [hidden]="!showEditNameCard" autofocus nz-input [(ngModel)]="nameCard"
+        placeholder="回车确认" (keydown.enter)="editNameCard()" (blur)="showEditNameCard = false">
     </div>
 
     <div class="info-item">
@@ -120,16 +124,15 @@
     </div>
     <div *ngIf="isOwner">
       <a type="text" (click)="showChangeGroupOwner = true">转让群组</a>
-      <input *ngIf="showChangeGroupOwner" [(ngModel)]="newOwnerUserID" placeholder="新群主的userID"
-        size="mini" (blur)="showChangeGroupOwner = false" (keydown.enter)="changeOwner()" />
+      <input [hidden]="!showChangeGroupOwner" autofocus nz-input [(ngModel)]="newOwnerUserID"
+        placeholder="新群主的userID" (keydown.enter)="changeOwner()"
+        (blur)="showChangeGroupOwner = false">
     </div>
     <div>
-      <a style="color:red;" (click)="quitGroup()">退出群组</a>
+      <a [ngStyle]="{'color': 'red'}" (click)="quitGroup()">退出群组</a>
     </div>
     <div *ngIf="showDissmissGroup">
-      <a type="text" style="color:red;" (click)="dismissGroup()">解散群组</a>
+      <a type="text" [ngStyle]="{'color': 'red'}" (click)="dismissGroup()">解散群组</a>
     </div>
-
   </div>
-
 </div>

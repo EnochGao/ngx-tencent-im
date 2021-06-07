@@ -1,0 +1,9 @@
+<div class="profile-card-wrapper">
+  <div class="content">
+    <im-avatar [src]="userProfile?.avatar"></im-avatar>
+    <div class="basic">
+      <span class="nick text-ellipsis">{{ userProfile?.nick || userProfile?.userID }}</span>
+      <span class="iconfont" [class]="className"></span>
+    </div>
+  </div>
+</div>

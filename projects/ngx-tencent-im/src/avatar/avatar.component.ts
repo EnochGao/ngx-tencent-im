@@ -1,28 +1,32 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import TIM from 'tim-js-sdk';
+import { TIM } from '../shared.data';
 
 @Component({
-  selector: 'app-avatar',
+  selector: 'im-avatar',
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.less'],
 })
-export class AvatarComponent implements OnInit, OnChanges {
+export class AvatarComponent implements OnInit {
   @Input() shape: string = 'circle';
-  @Input() src: string;
   @Input() type: string = 'C2C';
   @Input() title: string;
-  avatarSrc: string;
-
-  constructor() { }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (/^(https:|http:|\/\/)/.test(this.src)) {
-      this.avatarSrc = this.src;
+  @Input() set src(value: string) {
+    this._src = value;
+    if (/^(https:|http:|\/\/)/.test(value)) {
+      this.avatarSrc = value;
     } else {
       this.avatarSrc = this.getDefaultAvatar();
     }
+  };
+  get src() {
+    return this._src;
   }
 
+  private _src: string;
+
+  avatarSrc: string;
+
+  constructor() { }
 
   ngOnInit(): void {
   }

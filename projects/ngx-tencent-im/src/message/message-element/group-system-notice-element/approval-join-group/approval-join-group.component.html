@@ -1,0 +1,27 @@
+<form nz-form>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6">处理结果</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-radio-group [(ngModel)]="form.handleAction" name="handleAction">
+        <label nz-radio nzValue="Agree">同意</label>
+        <label nz-radio nzValue="Reject">拒绝</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]=" 6">附言</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <textarea rows="3" nz-input [(ngModel)]="form.handleMessage" name="handleMessage"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row nzJustify="center">
+    <nz-form-control [nzSpan]="12" nzPush="8">
+      <button nz-button nzType="primary" type="button"
+        (click)="handleGroupApplication()">确定</button>
+    </nz-form-control>
+    <nz-form-control [nzSpan]="12">
+      <button nz-button nzType="default" type="button" (click)="modalRef.destroy()">取消</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

@@ -1,5 +1,11 @@
 .group-member-list-wrapper {
   .header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
     height: 50px;
     padding: 10px 16px 10px 20px;
     border-bottom: 1px solid #e7e7e7;
@@ -51,14 +57,13 @@
       color: #000000;
       cursor: pointer;
 
-      app-avatar::ng-deep {
+      im-avatar::ng-deep {
         .avatar {
           width: 40px;
           height: 40px;
           border-radius: 50%;
         }
       }
-
 
       .member-name {
         font-size: 12px;

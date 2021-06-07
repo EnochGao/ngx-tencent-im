@@ -3,11 +3,14 @@
     <span class="label">userID:</span>
     {{ member.userID }}
     <a *ngIf="showCancelBan" type="text" (click)="cancelMute()">取消禁言</a>
-    <!-- <el-popover title="禁言" v-model="popoverVisible" v-show="showBan">
-      <el-input v-model="muteTime" placeholder="请输入禁言时间"
-        @keydown.enter.native="setGroupMemberMuteTime" />
-      <el-button slot="reference" type="text" style="color:red;">禁言</el-button>
-    </el-popover> -->
+    <a [ngStyle]="{'color': 'red'}" nz-popover [nzPopoverContent]="contentTemplate"
+      nzPopoverPlacement="topRight" nzPopoverTrigger="click" [nzPopoverVisible]="muteTimeVisible"
+      [nzPopoverTitle]="'禁言(回车确认)'">禁言</a>
+    <ng-template #contentTemplate>
+      <nz-input-number [ngStyle]="{'width': '100%'}" [(ngModel)]="muteTime" [nzMin]="1" [nzStep]="1"
+        nzPlaceholder="回车确认" (keydown.enter)="setGroupMemberMuteTime()">
+      </nz-input-number>
+    </ng-template>
   </div>
   <div>
     <span class="label">nick:</span>
@@ -16,12 +19,13 @@
   <div>
     <span class="label">nameCard:</span>
     {{ member.nameCard || '暂无' }}
-    <!-- <el-popover title="修改群名片" v-model="nameCardPopoverVisible" v-show="showEditNameCard">
-      <el-input v-model="nameCard" placeholder="请输入群名片"
-        @keydown.enter.native="setGroupMemberNameCard" />
-      <i class="el-icon-edit" title="修改群名片" slot="reference"
-        style="cursor:pointer; font-size:1.6rem;"></i>
-    </el-popover> -->
+    <i nz-icon nzType="edit" nzTheme="outline" [ngStyle]="{'cursor': 'pointer'}" nz-popover
+      [nzPopoverContent]="nameCardTemplate" nzPopoverPlacement="topRight" nzPopoverTrigger="click"
+      [nzPopoverVisible]="muteTimeVisible" [nzPopoverTitle]="'修改群名片'"></i>
+    <ng-template #nameCardTemplate>
+      <input nz-input [(ngModel)]="nameCard" placeholder="回车确认"
+        (keydown.enter)="setGroupMemberNameCard()">
+    </ng-template>
   </div>
   <div>
     <span class="label">role:</span>
@@ -36,6 +40,7 @@
     member.role === 'Admin' ? '取消管理员' : '设为管理员'
     }}
   </a>
-  <a type="text" *ngIf="showKickout" style="color:red;" (click)="kickoutGroupMember()">踢出群组
+  <a type="text" *ngIf="showKickout" [ngStyle]="{'color': 'red'}"
+    (click)="kickoutGroupMember()">踢出群组
   </a>
 </div>

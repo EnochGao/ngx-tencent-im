@@ -1,26 +1,30 @@
 <div class="group-member-list-wrapper">
   <div class="header">
     <span
-      class="member-count text-ellipsis">群成员：{{currentConversation?.groupProfile.memberNum}}</span>
-    <!-- <popover v-model="addGroupMemberVisible">
-      <add-group-member></add-group-member>
-      <div slot="reference" class="btn-add-member" title="添加群成员">
-        <span class="tim-icon-friend-add"></span>
-      </div>
-    </popover> -->
+      class="member-count text-ellipsis">群成员：{{this.currentConversation?.groupProfile.memberCount}}</span>
+    <i nz-icon nzType="user-add" nzTheme="outline"
+      [ngStyle]="{'font-size': '1.5em','cursor':'pointer'}" nz-popover
+      [nzPopoverContent]="addGroupTemplate" nzPopoverPlacement="topRight" nzPopoverTrigger="click"
+      [nzPopoverVisible]="popoverVisible"></i>
+
+    <ng-template #addGroupTemplate>
+      <input nz-input [(ngModel)]="userID" placeholder="回车确认" (keydown.enter)="addGroupMember()">
+    </ng-template>
+
   </div>
   <div class="scroll-content">
     <div class="group-member-list">
       <div *ngFor="let member of members;" nz-popover [nzPopoverContent]="contentTemplate"
-        nzPopoverPlacement="topRight">
+        nzPopoverPlacement="topRight" nzPopoverTrigger="click" [nzPopoverVisible]="popoverVisible">
         <ng-template #contentTemplate>
-          <app-group-member-info [member]="member" [currentConversation]="currentConversation">
+          <app-group-member-info [member]="member" [currentConversation]="currentConversation"
+            (enterEnd)="popoverVisible=false">
           </app-group-member-info>
         </ng-template>
 
         <div class="group-member" (click)="currentMemberID = member.userID">
-          <app-avatar [title]="getGroupMemberAvatarText(member.role)" [src]="member.avatar">
-          </app-avatar>
+          <im-avatar [title]="getGroupMemberAvatarText(member.role)" [src]="member.avatar">
+          </im-avatar>
           <div class="member-name text-ellipsis">
             <span *ngIf="member.nameCard" [title]="member.nameCard">{{ member.nameCard }}</span>
             <span *ngIf="member.nick" [title]="member.nick">{{ member.nick }}</span>

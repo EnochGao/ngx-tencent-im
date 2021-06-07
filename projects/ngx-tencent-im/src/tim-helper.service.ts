@@ -33,8 +33,10 @@ import TIMUploadPlugin from 'tim-upload-plugin';
 import { MESSAGE_STATUS, NG_Tim_CONFIG } from './shared.data';
 import { NgTimConfig } from './type';
 
+import { TencentTimModule } from './tencent-tim.module';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: TencentTimModule
 })
 export class TimHelperService {
 
@@ -125,10 +127,8 @@ export class TimHelperService {
   private onReadyStateUpdate({ name }) {
     const isSDKReady = name === TIM.EVENT.SDK_READY ? true : false;
     this.store.dispatch(SDKReadyAction({ SDKReadyState: isSDKReady }));
-
     if (isSDKReady) {
-      this.tim
-        .getMyProfile()
+      this.tim.getMyProfile()
         .then(({ data }) => {
           this.store.dispatch(updateCurrentUserProfileAction({ profile: data }));
         })

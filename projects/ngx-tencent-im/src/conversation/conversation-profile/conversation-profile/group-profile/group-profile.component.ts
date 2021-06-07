@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+
 import { Conversation, GroupProfile } from '../../../../im.type';
-import { MESSAGE_STATUS } from '../../../../shared.data';
+import { MESSAGE_STATUS, TIM } from '../../../../shared.data';
 import { resetCurrentConversationAction, showAction } from '../../../../store/actions';
 import { TimHelperService } from '../../../../tim-helper.service';
-import TIM from 'tim-js-sdk';
-
 
 @Component({
   selector: 'app-group-profile',
@@ -39,10 +38,17 @@ export class GroupProfileComponent implements OnInit {
   };
   active = false;
 
+  avatar: string;
+  name: string;
+  introduction: string;
+  notification: string;
+  joinOption: string;
+  messageRemindType: string;
+  nameCard: string;
+
   constructor(
     private timHelper: TimHelperService,
     private store: Store,
-
   ) { };
 
   ngOnInit(): void {
@@ -67,6 +73,9 @@ export class GroupProfileComponent implements OnInit {
     }
 
     this.muteAllMembers = this.groupProfile.muteAllMembers;
+
+    this.joinOption = this.groupProfile.joinOption;
+    this.messageRemindType = this.groupProfile.selfInfo.messageRemindType;
   }
 
   get editable() {
@@ -84,6 +93,130 @@ export class GroupProfileComponent implements OnInit {
     return this.isOwner && this.groupProfile.type !== TIM.TYPES.GRP_WORK;
   }
 
+  inputFocus(el: HTMLElement) {
+    setTimeout(() => {
+      el.focus();
+    }, 0);
+  }
+
+  editFaceUrl() {
+    this.timHelper.tim
+      .updateGroupProfile({
+        groupID: this.groupProfile.groupID,
+        avatar: this.avatar.trim()
+      })
+      .then(() => {
+        this.showEditFaceUrl = false;
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
+
+
+  editName() {
+    this.timHelper.tim
+      .updateGroupProfile({
+        groupID: this.groupProfile.groupID,
+        name: this.name.trim()
+      })
+      .then(() => {
+        this.showEditName = false;
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
+
+  editIntroduction() {
+    this.timHelper.tim
+      .updateGroupProfile({
+        groupID: this.groupProfile.groupID,
+        introduction: this.introduction.trim()
+      })
+      .then(() => {
+        this.showEditIntroduction = false;
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
+
+  editNotification() {
+    this.timHelper.tim
+      .updateGroupProfile({
+        groupID: this.groupProfile.groupID,
+        notification: this.notification.trim()
+      })
+      .then(() => {
+        this.showEditNotification = false;
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
+
+  editJoinOption() {
+    this.timHelper.tim
+      .updateGroupProfile({
+        groupID: this.groupProfile.groupID,
+        joinOption: this.joinOption
+      })
+      .then(() => {
+        this.showEditJoinOption = false;
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
+
+  editMessageRemindType() {
+    this.timHelper.tim
+      .setMessageRemindType({
+        groupID: this.groupProfile.groupID,
+        messageRemindType: this.messageRemindType
+      })
+      .then(() => {
+        this.showEditMessageRemindType = false;
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
+
+  editNameCard() {
+    if (this.nameCard.trim().length === 0) {
+      this.store.dispatch(
+        showAction({ msgType: MESSAGE_STATUS.warning, message: '不能设置空的群名片' })
+      );
+      return;
+    }
+    this.timHelper.tim
+      .setGroupMemberNameCard({
+        groupID: this.groupProfile.groupID,
+        nameCard: this.nameCard.trim()
+      })
+      .then(() => {
+        this.showEditNameCard = false;
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
 
   changeOwner() {
     this.timHelper.tim

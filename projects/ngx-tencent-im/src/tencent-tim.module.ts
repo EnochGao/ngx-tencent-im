@@ -60,12 +60,13 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NG_Tim_CONFIG } from './shared.data';
 import { TitleComponent } from './title/title.component';
 import { CreateGroupComponent } from './group/create-group/create-group.component';
-// import { AccountBookFill } from '@ant-design/icons-angular/icons';
-// import { IconDefinition } from '@ant-design/icons-angular';
-// const icons: IconDefinition[] = [AccountBookFill];
+import { ApprovalJoinGroupComponent } from './message/message-element/group-system-notice-element/approval-join-group/approval-join-group.component';
+import { ProfileCardComponent } from './my-profile/profile-card/profile-card.component';
+import { EditProfileComponent } from './my-profile/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,10 @@ import { CreateGroupComponent } from './group/create-group/create-group.componen
     GroupItemComponent,
     GroupMemberInfoComponent,
     TitleComponent,
-    CreateGroupComponent
+    CreateGroupComponent,
+    ApprovalJoinGroupComponent,
+    ProfileCardComponent,
+    EditProfileComponent
   ],
   imports: [
     CommonModule,
@@ -110,6 +114,7 @@ import { CreateGroupComponent } from './group/create-group/create-group.componen
     NzFormModule,
     NzInputModule,
     NzPopconfirmModule,
+    NzInputNumberModule,
     NzButtonModule,
     NzIconModule,
     NzMessageModule,

@@ -65,6 +65,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
             msgType: MESSAGE_STATUS.error,
             message: '没有找到该群'
           }));
+          this.loading = false;
         });
     }
   }
