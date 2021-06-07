@@ -4,23 +4,23 @@
 </div>
 
 <p align="center">
-Tencent instant messaging for <a href="https://angular.io/">Angular</a>
+用于<a href="https://angular.io/">Angular</a>框架的腾讯即时通信包
 </p>
 
-English | [简体中文](README-zh_CN.md)
+[English](README.md) | 简体中文
 
-## Usage & Demo
+## 使用 & Demo
 
-demos could be found here:
+应用案例在这:
 [https://github.com/EnochGao/ngx-tencent-im/](https://github.com/EnochGao/ngx-tencent-im).
 
-## Installation
+## 安装
 
 ```bash
 npm install ngx-tencent-im --save
 ```
 
-Add package to NgModule imports:
+将 TencentTimModule 包导入到使用的 NgModule:
 
 ```ts
 import { TencentTimModule } from 'ngx-tencent-im';
@@ -35,13 +35,13 @@ import { TencentTimModule } from 'ngx-tencent-im';
 })
 ```
 
-Add component to your page:
+将组件应用到 html:
 
 ```html
 <ngx-tencent-tim (message)="messageTip($event)"></ngx-tencent-tim>
 ```
 
-You will need to add css in angular.json:
+需要将相应的 css 文件到导入到 angular.json:
 
 - `angular.json`
 
@@ -62,9 +62,9 @@ You will need to add css in angular.json:
             ],
 ```
 
-### How to build lib for development
+### 如何构建并运行
 
-First time:
+首先:
 
 ```bash
 git clone https://github.com/enochgao/ngx-tencent-im.git
@@ -74,20 +74,20 @@ ng build ngx-tencent-im
 npm start
 ```
 
-## Compatibility
+## 兼容性
 
-The only three dependencies are [Angular](https://angular.io) , [
-ng-zorro-antd](https://ng.ant.design/)and [NGRX](https://ngrx.io/).
-Here is the versions compatibility list:
+包依赖了 [Angular](https://angular.io) 、 [
+ng-zorro-antd](https://ng.ant.design/)和[NGRX](https://ngrx.io/)
+下面是版本情况:
 
 | ngx-tencent-im | Angular         | NG-ZORRO | ngrx    |
 | -------------- | --------------- | -------- | ------- |
 | 0.0.1          | 11.x.x - 12.x.x | ^11.4.1  | ^12.0.0 |
 
-## Contribution
+## 贡献
 
-All contributions very welcome! And remember, contribution is not only PRs and code, but any help with docs or helping other developers to solve issues are very appreciated! Thanks in advance!
+欢迎大家贡献源代码! 贡献不只是 PRs 和代码，任何帮助文档或帮助其他开发人员解决问题的帮助都是非常感谢的! 提前谢谢!
 
-## Other
+## 其他
 
-Function is improving the development, the current implementation of single chat, group chat...
+其他功能整在完善中，目前实现单聊群聊...

@@ -7,6 +7,8 @@
 Tencent instant messaging for <a href="https://angular.io/">Angular</a>
 </p>
 
+English | [简体中文](README-zh_CN.md)
+
 ## Usage & Demo
 
 demos could be found here:
@@ -68,19 +70,19 @@ First time:
 git clone https://github.com/enochgao/ngx-tencent-im.git
 cd ngx-tencent-im
 npm install
-ng run ngx-tencent-im
+ng build ngx-tencent-im
 npm start
 ```
 
 ## Compatibility
 
-The only two dependencies are [Angular](https://angular.io) and [
-ng-zorro-antd](https://ng.ant.design/).
+The only three dependencies are [Angular](https://angular.io) , [
+ng-zorro-antd](https://ng.ant.design/)and [NGRX](https://ngrx.io/).
 Here is the versions compatibility list:
 
-| ngx-tencent-im | Angular         | NG-ZORRO |
-| -------------- | --------------- | -------- |
-| 0.0.1          | 11.x.x - 12.x.x | ^11.4.1  |
+| ngx-tencent-im | Angular         | NG-ZORRO | ngrx    |
+| -------------- | --------------- | -------- | ------- |
+| 0.0.1          | 11.x.x - 12.x.x | ^11.4.1  | ^12.0.0 |
 
 ## Contribution
 
