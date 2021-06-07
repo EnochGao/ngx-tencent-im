@@ -55,7 +55,7 @@ export class CreateGroupComponent implements OnInit {
       introduction: [],
       notification: [null, []],
       joinOption: [{ value: 'FreeAccess', disabled: true }, []],
-      memberList: [null, []]
+      memberList: [[], []]
     });
 
     this.validateForm.get('type').valueChanges.subscribe((value: TIM_TYPES) => {

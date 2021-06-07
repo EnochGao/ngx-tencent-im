@@ -66,14 +66,12 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   }
 
   handleEnter(event: KeyboardEvent) {
-    console.log('handleEnter::', event);
     this.sendTextMessage();
   }
   handleLine(event: KeyboardEvent) {
     event.preventDefault();
     if (event.ctrlKey && event.key === 'Enter') {
       this.messageContent += '\n';
-      console.log('handleLine::', event);
     }
   }
   handleUp(event: KeyboardEvent) {

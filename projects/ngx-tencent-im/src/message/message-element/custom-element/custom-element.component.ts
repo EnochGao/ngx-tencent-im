@@ -22,8 +22,6 @@ export class CustomElementComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.text = this.translateCustomMessage(this.payload);
-    console.log('哈哈哈哈', this.text);
-    console.log('哈哈哈哈1', this.payload);
   }
 
   translateCustomMessage(payload) {

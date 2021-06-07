@@ -1,10 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Conversation, Member, UserProfile } from '../../im.type';
 import { currentUserProfileSelector } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
+
 import { getFullDate } from '../../util/date';
-import TIM from 'tim-js-sdk';
+
+import { MESSAGE_STATUS, TIM } from '../../shared.data';
+import { showAction } from '../../store/actions';
 
 @Component({
   selector: 'app-group-member-info',
@@ -14,12 +17,16 @@ import TIM from 'tim-js-sdk';
 export class GroupMemberInfoComponent implements OnInit {
   @Input() member: Member;
   @Input() currentConversation: Conversation;
+
+  @Output() enterEnd = new EventEmitter<void>();
   isOwner: boolean;
   isAdmin: boolean;
   isMine: boolean;
   currentUserProfile: UserProfile;
   current = Date.now();
-  muteTime = '';
+  muteTime: string;
+  muteTimeVisible: boolean;
+  nameCard: string;
 
   constructor(
     private timHelper: TimHelperService,
@@ -72,6 +79,26 @@ export class GroupMemberInfoComponent implements OnInit {
     return this.member.muteUntil * 1000 > this.current;
   }
 
+  setGroupMemberMuteTime() {
+    if (!this.muteTime) return;
+    this.timHelper.tim
+      .setGroupMemberMuteTime({
+        groupID: this.currentConversation.groupProfile.groupID,
+        userID: this.member.userID,
+        muteTime: Number(this.muteTime)
+      })
+      .then(() => {
+        this.muteTime = '';
+        this.muteTimeVisible = false;
+        this.enterEnd.emit();
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
+
   // 取消禁言
   cancelMute() {
     this.timHelper.tim
@@ -82,14 +109,42 @@ export class GroupMemberInfoComponent implements OnInit {
       })
       .then(() => {
         this.muteTime = '';
+        this.enterEnd.emit();
       })
       .catch((error) => {
-        // this.$store.commit('showMessage', {
-        //   type: 'error',
-        //   message: error.message,
-        // });
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
       });
   }
+
+  setGroupMemberNameCard() {
+    if (this.nameCard.trim().length === 0) {
+      this.store.dispatch(
+        showAction({ msgType: MESSAGE_STATUS.warning, message: '不能设置空的群名片' })
+      );
+      return;
+    }
+    this.timHelper.tim
+      .setGroupMemberNameCard({
+        groupID: this.currentConversation.groupProfile.groupID,
+        userID: this.member.userID,
+        nameCard: this.nameCard
+      })
+      .then(() => {
+        this.nameCard = null;
+        this.enterEnd.emit();
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.success, message: '修改成功' })
+        );
+      })
+      .catch(error => {
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: error.message })
+        );
+      });
+  }
+
 
   changeMemberRole() {
     if (!this.canChangeRole) {

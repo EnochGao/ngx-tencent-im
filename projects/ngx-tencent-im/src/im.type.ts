@@ -140,8 +140,12 @@ export interface LoginOptions {
   userID: string;
   userSig: string;
 }
+interface GroupOptions {
+  groupID: string,
+  userIDList: string[];
+}
 export interface Tim {
-  addGroupMember: () => Promise<any>;
+  addGroupMember: (options: GroupOptions) => Promise<any>;
   addToBlacklist: Function;
   callExperimentalAPI: Function;
   changeGroupOwner: Function;

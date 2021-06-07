@@ -14,12 +14,15 @@
   </div>
 </div>
 
-<nz-modal [(nzVisible)]="showDialog" nzTitle="发起会话" (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()">
+<nz-modal [(nzVisible)]="showDialog" nzTitle="发起会话" [nzContent]="content"
+  (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+</nz-modal>
+
+<ng-template #content>
   <nz-form-item>
     <nz-form-label [nzSpan]="6">用户ID</nz-form-label>
     <nz-form-control [nzSpan]="14">
       <input nz-input [(ngModel)]="userID">
     </nz-form-control>
   </nz-form-item>
-</nz-modal>
+</ng-template>

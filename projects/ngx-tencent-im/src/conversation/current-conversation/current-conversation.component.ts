@@ -3,21 +3,21 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import { Conversation, ConversationItem } from '../../im.type';
+import { Conversation } from '../../im.type';
 import { conversationSelector, currentConversationSelector } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
-import TIM from 'tim-js-sdk';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { showAction } from '../../store/actions';
+import { MESSAGE_STATUS, TIM } from '../../shared.data';
+
 
 @Component({
   selector: 'app-current-conversation',
@@ -74,7 +74,9 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
         }
         this.cd.markForCheck();
       }, err => {
-        console.log('获取当前会话err', err);
+        this.store.dispatch(
+          showAction({ msgType: MESSAGE_STATUS.error, message: err.message })
+        );
       });
 
     this.eventBusSubscription = this.timHelperService.eventBus$
