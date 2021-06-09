@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ReEditMessageService } from '../../re-edit-message.service';
 import { MESSAGE_STATUS } from '../../shared.data';
 import { pushCurrentMessageListAction, showAction } from '../../store/actions';
 import { currentConversationSelector } from '../../store/selectors';
@@ -33,6 +34,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
     private store: Store,
     private cd: ChangeDetectorRef,
     private timHelperService: TimHelperService,
+    private reEditMessage: ReEditMessageService
   ) { }
 
   ngOnInit(): void {
@@ -59,6 +61,11 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       }
     });
     this.textInput.nativeElement.addEventListener('paste', this.handlePaste.bind(this));
+
+    this.reEditMessage.reEditMessage.subscribe((payload) => {
+      this.messageContent = payload;
+      this.cd.markForCheck();
+    });
   }
 
   onfocus(event: any) {

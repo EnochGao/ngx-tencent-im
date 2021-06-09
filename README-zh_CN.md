@@ -29,7 +29,7 @@ import { TencentTimModule } from 'ngx-tencent-im';
   ...
     TencentTimModule.forRoot({
       level: 4,
-      sdkAppId: xxxxxxx
+      sdkAppId: xxxxxxx // <--- 你的im应用id
     }),
   ...
 })
