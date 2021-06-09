@@ -1,5 +1,5 @@
 <div class="chat-bubble">
-  <div *ngIf="!message.isRevoked" class="el-dropdown">
+  <div *ngIf="!message.isRevoked" (contextmenu)="contextMenu($event, menu)">
     <div style="display: flex">
       <div *ngIf="isMine" class="message-status">
         <span>{{messageReadByPeer}}</span>
@@ -8,8 +8,16 @@
         <ng-content></ng-content>
       </div>
     </div>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item *ngIf="isMine&&!isTimeout" (click)="revokeMessage()">撤回</li>
+        <!-- <li nz-menu-item [hidden]="message.status ==='fail'">转发</li>
+        <li nz-menu-item [hidden]="message.status ==='fail'">多选</li> -->
+      </ul>
+    </nz-dropdown-menu>
   </div>
   <div class="group-tip-element-wrapper" *ngIf="message.isRevoked">
     {{text}}
+    <a *ngIf="isEdit" (click)="reEdit()">重新编辑</a>
   </div>
 </div>

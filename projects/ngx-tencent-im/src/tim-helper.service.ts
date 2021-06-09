@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { EventEmitter, Inject, Injectable } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { Store } from '@ngrx/store';

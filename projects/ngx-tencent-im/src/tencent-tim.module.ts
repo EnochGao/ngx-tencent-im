@@ -62,6 +62,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 import { NG_Tim_CONFIG } from './shared.data';
 import { TitleComponent } from './title/title.component';
@@ -69,6 +70,7 @@ import { CreateGroupComponent } from './group/create-group/create-group.componen
 import { ApprovalJoinGroupComponent } from './message/message-element/group-system-notice-element/approval-join-group/approval-join-group.component';
 import { ProfileCardComponent } from './my-profile/profile-card/profile-card.component';
 import { EditProfileComponent } from './my-profile/edit-profile/edit-profile.component';
+import { ReEditMessageService } from './re-edit-message.service';
 
 @NgModule({
   declarations: [
@@ -125,6 +127,7 @@ import { EditProfileComponent } from './my-profile/edit-profile/edit-profile.com
     NzCollapseModule,
     NzRadioModule,
     NzAvatarModule,
+    NzDropDownModule,
     NzSwitchModule,
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
@@ -137,7 +140,8 @@ import { EditProfileComponent } from './my-profile/edit-profile/edit-profile.com
   ],
   exports: [
     TencentTimComponent
-  ]
+  ],
+  providers: [ReEditMessageService]
 })
 export class TencentTimModule {
   static forRoot(config?: NgTimConfig): ModuleWithProviders<TencentTimModule> {

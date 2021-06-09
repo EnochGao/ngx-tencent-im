@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { TimHelperService } from 'ngx-tencent-im';
+import { Observable } from 'rxjs';
 import { genTestUserSig } from '../tim-config/GenerateTestUserSig';
 
 @Component({
@@ -12,7 +13,7 @@ export class ImTestComponent implements OnInit {
   isLogin = false;
   hidden = false;
 
-  unread = this.timHelperService.totalUnRead;
+  unread: Observable<number>;
 
   constructor(
     private message: NzMessageService,
@@ -20,6 +21,7 @@ export class ImTestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.timHelperService.login('user0', genTestUserSig('user0').userSig);
     this.timHelperService.eventBus$.subscribe(res => {
       if (res === 'login') {
@@ -29,6 +31,9 @@ export class ImTestComponent implements OnInit {
         this.isLogin = false;
       }
     });
+
+    this.unread = this.timHelperService.totalUnRead;
+
   }
 
   messageTip(message: any) {

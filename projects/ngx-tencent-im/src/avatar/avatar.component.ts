@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, } from '@angular/core';
 import { TIM } from '../shared.data';
 
 @Component({
@@ -7,7 +7,8 @@ import { TIM } from '../shared.data';
   styleUrls: ['./avatar.component.less'],
 })
 export class AvatarComponent implements OnInit {
-  @Input() shape: string = 'circle';
+  @Input() shape: 'circle' | 'square' = 'circle';
+  @Input() size: 'large' | 'small' | 'default' | number = 'large';
   @Input() type: string = 'C2C';
   @Input() title: string;
   @Input() set src(value: string) {

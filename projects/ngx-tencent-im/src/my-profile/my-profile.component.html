@@ -3,19 +3,16 @@
     <span>当前用户</span>
     <i nz-icon nzType="setting" nzTheme="outline" (click)="editProfile()"></i>
   </div>
-
 </ng-template>
+
 <ng-template #contentTemplate>
   <im-profile-card [userProfile]="currentUserProfile"></im-profile-card>
 </ng-template>
 
 <div class="my-profile-wrapper">
-  <div class="popover">
-    <i class="el-icon-setting edit-my-profile"></i>
-    <div class="my-avatar" nz-button nz-popover nzType="primary" nzPopoverTrigger="click"
-      [nzPopoverTitle]="titleTemplate" nzPopoverPlacement="right"
-      [nzPopoverContent]="contentTemplate">
-      <im-avatar [src]="currentUserProfile.avatar"></im-avatar>
-    </div>
+  <div nz-button nz-popover nzType="primary" nzPopoverTrigger="click"
+    [nzPopoverTitle]="titleTemplate" nzPopoverPlacement="right"
+    [nzPopoverContent]="contentTemplate">
+    <im-avatar [src]="currentUserProfile.avatar"></im-avatar>
   </div>
 </div>
