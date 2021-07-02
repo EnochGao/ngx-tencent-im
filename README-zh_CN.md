@@ -11,8 +11,7 @@
 
 ## 使用 & Demo
 
-应用案例在这:
-[https://github.com/EnochGao/ngx-tencent-im/](https://github.com/EnochGao/ngx-tencent-im).
+应用案例在这:[示例](https://enochgao.github.io/ngx-tencent-im/).
 
 ## 安装
 
