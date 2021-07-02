@@ -1,6 +1,6 @@
 {
   "name": "ngx-tencent-im",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "keywords": [
     "ngx-tencent-im",
     "Angular",
@@ -15,7 +15,7 @@
     "url": "https://github.com/EnochGao/ngx-tencent-im/issues"
   },
   "license": "MIT",
-  "homepage": "https://github.com/EnochGao/ngx-tencent-im",
+  "homepage": "https://enochgao.github.io/ngx-tencent-im/",
   "repository": {
     "type": "git",
     "url": "https://github.com/EnochGao/ngx-tencent-im"

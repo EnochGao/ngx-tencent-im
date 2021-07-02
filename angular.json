@@ -81,20 +81,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "winkongx-tencent-im:build",
+            "browserTarget": "ngx-tencent-im-demo:build",
             "open": true,
             "port": 4300
           },
           "configurations": {
             "production": {
-              "browserTarget": "winkongx-tencent-im:build:production"
+              "browserTarget": "ngx-tencent-im-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "winkongx-tencent-im:build"
+            "browserTarget": "ngx-tencent-im-demo:build"
           }
         },
         "test": {
@@ -132,11 +132,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "winkongx-tencent-im:serve"
+            "devServerTarget": "ngx-tencent-im-demo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "winkongx-tencent-im:serve:production"
+              "devServerTarget": "ngx-tencent-im-demo:serve:production"
             }
           }
         },
