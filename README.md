@@ -12,7 +12,7 @@ English | [简体中文](README-zh_CN.md)
 ## Usage & Demo
 
 demos could be found here:
-[https://github.com/EnochGao/ngx-tencent-im/](https://github.com/EnochGao/ngx-tencent-im).
+[https://enochgao.github.io/ngx-tencent-im/](DEMO).
 
 ## Installation
 
