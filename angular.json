@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "winkongx-tencent-im": {
+    "ngx-tencent-im-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/winkongx-tencent-im",
+            "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -139,6 +139,10 @@
               "devServerTarget": "winkongx-tencent-im:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     },
@@ -179,7 +183,7 @@
       }
     }
   },
-  "defaultProject": "winkongx-tencent-im",
+  "defaultProject": "ngx-tencent-im-demo",
   "cli": {
     "analytics": false
   }
