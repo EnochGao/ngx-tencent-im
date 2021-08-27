@@ -16,16 +16,17 @@ import { emojiMap, emojiName, emojiUrl } from '../../util/emoji-map';
 })
 export class MessageSendBoxComponent implements OnInit, OnDestroy {
   active: boolean;
-  visible: boolean = false;
+  visible = false;
   emojiName = emojiName;
   emojiUrl = emojiUrl;
   emojiMap = emojiMap;
   focus = false;
   // 消息内容
-  messageContent: string = '';
+  messageContent = '';
 
   toAccount: any;
   currentConversationType: any;
+  currentConversation: any;
 
   @ViewChild('imagePicker', { static: false }) imagePicker: ElementRef;
   @ViewChild('filePicker', { static: false }) filePicker: ElementRef;
@@ -39,6 +40,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.select(currentConversationSelector).subscribe(currentConversation => {
+      this.currentConversation = currentConversation;
       if (!currentConversation || !currentConversation.conversationID) {
         this.toAccount = '';
       } else {
@@ -68,8 +70,16 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
     });
   }
 
-  onfocus(event: any) {
-    console.log('cccccD', event);
+  onfocus(event: Event) {
+    console.log('onfocus');
+    this.focus = true;
+    console.log(this.currentConversation);
+    this.timHelperService.checkoutConversation(this.currentConversation.conversationID);
+  }
+
+  onblur(event: Event) {
+    console.log('onblur');
+    this.focus = false;
   }
 
   handleEnter(event: KeyboardEvent) {
@@ -105,7 +115,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
   }
 
   handlePaste(e: any) {
-    let clipboardData = e.clipboardData;
+    const clipboardData = e.clipboardData;
     let file: any;
     if (clipboardData && clipboardData.files && clipboardData.files.length > 0) {
       file = clipboardData.files[0];
@@ -115,19 +125,19 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       return;
     }
     // 1. 创建消息实例，接口返回的实例可以上屏
-    let message = this.timHelperService.tim.createImageMessage({
+    const message = this.timHelperService.tim.createImageMessage({
       to: this.toAccount,
       conversationType: this.currentConversationType,
       payload: {
-        file: file,
+        file,
       },
       onProgress: (percent) => {
-        message['progress'] = percent; // 手动给message 实例加个响应式属性: progress
+        message.progress = percent; // 手动给message 实例加个响应式属性: progress
       },
     });
 
     // 2. 发送消息
-    let promise = this.timHelperService.tim.sendMessage(message).then(res => {
+    const promise = this.timHelperService.tim.sendMessage(message).then(res => {
       this.store.dispatch(pushCurrentMessageListAction({ message }));
     });
     promise.catch((error) => {
@@ -137,7 +147,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
 
   sendImage(event: any) {
     console.log('sendImage');
-    let message = this.timHelperService.tim.createImageMessage({
+    const message = this.timHelperService.tim.createImageMessage({
       to: this.toAccount,
       conversationType: this.currentConversationType,
       payload: {
@@ -145,7 +155,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       },
       onProgress: (percent) => {
         // 手动给message 实例加个响应式属性: progress
-        message['progress'] = percent;
+        message.progress = percent;
         console.log('percent:', percent);
       }
     });
@@ -170,7 +180,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
         file: document.getElementById('filePicker'), // 或者用event.target
       },
       onProgress: (percent) => {
-        message['progress'] = percent;
+        message.progress = percent;
         console.log('上传进度', percent);
       },
     });
@@ -202,7 +212,7 @@ export class MessageSendBoxComponent implements OnInit, OnDestroy {
       this.store.dispatch(showAction({ msgType: MESSAGE_STATUS.warning, message: '不能发送空消息哦！' }));
       return;
     }
-    let message = this.timHelperService.tim.createTextMessage({
+    const message = this.timHelperService.tim.createTextMessage({
       to: this.toAccount,
       conversationType: this.currentConversationType,
       payload: { text: this.messageContent }

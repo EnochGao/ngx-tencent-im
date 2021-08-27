@@ -239,7 +239,7 @@ export class TimHelperService {
    */
   getGroupMemberList(groupID: string) {
     this.tim.getGroupMemberList({
-      groupID: groupID,
+      groupID,
       offset: this.currentMemberList.length,
       count: 30
     }).then((imResponse: IMResponse<{ memberList: Array<Member>; }>) => {
