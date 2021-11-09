@@ -102,14 +102,21 @@ export class MessageBubbleComponent implements OnInit {
   }
 
   isTimeoutHandler() { // 从发送消息时间开始算起，两分钟内可以编辑
-    this.subscription = timer(0, 1000).subscribe(() => {
-      const time = (new Date().getTime() / 1000) + '';
-      if (parseInt((time)) - this.message.time > 2 * 60) {
-        this.isTimeout = true;
-        this.subscription.unsubscribe();
-      } else {
-        this.isTimeoutHandler();
-      }
-    });
+    // this.subscription = timer(0, 1000).subscribe(() => {
+    //   const time = (new Date().getTime() / 1000) + '';
+    //   if (parseInt((time)) - this.message.time > 2 * 60) {
+    //     this.isTimeout = true;
+    //     this.subscription.unsubscribe();
+    //   } else {
+    //     this.isTimeoutHandler();
+    //   }
+    // });
+    const now = new Date();
+    const time = (now.getTime() / 1000).toString();
+    if (parseInt(time, 10) - this.message.time > 2 * 60) {
+      this.isTimeout = true;
+      return;
+    }
+    setTimeout(this.isTimeoutHandler, 1000);
   }
 }
