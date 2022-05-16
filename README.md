@@ -28,7 +28,8 @@ import { TencentTimModule } from 'ngx-tencent-im';
   ...
     TencentTimModule.forRoot({
       level: 4,
-      sdkAppId: xxxxxxx // <--- your im app id
+      sdkAppId: xxxxxxx, // <--- your im app id
+      oversea: true // <--- support oversea
     }),
   ...
 })
@@ -80,8 +81,9 @@ ng-zorro-antd](https://ng.ant.design/)and [NGRX](https://ngrx.io/).
 Here is the versions compatibility list:
 
 | ngx-tencent-im | Angular         | NG-ZORRO | ngrx    |
-| -------------- | --------------- | -------- | ------- |
+|----------------|-----------------|----------|---------|
 | 0.0.1          | 11.x.x - 12.x.x | ^11.4.1  | ^12.0.0 |
+| 0.0.4          | 13.x.x-         | ^13.0.0  | ^13.0.0 |
 
 ## Contribution
 

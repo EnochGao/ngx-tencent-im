@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from '../../../im.type';
+import { Message } from 'tim-js-sdk';
 import { decodeText } from '../../../util/decode-text';
 
 
@@ -9,7 +9,7 @@ import { decodeText } from '../../../util/decode-text';
   styleUrls: ['./text-element.component.less']
 })
 export class TextElementComponent implements OnInit {
-  @Input() message: MessageItem;
+  @Input() message: Message;
   @Input() isMine: boolean;
   @Input() payload: any;
 

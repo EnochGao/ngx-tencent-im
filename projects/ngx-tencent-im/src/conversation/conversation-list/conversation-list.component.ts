@@ -3,7 +3,7 @@ import { TimHelperService } from '../../tim-helper.service';
 
 import { Store } from '@ngrx/store';
 
-import { Conversation, ConversationItem } from '../../im.type';
+import { Conversation } from 'tim-js-sdk';
 import { currentConversationSelector, conversationListSelector } from '../../store/selectors';
 import { showAction } from '../../store/actions';
 import { Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ import { MESSAGE_STATUS } from '../../shared.data';
   styleUrls: ['./conversation-list.component.less']
 })
 export class ConversationListComponent implements OnInit, OnDestroy {
-  conversationList: Array<ConversationItem> = [];
+  conversationList: Array<Conversation> = [];
   timeout = null;
   showDialog = false;
   userID = '';

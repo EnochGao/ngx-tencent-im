@@ -43,10 +43,7 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true,
-            "allowedCommonJsDependencies": [
-              "cos-js-sdk-v5"
-            ]
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -63,6 +60,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "aot": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -76,7 +74,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

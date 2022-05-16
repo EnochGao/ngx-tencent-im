@@ -1,6 +1,6 @@
 import { Action, on } from "@ngrx/store";
 import { createReducer } from "@ngrx/store";
-import { GroupProfile } from "../../im.type";
+
 import { resetCurrentMemberListAction, updateCurrentMemberListAction, updateGroupListAction } from "../actions/group.action";
 
 export interface GroupState {

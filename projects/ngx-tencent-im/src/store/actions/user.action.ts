@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { UserProfile } from '../../im.type';
+import { Profile } from 'tim-js-sdk';
 
 export enum UserActionTypes {
   SDKReady = '[user] toggleIsSDKReady',
@@ -14,7 +14,7 @@ export const SDKReadyAction = createAction(
 
 export const updateCurrentUserProfileAction = createAction(
   UserActionTypes.updateCurrentUserProfile,
-  props<{ profile: UserProfile; }>()
+  props<{ profile: Profile; }>()
 );
 
 export const resetUserAction = createAction(

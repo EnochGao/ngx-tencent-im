@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Conversation } from '../im.type';
+
 import { MESSAGE_STATUS } from '../shared.data';
 import { showAction } from '../store/actions';
 import { updateGroupListAction } from '../store/actions/group.action';
@@ -38,8 +38,8 @@ export class SideBarComponent implements OnInit {
     });
   }
 
-  handleClick(event: Event) {
-    switch (event.target['id']) {
+  handleClick(event: Event | any) {
+    switch (event.target.id) {
       case this.activeName.CONVERSATION_LIST:
         this.checkoutActive(this.activeName.CONVERSATION_LIST);
         break;

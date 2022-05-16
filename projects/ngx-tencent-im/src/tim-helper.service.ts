@@ -20,7 +20,7 @@ import {
   conversationSelector,
 } from './store/selectors';
 
-import { Conversation, GroupProfile, IMResponse, LoginSuccess, Member, MessageItem, Tim } from './im.type';
+import Tim, { Conversation, Group, GroupMember, IMResponse, Message } from 'tim-js-sdk';
 
 import { ConversationState } from './store/reducer/conversation.reducer';
 import { resetCurrentMemberListAction, updateCurrentMemberListAction, updateGroupListAction } from './store/actions/group.action';
@@ -40,7 +40,7 @@ export class TimHelperService {
 
   tim: Tim;
   conversation: ConversationState; // 当前会话
-  currentMemberList: Array<Member>; // 当前会话
+  currentMemberList: Array<GroupMember>; // 当前会话
   eventBus$: Subject<string> = new Subject();
   totalUnRead: Subject<number> = new Subject();
 
@@ -71,7 +71,7 @@ export class TimHelperService {
     }
 
     this.tim.login({ userID: userId, userSig })
-      .then((imResponse: IMResponse<LoginSuccess>) => {
+      .then((imResponse: IMResponse<any>) => {
         this.eventBus$.next('login');
         this.store.dispatch(loginAction({ isLogin: true }));
         // this.store.dispatch(startComputeCurrentAction());
@@ -172,7 +172,7 @@ export class TimHelperService {
   }
 
   // 群列表更新
-  onUpdateGroupList(event: { data: Array<GroupProfile>; }) {
+  onUpdateGroupList(event: { data: Array<Group>; }) {
     this.store.dispatch(updateGroupListAction({ groupList: event.data }));
   }
 
@@ -226,7 +226,7 @@ export class TimHelperService {
     }
     const { nextReqMessageID, currentMessageList } = this.conversation;
     this.tim.getMessageList({ conversationID, nextReqMessageID, count: 15 })
-      .then((imResponse: IMResponse<{ isCompleted: boolean, nextReqMessageID: string, messageList: Array<MessageItem>; }>) => {
+      .then((imResponse: IMResponse<{ isCompleted: boolean, nextReqMessageID: string, messageList: Array<Message>; }>) => {
         this.store.dispatch(updateMessageAction({
           nextReqMessageID: imResponse.data.nextReqMessageID,
           isCompleted: imResponse.data.isCompleted,
@@ -242,7 +242,7 @@ export class TimHelperService {
       groupID,
       offset: this.currentMemberList.length,
       count: 30
-    }).then((imResponse: IMResponse<{ memberList: Array<Member>; }>) => {
+    }).then((imResponse: IMResponse<{ memberList: Array<GroupMember>; }>) => {
       this.store.dispatch(updateCurrentMemberListAction({ currentMemberList: imResponse.data.memberList }));
     });
   }
@@ -254,6 +254,7 @@ export class TimHelperService {
 
     this.tim = TIM.create({
       SDKAppID: config.sdkAppId,
+      oversea: config.oversea,
     });
     // 无日志级别
     this.tim.setLogLevel(config.level || 1);

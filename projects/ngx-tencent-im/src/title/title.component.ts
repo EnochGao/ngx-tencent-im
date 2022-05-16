@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, Output, EventEmitter, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Conversation } from '../im.type';
+import { Conversation } from 'tim-js-sdk';
 import { CONVERSATION_TYPE, NG_Tim_CONFIG } from '../shared.data';
 import { currentConversationSelector } from '../store/selectors';
 import { NgTimConfig } from '../type';

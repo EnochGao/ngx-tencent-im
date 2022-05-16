@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { UserProfile } from '../../im.type';
+import { Profile } from 'tim-js-sdk';
 import { MESSAGE_STATUS, TIM } from '../../shared.data';
 import { showAction } from '../../store/actions';
 import { TimHelperService } from '../../tim-helper.service';
@@ -14,7 +14,7 @@ import { TimHelperService } from '../../tim-helper.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditProfileComponent implements OnInit {
-  @Input() userProfile: UserProfile;
+  @Input() userProfile: Profile;
 
   form: FormGroup;
 
@@ -57,7 +57,7 @@ export class EditProfileComponent implements OnInit {
       }
     });
     this.timHelperService.tim
-      .updateMyProfile(options)
+      .updateMyProfile(options as Profile)
       .then(() => {
         this.store.dispatch(
           showAction({ msgType: MESSAGE_STATUS.success, message: '修改成功' })

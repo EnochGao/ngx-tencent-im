@@ -1,11 +1,11 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { UserProfile } from '../../im.type';
+import { Profile } from 'tim-js-sdk';
 import { resetUserAction, SDKReadyAction, updateCurrentUserProfileAction } from '../actions';
 
 
 export interface UserState {
-  currentUserProfile: UserProfile,
+  currentUserProfile: Profile,
   isLogin: boolean,
   isSDKReady: boolean, // TIM SDK 是否 ready
   userID: number,
@@ -14,7 +14,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  currentUserProfile: {} as UserProfile,
+  currentUserProfile: {} as Profile,
   isLogin: false,
   isSDKReady: false, // TIM SDK 是否 ready
   userID: 0,
@@ -25,7 +25,7 @@ export const initialState: UserState = {
 const _userReducer = createReducer(
   initialState,
   on(SDKReadyAction, (state, { SDKReadyState }) => ({ ...state, isSDKReady: SDKReadyState })),
-  on(updateCurrentUserProfileAction, (state, { profile }) => ({ ...state, currentUserProfile: profile as UserProfile })),
+  on(updateCurrentUserProfileAction, (state, { profile }) => ({ ...state, currentUserProfile: profile as Profile })),
   on(resetUserAction, (state) => ({
     ...state,
     ...initialState

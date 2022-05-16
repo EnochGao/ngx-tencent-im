@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from '../../im.type';
+import { Message } from 'tim-js-sdk';
 import TIM from 'tim-js-sdk';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { TimHelperService } from '../../tim-helper.service';
@@ -15,7 +15,7 @@ import { ReEditMessageService } from '../../re-edit-message.service';
   styleUrls: ['./message-bubble.component.less']
 })
 export class MessageBubbleComponent implements OnInit {
-  @Input() message: MessageItem;
+  @Input() message: Message;
   @Input() isMine: boolean;
   @Input() isNew: boolean;
 

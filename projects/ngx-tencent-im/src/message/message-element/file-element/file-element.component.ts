@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from '../../../im.type';
+import { Message } from 'tim-js-sdk';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { MessageItem } from '../../../im.type';
 })
 export class FileElementComponent implements OnInit {
 
-  @Input() message: MessageItem;
+  @Input() message: Message;
   @Input() isMine: boolean;
   @Input() payload: any;
 

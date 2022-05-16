@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MessageItem } from '../../../im.type';
+import { Message } from 'tim-js-sdk';
 import { formatDuration } from '../../../util/format-duration';
 import { ACTION } from '../../../util/trtc-custom-message-map';
 
@@ -10,7 +10,7 @@ import { ACTION } from '../../../util/trtc-custom-message-map';
   styleUrls: ['./custom-element.component.less']
 })
 export class CustomElementComponent implements OnInit, OnChanges {
-  @Input() message: MessageItem;
+  @Input() message: Message;
   @Input() isMine: boolean;
   @Input() payload: any;
   text: string;

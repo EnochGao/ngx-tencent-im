@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from '../../im.type';
+import { Message } from 'tim-js-sdk';
 import { getFullDate } from '../../util/date';
 
 @Component({
@@ -8,7 +8,7 @@ import { getFullDate } from '../../util/date';
   styleUrls: ['./message-footer.component.less']
 })
 export class MessageFooterComponent implements OnInit {
-  @Input() message: MessageItem;
+  @Input() message: Message;
 
   constructor() { }
 

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MessageItem } from '../../../im.type';
+import { Message } from 'tim-js-sdk';
 
 import TIM from 'tim-js-sdk';
 
@@ -9,7 +9,7 @@ import TIM from 'tim-js-sdk';
   styleUrls: ['./group-tip-element.component.less']
 })
 export class GroupTipElementComponent implements OnInit, OnChanges {
-  @Input() message: MessageItem;
+  @Input() message: Message;
   @Input() isMine: boolean;
   @Input() payload: any;
 
@@ -24,7 +24,7 @@ export class GroupTipElementComponent implements OnInit, OnChanges {
     this.text = this.getGroupTipContent(this.message);
   }
 
-  getGroupTipContent(message: MessageItem) {
+  getGroupTipContent(message: Message) {
     const userName = message.nick || message.payload.userIDList.join(',');
     switch (message.payload.operationType) {
       case TIM.TYPES.GRP_TIP_MBR_JOIN:

@@ -1,6 +1,6 @@
 
 import { Action, createReducer, on } from '@ngrx/store';
-import { Conversation, MessageItem } from '../../im.type';
+import { Conversation, Message } from 'tim-js-sdk';
 import {
   checkoutConversationAction,
   pushCurrentMessageListAction,
@@ -14,7 +14,7 @@ import {
 
 export interface ConversationState {
   currentConversation: Conversation;
-  currentMessageList: Array<MessageItem>;
+  currentMessageList: Array<Message>;
   nextReqMessageID: string;
   isCompleted: boolean; // 当前会话消息列表是否已经拉完了所有消息
   conversationList: Array<Conversation>;

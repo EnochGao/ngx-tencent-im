@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { Conversation, MessageItem } from '../../im.type';
+import { Conversation } from 'tim-js-sdk';
 import { ReducerState } from '../reducer';
 import { ConversationState } from '../reducer/conversation.reducer';
 
