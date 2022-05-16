@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Conversation, MessageItem, UserProfile } from '../../im.type';
+import { Conversation, Message, Profile } from 'tim-js-sdk';
 import { getFullDate } from '../../util/date';
 import TIM from 'tim-js-sdk';
 
@@ -10,8 +10,8 @@ import TIM from 'tim-js-sdk';
   styleUrls: ['./message-header.component.less']
 })
 export class MessageHeaderComponent implements OnInit {
-  @Input() message: MessageItem;
-  @Input() currentUserProfile: UserProfile;
+  @Input() message: Message;
+  @Input() currentUserProfile: Profile;
   @Input() currentConversation: Conversation;
 
   constructor(private store: Store) { }

@@ -1,6 +1,6 @@
-import { MessageItem } from '../im.type';
+import { Message } from 'tim-js-sdk';
 
-export function translateGroupSystemNotice(message: MessageItem) {
+export function translateGroupSystemNotice(message: Message) {
   const groupName = message.payload?.groupProfile.name || message.payload?.groupProfile.groupID;
   switch (message.payload.operationType) {
     case 1:

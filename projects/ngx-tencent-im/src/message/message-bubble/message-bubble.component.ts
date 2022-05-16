@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from '../../im.type';
+import { Message } from 'tim-js-sdk';
 import TIM from 'tim-js-sdk';
 import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { TimHelperService } from '../../tim-helper.service';
@@ -15,7 +15,7 @@ import { ReEditMessageService } from '../../re-edit-message.service';
   styleUrls: ['./message-bubble.component.less']
 })
 export class MessageBubbleComponent implements OnInit {
-  @Input() message: MessageItem;
+  @Input() message: Message;
   @Input() isMine: boolean;
   @Input() isNew: boolean;
 
@@ -102,14 +102,21 @@ export class MessageBubbleComponent implements OnInit {
   }
 
   isTimeoutHandler() { // 从发送消息时间开始算起，两分钟内可以编辑
-    this.subscription = timer(0, 1000).subscribe(() => {
-      const time = (new Date().getTime() / 1000) + '';
-      if (parseInt((time)) - this.message.time > 2 * 60) {
-        this.isTimeout = true;
-        this.subscription.unsubscribe();
-      } else {
-        this.isTimeoutHandler();
-      }
-    });
+    // this.subscription = timer(0, 1000).subscribe(() => {
+    //   const time = (new Date().getTime() / 1000) + '';
+    //   if (parseInt((time)) - this.message.time > 2 * 60) {
+    //     this.isTimeout = true;
+    //     this.subscription.unsubscribe();
+    //   } else {
+    //     this.isTimeoutHandler();
+    //   }
+    // });
+    const now = new Date();
+    const time = (now.getTime() / 1000).toString();
+    if (parseInt(time, 10) - this.message.time > 2 * 60) {
+      this.isTimeout = true;
+      return;
+    }
+    setTimeout(this.isTimeoutHandler, 1000);
   }
 }

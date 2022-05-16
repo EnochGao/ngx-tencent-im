@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Conversation, MessageItem } from '../../im.type';
+import { Conversation, Message} from 'tim-js-sdk';;
 
 export const updateCurrentConversationAction = createAction(
   '[conversation] updateCurrentConversation',
@@ -14,7 +14,7 @@ export const resetCurrentConversationAction = createAction(
 );
 export const pushCurrentMessageListAction = createAction(
   '[conversation] pushCurrentMessageList',
-  props<{ message: MessageItem; }>()
+  props<{ message: Message; }>()
 );
 export const removeMessageAction = createAction(
   '[conversation] removeMessage',

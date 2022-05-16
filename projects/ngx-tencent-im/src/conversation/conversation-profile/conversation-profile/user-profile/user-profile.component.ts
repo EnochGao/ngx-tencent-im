@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserProfile } from '../../../../im.type';
+import { Profile } from 'tim-js-sdk';
 
 import TIM from 'tim-js-sdk';
 
@@ -9,7 +9,7 @@ import TIM from 'tim-js-sdk';
   styleUrls: ['./user-profile.component.less']
 })
 export class UserProfileComponent implements OnInit {
-  @Input() userProfile: UserProfile;
+  @Input() userProfile: Profile;
   constructor() { }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { Conversation, GroupProfile } from '../../../../im.type';
+import { Conversation, Group, Profile } from 'tim-js-sdk';
 import { MESSAGE_STATUS, TIM } from '../../../../shared.data';
 import { resetCurrentConversationAction, showAction } from '../../../../store/actions';
 import { TimHelperService } from '../../../../tim-helper.service';
@@ -13,7 +13,7 @@ import { TimHelperService } from '../../../../tim-helper.service';
 })
 export class GroupProfileComponent implements OnInit {
   @Input() currentConversation: Conversation;
-  groupProfile: GroupProfile;
+  groupProfile: Group;
 
   showEditFaceUrl = false;
   showEditName = false;
@@ -49,7 +49,7 @@ export class GroupProfileComponent implements OnInit {
   constructor(
     private timHelper: TimHelperService,
     private store: Store,
-  ) { };
+  ) { }
 
   ngOnInit(): void {
 

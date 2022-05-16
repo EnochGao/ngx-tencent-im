@@ -1,14 +1,14 @@
 import { createAction, props } from '@ngrx/store';
-import { GroupProfile, Member } from '../../im.type';
+import { Group, GroupMember } from 'tim-js-sdk';
 
 export const updateGroupListAction = createAction(
   '[group] updateGroupList',
-  props<{ groupList: Array<GroupProfile>; }>()
+  props<{ groupList: Array<Group>; }>()
 );
 
 export const updateCurrentMemberListAction = createAction(
   '[group] updateCurrentMemberList',
-  props<{ currentMemberList: Array<Member>; }>()
+  props<{ currentMemberList: Array<GroupMember>; }>()
 );
 export const resetCurrentMemberListAction = createAction(
   '[group] resetCurrentMemberList'

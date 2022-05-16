@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Subscription } from 'rxjs';
 
-import { UserProfile } from '../im.type';
+import { Profile } from 'tim-js-sdk';
 import { currentUserProfileSelector } from '../store/selectors';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
@@ -13,7 +13,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
   styleUrls: ['./my-profile.component.less'],
 })
 export class MyProfileComponent implements OnInit, OnDestroy {
-  currentUserProfile: UserProfile;
+  currentUserProfile: Profile;
   subscription: Subscription;
 
   constructor(
@@ -48,6 +48,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  };
+  }
 
 }

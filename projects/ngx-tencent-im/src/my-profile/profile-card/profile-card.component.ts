@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { UserProfile } from '../../im.type';
+import { Profile } from 'tim-js-sdk';
 import { TIM } from '../../shared.data';
 
 @Component({
@@ -10,7 +10,7 @@ import { TIM } from '../../shared.data';
 })
 export class ProfileCardComponent implements OnInit {
 
-  @Input() set userProfile(value: UserProfile) {
+  @Input() set userProfile(value: Profile) {
     this._userProfile = value;
     switch (value.gender) {
       case TIM.TYPES.GENDER_MALE:
@@ -30,7 +30,7 @@ export class ProfileCardComponent implements OnInit {
 
   className: string;
 
-  private _userProfile: UserProfile;
+  private _userProfile: Profile;
 
   constructor() { };
 

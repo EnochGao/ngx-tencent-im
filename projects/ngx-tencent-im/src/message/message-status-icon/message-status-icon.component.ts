@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from '../../im.type';
+import { Message } from 'tim-js-sdk';
 import { TimHelperService } from '../../tim-helper.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { TimHelperService } from '../../tim-helper.service';
   styleUrls: ['./message-status-icon.component.less']
 })
 export class MessageStatusIconComponent implements OnInit {
-  @Input() message: MessageItem;
+  @Input() message: Message;
 
   constructor(
     private timHelperService: TimHelperService

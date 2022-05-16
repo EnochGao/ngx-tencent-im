@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Conversation, ConversationItem, UserProfile } from '../../im.type';
+
 import { getDate, getTime, isToday } from '../../util/date';
 
 import { Store } from '@ngrx/store';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { currentUserProfileSelector } from '../../store/selectors';
 import { resetCurrentConversationAction, showAction } from '../../store/actions';
 
-import TIM from 'tim-js-sdk';
+import TIM, { Conversation, Profile } from 'tim-js-sdk';
 import { MESSAGE_STATUS } from '../../shared.data';
 
 
@@ -24,7 +24,7 @@ export class ConversationItemComponent implements OnInit, OnDestroy {
   @Input() conversation: Conversation;
 
   TIM = TIM;
-  currentUserProfile: UserProfile;
+  currentUserProfile: Profile;
   profileSubscription: Subscription;
 
   constructor(

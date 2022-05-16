@@ -11,7 +11,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import { Conversation } from '../../im.type';
+import { Conversation } from 'tim-js-sdk';
 import { conversationSelector, currentConversationSelector } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -86,7 +86,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
           this.cd.markForCheck();
         }
       });
-  };
+  }
 
   ngAfterViewInit(): void {
     this.keepMessageListOnBottom();
@@ -97,7 +97,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
   }
 
   onscroll({ target: { scrollTop } }) {
-    let messageListNode = this.messageListRef?.nativeElement;
+    const messageListNode = this.messageListRef?.nativeElement;
 
     if (!messageListNode) {
       return;
@@ -108,7 +108,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
   }
 
   scrollMessageListToBottom() {
-    let messageListNode = this.messageListRef?.nativeElement;
+    const messageListNode = this.messageListRef?.nativeElement;
     if (!messageListNode) {
       return;
     }
@@ -123,7 +123,7 @@ export class CurrentConversationComponent implements OnInit, AfterViewInit, OnDe
 
   // 如果滚到底部就保持在底部，否则提示是否要滚到底部
   keepMessageListOnBottom() {
-    let messageListNode = this.messageListRef?.nativeElement;
+    const messageListNode = this.messageListRef?.nativeElement;
     if (!messageListNode) {
       return;
     }

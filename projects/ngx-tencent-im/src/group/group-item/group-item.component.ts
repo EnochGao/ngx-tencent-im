@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GroupProfile } from '../../im.type';
+import { Group } from 'tim-js-sdk';
 import { TimHelperService } from '../../tim-helper.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { TimHelperService } from '../../tim-helper.service';
   styleUrls: ['./group-item.component.less']
 })
 export class GroupItemComponent implements OnInit {
-  @Input() group: GroupProfile;
+  @Input() group: Group;
 
   constructor(
     private timHelperService: TimHelperService,

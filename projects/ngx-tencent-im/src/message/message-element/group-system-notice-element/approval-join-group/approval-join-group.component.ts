@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { Store } from '@ngrx/store';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
-import { MessageItem } from '../../../../im.type';
+import { Message } from 'tim-js-sdk';
 import { MESSAGE_STATUS } from '../../../../shared.data';
 import { removeMessageAction, showAction } from '../../../../store/actions';
 import { TimHelperService } from '../../../../tim-helper.service';
@@ -15,7 +15,7 @@ import { TimHelperService } from '../../../../tim-helper.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApprovalJoinGroupComponent implements OnInit {
-  @Input() message: MessageItem;
+  @Input() message: Message;
 
   form = {
     handleAction: 'Agree',

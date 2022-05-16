@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { MessageItem } from '../../../im.type';
+import { Message} from 'tim-js-sdk';
 import { TIM } from '../../../shared.data';
 import { translateGroupSystemNotice } from '../../../util/common';
 import { ApprovalJoinGroupComponent } from './approval-join-group/approval-join-group.component';
@@ -12,7 +12,7 @@ import { ApprovalJoinGroupComponent } from './approval-join-group/approval-join-
 })
 export class GroupSystemNoticeElementComponent implements OnInit {
 
-  @Input() message: MessageItem;
+  @Input() message: Message;
   @Input() payload: any;
 
   showDialog = false;

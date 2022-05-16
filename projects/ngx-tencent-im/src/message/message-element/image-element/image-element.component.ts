@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageItem } from '../../../im.type';
+import { Message } from 'tim-js-sdk';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { MessageItem } from '../../../im.type';
   styleUrls: ['./image-element.component.less']
 })
 export class ImageElementComponent implements OnInit {
-  @Input() message: MessageItem;
+  @Input() message: Message;
   @Input() isMine: boolean;
   @Input() payload: any;
   @Input() percent: number;

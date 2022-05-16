@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { Conversation } from '../../im.type';
+import { Conversation } from 'tim-js-sdk';
 import { currentConversationSelector } from '../../store/selectors';
 import TIM from 'tim-js-sdk';
 

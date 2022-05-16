@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { Conversation, MessageItem, UserProfile } from '../../im.type';
+import { Conversation, Message, Profile } from 'tim-js-sdk';
 import { currentUserProfileSelector } from '../../store/selectors';
 import TIM from 'tim-js-sdk';
 
@@ -12,10 +12,10 @@ import TIM from 'tim-js-sdk';
 })
 export class MessageItemComponent implements OnInit, OnDestroy {
   TIM = TIM;
-  currentUserProfile: UserProfile;
+  currentUserProfile: Profile;
   subscription: Subscription;
   @Input() currentConversation: Conversation;
-  @Input() message: MessageItem;
+  @Input() message: Message;
 
   constructor(
     private store: Store

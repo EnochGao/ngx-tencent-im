@@ -44,6 +44,7 @@ registerLocaleData(zh);
     TencentTimModule.forRoot({
       level: 4,
       sdkAppId: 1400440675,
+      oversea: true,
       minimized: true
     }),
     extModules,

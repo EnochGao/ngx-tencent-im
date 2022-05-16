@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { Conversation, GroupProfile, Member } from '../../im.type';
+import { Conversation, Group, GroupMember } from 'tim-js-sdk';
 import { MESSAGE_STATUS } from '../../shared.data';
 import { showAction } from '../../store/actions';
 import { updateCurrentMemberListAction } from '../../store/actions/group.action';
@@ -17,7 +17,7 @@ import { TimHelperService } from '../../tim-helper.service';
 export class GroupMemberListComponent implements OnInit, OnDestroy {
   @Input() currentConversation: Conversation;
 
-  currentMemberList: Array<Member> = [];
+  currentMemberList: Array<GroupMember> = [];
   currentMemberID = '';
   count = 30;
   subscription: Subscription;

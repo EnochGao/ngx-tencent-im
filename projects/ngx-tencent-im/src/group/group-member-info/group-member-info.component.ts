@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Conversation, Member, UserProfile } from '../../im.type';
+import { Conversation, GroupMember, Profile } from 'tim-js-sdk';
 import { currentUserProfileSelector } from '../../store/selectors';
 import { TimHelperService } from '../../tim-helper.service';
 
@@ -15,14 +15,14 @@ import { showAction } from '../../store/actions';
   styleUrls: ['./group-member-info.component.less']
 })
 export class GroupMemberInfoComponent implements OnInit {
-  @Input() member: Member;
+  @Input() member: GroupMember;
   @Input() currentConversation: Conversation;
 
   @Output() enterEnd = new EventEmitter<void>();
   isOwner: boolean;
   isAdmin: boolean;
   isMine: boolean;
-  currentUserProfile: UserProfile;
+  currentUserProfile: Profile;
   current = Date.now();
   muteTime: string;
   muteTimeVisible: boolean;

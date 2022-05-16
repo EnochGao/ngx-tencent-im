@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
-import { GroupProfile } from '../../im.type';
+import { Group } from 'tim-js-sdk';
 import { MESSAGE_STATUS, TIM } from '../../shared.data';
 import { showAction } from '../../store/actions';
 import { groupListSelector } from '../../store/selectors/group.selector';
@@ -22,9 +22,9 @@ import { CreateGroupComponent } from '../create-group/create-group.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GroupListComponent implements OnInit, OnDestroy {
-  group: GroupProfile;
+  group: Group;
   loading = false;
-  groupList: Array<GroupProfile> = [];
+  groupList: Array<Group> = [];
   groupListOfOption = [];
   subscription: Subscription;
 
@@ -70,9 +70,9 @@ export class GroupListComponent implements OnInit, OnDestroy {
     }
   }
 
-  applyJoinGroup(group: GroupProfile) {
+  applyJoinGroup(group: Group) {
     this.timHelper.tim
-      .joinGroup({ groupID: group.groupID })
+      .joinGroup({ groupID: group.groupID, applyMessage: '' })
       .then(async (res: any) => {
         switch (res.data.status) {
           case TIM.TYPES.JOIN_STATUS_WAIT_APPROVAL:

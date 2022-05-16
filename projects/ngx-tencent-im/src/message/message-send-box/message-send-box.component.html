@@ -21,7 +21,7 @@
   </div>
   <div class="bottom">
     <textarea rows="4" resize="false" class="text-input" #textInput [(ngModel)]="messageContent"
-      (focus)="focus=true" (blur)="focus=false" (keydown)="keyDown($event)"
+      (focus)="onfocus($event)" (blur)="onblur($event)" (keydown)="keyDown($event)"
       (keyup)="handleLine($event)">
     </textarea>
     <div class="btn-send" (click)="sendTextMessage()">
