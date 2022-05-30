@@ -1,0 +1,39 @@
+import { Component, Input } from '@angular/core';
+import TIM from 'tim-js-sdk';
+import * as i0 from "@angular/core";
+import * as i1 from "../../../../avatar/avatar.component";
+import * as i2 from "@angular/common";
+export class UserProfileComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+    get gender() {
+        switch (this.userProfile.gender) {
+            case TIM.TYPES.GENDER_MALE:
+                return '男';
+            case TIM.TYPES.GENDER_FEMALE:
+                return '女';
+            default:
+                return '未设置';
+        }
+    }
+    get genderClass() {
+        switch (this.userProfile.gender) {
+            case TIM.TYPES.GENDER_MALE:
+                return 'icon-male';
+            case TIM.TYPES.GENDER_FEMALE:
+                return 'icon-female';
+            default:
+                return '';
+        }
+    }
+}
+UserProfileComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.8", ngImport: i0, type: UserProfileComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+UserProfileComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.8", type: UserProfileComponent, selector: "app-user-profile", inputs: { userProfile: "userProfile" }, ngImport: i0, template: "<div class=\"profile-user\">\r\n  <im-avatar [title]=\"userProfile.userID\" [src]=\"userProfile.avatar\" [size]=\"100\">\r\n  </im-avatar>\r\n  <div class=\"nick-name text-ellipsis\">\r\n    <span *ngIf=\"userProfile.nick;else elseBlock\" [title]=\"userProfile.nick\">\r\n      {{ userProfile.nick }}\r\n    </span>\r\n    <ng-template #elseBlock>\r\n      <span class=\"anonymous\" title=\"\u8BE5\u7528\u6237\u672A\u8BBE\u7F6E\u6635\u79F0\">\r\n        [Anonymous]\r\n      </span>\r\n    </ng-template>\r\n  </div>\r\n  <div class=\"gender\" *ngIf=\"genderClass\">\r\n    <span [title]=\"gender\" class=\"iconfont\" [class]=\"genderClass\"></span>\r\n  </div>\r\n</div>\r\n", styles: [".profile-user{width:100%;text-align:center;padding:20px}.profile-user .nick-name{width:100%;color:#1c2438;font-size:20px;font-weight:700;text-shadow:#76828c 0 0 .1em}.profile-user .nick-name .anonymous{color:#99a8b4;text-shadow:none}.profile-user .gender{padding:5px 0 10px;border-bottom:1px solid #e7e7e7}.profile-user .btn-add-blacklist{color:#f35f5f}.icon-male{color:#2d8cf0}.icon-female{color:#ff8096}\n"], components: [{ type: i1.AvatarComponent, selector: "im-avatar", inputs: ["shape", "size", "type", "title", "src"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.8", ngImport: i0, type: UserProfileComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'app-user-profile', template: "<div class=\"profile-user\">\r\n  <im-avatar [title]=\"userProfile.userID\" [src]=\"userProfile.avatar\" [size]=\"100\">\r\n  </im-avatar>\r\n  <div class=\"nick-name text-ellipsis\">\r\n    <span *ngIf=\"userProfile.nick;else elseBlock\" [title]=\"userProfile.nick\">\r\n      {{ userProfile.nick }}\r\n    </span>\r\n    <ng-template #elseBlock>\r\n      <span class=\"anonymous\" title=\"\u8BE5\u7528\u6237\u672A\u8BBE\u7F6E\u6635\u79F0\">\r\n        [Anonymous]\r\n      </span>\r\n    </ng-template>\r\n  </div>\r\n  <div class=\"gender\" *ngIf=\"genderClass\">\r\n    <span [title]=\"gender\" class=\"iconfont\" [class]=\"genderClass\"></span>\r\n  </div>\r\n</div>\r\n", styles: [".profile-user{width:100%;text-align:center;padding:20px}.profile-user .nick-name{width:100%;color:#1c2438;font-size:20px;font-weight:700;text-shadow:#76828c 0 0 .1em}.profile-user .nick-name .anonymous{color:#99a8b4;text-shadow:none}.profile-user .gender{padding:5px 0 10px;border-bottom:1px solid #e7e7e7}.profile-user .btn-add-blacklist{color:#f35f5f}.icon-male{color:#2d8cf0}.icon-female{color:#ff8096}\n"] }]
+        }], ctorParameters: function () { return []; }, propDecorators: { userProfile: [{
+                type: Input
+            }] } });
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlci1wcm9maWxlLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uL3Byb2plY3RzL25neC10ZW5jZW50LWltL3NyYy9jb252ZXJzYXRpb24vY29udmVyc2F0aW9uLXByb2ZpbGUvY29udmVyc2F0aW9uLXByb2ZpbGUvdXNlci1wcm9maWxlL3VzZXItcHJvZmlsZS5jb21wb25lbnQudHMiLCIuLi8uLi8uLi8uLi8uLi8uLi8uLi9wcm9qZWN0cy9uZ3gtdGVuY2VudC1pbS9zcmMvY29udmVyc2F0aW9uL2NvbnZlcnNhdGlvbi1wcm9maWxlL2NvbnZlcnNhdGlvbi1wcm9maWxlL3VzZXItcHJvZmlsZS91c2VyLXByb2ZpbGUuY29tcG9uZW50Lmh0bWwiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLFNBQVMsRUFBRSxLQUFLLEVBQVUsTUFBTSxlQUFlLENBQUM7QUFHekQsT0FBTyxHQUFHLE1BQU0sWUFBWSxDQUFDOzs7O0FBTzdCLE1BQU0sT0FBTyxvQkFBb0I7SUFFL0IsZ0JBQWdCLENBQUM7SUFFakIsUUFBUTtJQUNSLENBQUM7SUFFRCxJQUFJLE1BQU07UUFDUixRQUFRLElBQUksQ0FBQyxXQUFXLENBQUMsTUFBTSxFQUFFO1lBQy9CLEtBQUssR0FBRyxDQUFDLEtBQUssQ0FBQyxXQUFXO2dCQUN4QixPQUFPLEdBQUcsQ0FBQztZQUNiLEtBQUssR0FBRyxDQUFDLEtBQUssQ0FBQyxhQUFhO2dCQUMxQixPQUFPLEdBQUcsQ0FBQztZQUNiO2dCQUNFLE9BQU8sS0FBSyxDQUFDO1NBQ2hCO0lBQ0gsQ0FBQztJQUNELElBQUksV0FBVztRQUNiLFFBQVEsSUFBSSxDQUFDLFdBQVcsQ0FBQyxNQUFNLEVBQUU7WUFDL0IsS0FBSyxHQUFHLENBQUMsS0FBSyxDQUFDLFdBQVc7Z0JBQ3hCLE9BQU8sV0FBVyxDQUFDO1lBQ3JCLEtBQUssR0FBRyxDQUFDLEtBQUssQ0FBQyxhQUFhO2dCQUMxQixPQUFPLGFBQWEsQ0FBQztZQUN2QjtnQkFDRSxPQUFPLEVBQUUsQ0FBQztTQUNiO0lBQ0gsQ0FBQzs7aUhBMUJVLG9CQUFvQjtxR0FBcEIsb0JBQW9CLGdHQ1ZqQyxxcUJBaUJBOzJGRFBhLG9CQUFvQjtrQkFMaEMsU0FBUzsrQkFDRSxrQkFBa0I7MEVBS25CLFdBQVc7c0JBQW5CLEtBQUsiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBDb21wb25lbnQsIElucHV0LCBPbkluaXQgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuaW1wb3J0IHsgUHJvZmlsZSB9IGZyb20gJ3RpbS1qcy1zZGsnO1xyXG5cclxuaW1wb3J0IFRJTSBmcm9tICd0aW0tanMtc2RrJztcclxuXHJcbkBDb21wb25lbnQoe1xyXG4gIHNlbGVjdG9yOiAnYXBwLXVzZXItcHJvZmlsZScsXHJcbiAgdGVtcGxhdGVVcmw6ICcuL3VzZXItcHJvZmlsZS5jb21wb25lbnQuaHRtbCcsXHJcbiAgc3R5bGVVcmxzOiBbJy4vdXNlci1wcm9maWxlLmNvbXBvbmVudC5sZXNzJ11cclxufSlcclxuZXhwb3J0IGNsYXNzIFVzZXJQcm9maWxlQ29tcG9uZW50IGltcGxlbWVudHMgT25Jbml0IHtcclxuICBASW5wdXQoKSB1c2VyUHJvZmlsZTogUHJvZmlsZTtcclxuICBjb25zdHJ1Y3RvcigpIHsgfVxyXG5cclxuICBuZ09uSW5pdCgpOiB2b2lkIHtcclxuICB9XHJcblxyXG4gIGdldCBnZW5kZXIoKSB7XHJcbiAgICBzd2l0Y2ggKHRoaXMudXNlclByb2ZpbGUuZ2VuZGVyKSB7XHJcbiAgICAgIGNhc2UgVElNLlRZUEVTLkdFTkRFUl9NQUxFOlxyXG4gICAgICAgIHJldHVybiAn55S3JztcclxuICAgICAgY2FzZSBUSU0uVFlQRVMuR0VOREVSX0ZFTUFMRTpcclxuICAgICAgICByZXR1cm4gJ+Wlsyc7XHJcbiAgICAgIGRlZmF1bHQ6XHJcbiAgICAgICAgcmV0dXJuICfmnKrorr7nva4nO1xyXG4gICAgfVxyXG4gIH1cclxuICBnZXQgZ2VuZGVyQ2xhc3MoKSB7XHJcbiAgICBzd2l0Y2ggKHRoaXMudXNlclByb2ZpbGUuZ2VuZGVyKSB7XHJcbiAgICAgIGNhc2UgVElNLlRZUEVTLkdFTkRFUl9NQUxFOlxyXG4gICAgICAgIHJldHVybiAnaWNvbi1tYWxlJztcclxuICAgICAgY2FzZSBUSU0uVFlQRVMuR0VOREVSX0ZFTUFMRTpcclxuICAgICAgICByZXR1cm4gJ2ljb24tZmVtYWxlJztcclxuICAgICAgZGVmYXVsdDpcclxuICAgICAgICByZXR1cm4gJyc7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxufVxyXG4iLCI8ZGl2IGNsYXNzPVwicHJvZmlsZS11c2VyXCI+XHJcbiAgPGltLWF2YXRhciBbdGl0bGVdPVwidXNlclByb2ZpbGUudXNlcklEXCIgW3NyY109XCJ1c2VyUHJvZmlsZS5hdmF0YXJcIiBbc2l6ZV09XCIxMDBcIj5cclxuICA8L2ltLWF2YXRhcj5cclxuICA8ZGl2IGNsYXNzPVwibmljay1uYW1lIHRleHQtZWxsaXBzaXNcIj5cclxuICAgIDxzcGFuICpuZ0lmPVwidXNlclByb2ZpbGUubmljaztlbHNlIGVsc2VCbG9ja1wiIFt0aXRsZV09XCJ1c2VyUHJvZmlsZS5uaWNrXCI+XHJcbiAgICAgIHt7IHVzZXJQcm9maWxlLm5pY2sgfX1cclxuICAgIDwvc3Bhbj5cclxuICAgIDxuZy10ZW1wbGF0ZSAjZWxzZUJsb2NrPlxyXG4gICAgICA8c3BhbiBjbGFzcz1cImFub255bW91c1wiIHRpdGxlPVwi6K+l55So5oi35pyq6K6+572u5pi156ewXCI+XHJcbiAgICAgICAgW0Fub255bW91c11cclxuICAgICAgPC9zcGFuPlxyXG4gICAgPC9uZy10ZW1wbGF0ZT5cclxuICA8L2Rpdj5cclxuICA8ZGl2IGNsYXNzPVwiZ2VuZGVyXCIgKm5nSWY9XCJnZW5kZXJDbGFzc1wiPlxyXG4gICAgPHNwYW4gW3RpdGxlXT1cImdlbmRlclwiIGNsYXNzPVwiaWNvbmZvbnRcIiBbY2xhc3NdPVwiZ2VuZGVyQ2xhc3NcIj48L3NwYW4+XHJcbiAgPC9kaXY+XHJcbjwvZGl2PlxyXG4iXX0=

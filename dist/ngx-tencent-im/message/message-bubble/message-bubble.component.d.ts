@@ -1,0 +1,31 @@
+import { OnInit } from '@angular/core';
+import { Message } from 'tim-js-sdk';
+import { NzContextMenuService, NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { TimHelperService } from '../../tim-helper.service';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { ReEditMessageService } from '../../re-edit-message.service';
+import * as i0 from "@angular/core";
+export declare class MessageBubbleComponent implements OnInit {
+    private nzContextMenuService;
+    private timHelper;
+    private store;
+    private reEditMessage;
+    message: Message;
+    isMine: boolean;
+    isNew: boolean;
+    isTimeout: boolean;
+    subscription: Subscription;
+    constructor(nzContextMenuService: NzContextMenuService, timHelper: TimHelperService, store: Store, reEditMessage: ReEditMessageService);
+    ngOnInit(): void;
+    get bubbleStyle(): string;
+    get messageReadByPeer(): "" | "已读" | "未读";
+    get text(): string;
+    get isEdit(): boolean;
+    contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void;
+    revokeMessage(): void;
+    reEdit(): void;
+    isTimeoutHandler(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MessageBubbleComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MessageBubbleComponent, "app-message-bubble", never, { "message": "message"; "isMine": "isMine"; "isNew": "isNew"; }, {}, never, ["*"]>;
+}

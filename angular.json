@@ -140,8 +140,7 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     },

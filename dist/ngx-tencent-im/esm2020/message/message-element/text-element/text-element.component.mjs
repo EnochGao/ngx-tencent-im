@@ -1,0 +1,24 @@
+import { Component, Input } from '@angular/core';
+import { decodeText } from '../../../util/decode-text';
+import * as i0 from "@angular/core";
+import * as i1 from "../../message-bubble/message-bubble.component";
+import * as i2 from "@angular/common";
+export class TextElementComponent {
+    constructor() { }
+    ngOnInit() {
+        this.contentList = decodeText(this.payload);
+    }
+}
+TextElementComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.8", ngImport: i0, type: TextElementComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+TextElementComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.8", type: TextElementComponent, selector: "app-text-element", inputs: { message: "message", isMine: "isMine", payload: "payload" }, ngImport: i0, template: "<app-message-bubble [message]=\"message\" [isMine]=\"isMine\">\r\n  <ng-container *ngFor=\"let item of contentList\">\r\n    <span *ngIf=\"item.name === 'text'\">{{ item.text }}</span>\r\n    <img *ngIf=\"item.name === 'img'\" [src]=\"item.src\" width=\"20px\" height=\"20px\" />\r\n  </ng-container>\r\n</app-message-bubble>\r\n", styles: [""], components: [{ type: i1.MessageBubbleComponent, selector: "app-message-bubble", inputs: ["message", "isMine", "isNew"] }], directives: [{ type: i2.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.8", ngImport: i0, type: TextElementComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'app-text-element', template: "<app-message-bubble [message]=\"message\" [isMine]=\"isMine\">\r\n  <ng-container *ngFor=\"let item of contentList\">\r\n    <span *ngIf=\"item.name === 'text'\">{{ item.text }}</span>\r\n    <img *ngIf=\"item.name === 'img'\" [src]=\"item.src\" width=\"20px\" height=\"20px\" />\r\n  </ng-container>\r\n</app-message-bubble>\r\n", styles: [""] }]
+        }], ctorParameters: function () { return []; }, propDecorators: { message: [{
+                type: Input
+            }], isMine: [{
+                type: Input
+            }], payload: [{
+                type: Input
+            }] } });
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGV4dC1lbGVtZW50LmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3Byb2plY3RzL25neC10ZW5jZW50LWltL3NyYy9tZXNzYWdlL21lc3NhZ2UtZWxlbWVudC90ZXh0LWVsZW1lbnQvdGV4dC1lbGVtZW50LmNvbXBvbmVudC50cyIsIi4uLy4uLy4uLy4uLy4uLy4uL3Byb2plY3RzL25neC10ZW5jZW50LWltL3NyYy9tZXNzYWdlL21lc3NhZ2UtZWxlbWVudC90ZXh0LWVsZW1lbnQvdGV4dC1lbGVtZW50LmNvbXBvbmVudC5odG1sIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sRUFBRSxTQUFTLEVBQUUsS0FBSyxFQUFVLE1BQU0sZUFBZSxDQUFDO0FBRXpELE9BQU8sRUFBRSxVQUFVLEVBQUUsTUFBTSwyQkFBMkIsQ0FBQzs7OztBQVF2RCxNQUFNLE9BQU8sb0JBQW9CO0lBTy9CLGdCQUFnQixDQUFDO0lBRWpCLFFBQVE7UUFDTixJQUFJLENBQUMsV0FBVyxHQUFHLFVBQVUsQ0FBQyxJQUFJLENBQUMsT0FBTyxDQUFDLENBQUM7SUFDOUMsQ0FBQzs7aUhBWFUsb0JBQW9CO3FHQUFwQixvQkFBb0IsOEhDVmpDLDJVQU1BOzJGRElhLG9CQUFvQjtrQkFMaEMsU0FBUzsrQkFDRSxrQkFBa0I7MEVBS25CLE9BQU87c0JBQWYsS0FBSztnQkFDRyxNQUFNO3NCQUFkLEtBQUs7Z0JBQ0csT0FBTztzQkFBZixLQUFLIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgQ29tcG9uZW50LCBJbnB1dCwgT25Jbml0IH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7IE1lc3NhZ2UgfSBmcm9tICd0aW0tanMtc2RrJztcclxuaW1wb3J0IHsgZGVjb2RlVGV4dCB9IGZyb20gJy4uLy4uLy4uL3V0aWwvZGVjb2RlLXRleHQnO1xyXG5cclxuXHJcbkBDb21wb25lbnQoe1xyXG4gIHNlbGVjdG9yOiAnYXBwLXRleHQtZWxlbWVudCcsXHJcbiAgdGVtcGxhdGVVcmw6ICcuL3RleHQtZWxlbWVudC5jb21wb25lbnQuaHRtbCcsXHJcbiAgc3R5bGVVcmxzOiBbJy4vdGV4dC1lbGVtZW50LmNvbXBvbmVudC5sZXNzJ11cclxufSlcclxuZXhwb3J0IGNsYXNzIFRleHRFbGVtZW50Q29tcG9uZW50IGltcGxlbWVudHMgT25Jbml0IHtcclxuICBASW5wdXQoKSBtZXNzYWdlOiBNZXNzYWdlO1xyXG4gIEBJbnB1dCgpIGlzTWluZTogYm9vbGVhbjtcclxuICBASW5wdXQoKSBwYXlsb2FkOiBhbnk7XHJcblxyXG4gIGNvbnRlbnRMaXN0OiBBcnJheTx7IG5hbWU6IHN0cmluZywgc3JjOiBzdHJpbmc7IHRleHQ6IHN0cmluZzsgfT47XHJcblxyXG4gIGNvbnN0cnVjdG9yKCkgeyB9XHJcblxyXG4gIG5nT25Jbml0KCk6IHZvaWQge1xyXG4gICAgdGhpcy5jb250ZW50TGlzdCA9IGRlY29kZVRleHQodGhpcy5wYXlsb2FkKTtcclxuICB9XHJcblxyXG5cclxufVxyXG4iLCI8YXBwLW1lc3NhZ2UtYnViYmxlIFttZXNzYWdlXT1cIm1lc3NhZ2VcIiBbaXNNaW5lXT1cImlzTWluZVwiPlxyXG4gIDxuZy1jb250YWluZXIgKm5nRm9yPVwibGV0IGl0ZW0gb2YgY29udGVudExpc3RcIj5cclxuICAgIDxzcGFuICpuZ0lmPVwiaXRlbS5uYW1lID09PSAndGV4dCdcIj57eyBpdGVtLnRleHQgfX08L3NwYW4+XHJcbiAgICA8aW1nICpuZ0lmPVwiaXRlbS5uYW1lID09PSAnaW1nJ1wiIFtzcmNdPVwiaXRlbS5zcmNcIiB3aWR0aD1cIjIwcHhcIiBoZWlnaHQ9XCIyMHB4XCIgLz5cclxuICA8L25nLWNvbnRhaW5lcj5cclxuPC9hcHAtbWVzc2FnZS1idWJibGU+XHJcbiJdfQ==

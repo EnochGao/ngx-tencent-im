@@ -1,0 +1,35 @@
+import { EventEmitter, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Conversation, GroupMember, Profile } from 'tim-js-sdk';
+import { TimHelperService } from '../../tim-helper.service';
+import * as i0 from "@angular/core";
+export declare class GroupMemberInfoComponent implements OnInit {
+    private timHelper;
+    private store;
+    member: GroupMember;
+    currentConversation: Conversation;
+    enterEnd: EventEmitter<void>;
+    isOwner: boolean;
+    isAdmin: boolean;
+    isMine: boolean;
+    currentUserProfile: Profile;
+    current: number;
+    muteTime: string;
+    muteTimeVisible: boolean;
+    nameCard: string;
+    constructor(timHelper: TimHelperService, store: Store);
+    ngOnInit(): void;
+    get showCancelBan(): boolean;
+    get changeRoleTitle(): "" | "设为：Member" | "设为：Admin";
+    get canChangeRole(): boolean;
+    get showKickout(): boolean;
+    get muteUntil(): string;
+    get showMuteUntil(): boolean;
+    setGroupMemberMuteTime(): void;
+    cancelMute(): void;
+    setGroupMemberNameCard(): void;
+    changeMemberRole(): void;
+    kickoutGroupMember(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<GroupMemberInfoComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<GroupMemberInfoComponent, "app-group-member-info", never, { "member": "member"; "currentConversation": "currentConversation"; }, { "enterEnd": "enterEnd"; }, never, never>;
+}

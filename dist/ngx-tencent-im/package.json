@@ -1,0 +1,60 @@
+{
+  "name": "ngx-tencent-im",
+  "version": "0.0.6",
+  "keywords": [
+    "ngx-tencent-im",
+    "Angular",
+    "Im"
+  ],
+  "description": "Instant messaging for Angular.",
+  "author": {
+    "name": "EnochGao",
+    "email": "enochgao@qq.com"
+  },
+  "bugs": {
+    "url": "https://github.com/EnochGao/ngx-tencent-im/issues"
+  },
+  "license": "MIT",
+  "homepage": "https://enochgao.github.io/ngx-tencent-im/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EnochGao/ngx-tencent-im"
+  },
+  "engines": {
+    "node": ">=14.15.4",
+    "npm": "~6.14.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^13.3.0",
+    "@angular/core": "^13.3.0",
+    "rxjs": "~6.5.4",
+    "@ngrx/effects": "^13.2.0",
+    "@ngrx/store": "^13.2.0",
+    "tim-js-sdk": "^2.19.1",
+    "tim-upload-plugin": "^1.0.4",
+    "ng-zorro-antd": "^13.2.2"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "module": "fesm2015/ngx-tencent-im.mjs",
+  "es2020": "fesm2020/ngx-tencent-im.mjs",
+  "esm2020": "esm2020/ngx-tencent-im.mjs",
+  "fesm2020": "fesm2020/ngx-tencent-im.mjs",
+  "fesm2015": "fesm2015/ngx-tencent-im.mjs",
+  "typings": "ngx-tencent-im.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./ngx-tencent-im.d.ts",
+      "esm2020": "./esm2020/ngx-tencent-im.mjs",
+      "es2020": "./fesm2020/ngx-tencent-im.mjs",
+      "es2015": "./fesm2015/ngx-tencent-im.mjs",
+      "node": "./fesm2015/ngx-tencent-im.mjs",
+      "default": "./fesm2020/ngx-tencent-im.mjs"
+    }
+  },
+  "sideEffects": false
+}

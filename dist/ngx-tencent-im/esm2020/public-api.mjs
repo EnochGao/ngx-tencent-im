@@ -1,0 +1,8 @@
+/*
+ * Public API Surface of ngx-tencent-im
+ */
+export * from './type';
+export * from './tim-helper.service';
+export * from './tencent-tim/tencent-tim.component';
+export * from './tencent-tim.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL25neC10ZW5jZW50LWltL3NyYy9wdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBQ0gsY0FBYyxRQUFRLENBQUM7QUFFdkIsY0FBYyxzQkFBc0IsQ0FBQztBQUNyQyxjQUFjLHFDQUFxQyxDQUFDO0FBQ3BELGNBQWMsc0JBQXNCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxyXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2Ygbmd4LXRlbmNlbnQtaW1cclxuICovXHJcbmV4cG9ydCAqIGZyb20gJy4vdHlwZSc7XHJcblxyXG5leHBvcnQgKiBmcm9tICcuL3RpbS1oZWxwZXIuc2VydmljZSc7XHJcbmV4cG9ydCAqIGZyb20gJy4vdGVuY2VudC10aW0vdGVuY2VudC10aW0uY29tcG9uZW50JztcclxuZXhwb3J0ICogZnJvbSAnLi90ZW5jZW50LXRpbS5tb2R1bGUnO1xyXG4iXX0=
