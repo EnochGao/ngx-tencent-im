@@ -13,13 +13,5 @@ import { TimHelperService } from 'ngx-tencent-im';
 })
 export class AppComponent {
   isLogin = false;
-
-  constructor(
-  ) {
-
-  }
-
-
-
-
+  constructor() { }
 }

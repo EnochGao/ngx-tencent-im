@@ -37,13 +37,7 @@
               "dist/ngx-tencent-im/assets/icon/iconfont.css",
               "dist/ngx-tencent-im/assets/icon/tim.css"
             ],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
