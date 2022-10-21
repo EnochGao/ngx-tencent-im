@@ -35,7 +35,7 @@
     "@ngrx/store-devtools": "^12.4.0",
     "ng-zorro-antd": "^13.2.2",
     "rxjs": "~6.5.4",
-    "tim-js-sdk": "^2.19.1",
+    "tim-js-sdk": "^2.20.1",
     "tim-upload-plugin": "^1.0.4",
     "tslib": "^2.4.0",
     "zone.js": "~0.11.4"

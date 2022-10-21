@@ -30,7 +30,7 @@
     "rxjs": "~6.5.4",
     "@ngrx/effects": "^13.2.0",
     "@ngrx/store": "^13.2.0",
-    "tim-js-sdk": "^2.19.1",
+    "tim-js-sdk": "^2.20.1",
     "tim-upload-plugin": "^1.0.4",
     "ng-zorro-antd": "^13.2.2"
   },
